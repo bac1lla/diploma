@@ -1,0 +1,38 @@
+@import 'variables/index.css';
+@import 'normalize.css';
+
+html,
+body,
+#root {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    width: 100%;
+    min-height: 100%;
+    color: var(--main-color);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+}
+
+a,
+.a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: var(--link-font-weight);
+}
+
+body {
+    height: 100vh;
+}

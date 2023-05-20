@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    height: 64px;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: var(--main-background-color);
+    box-shadow: var(--main-box-shadow);
+    justify-content: space-between;
+}
+
+.logo{
+
+}
+
+.lab-name{
+    font-size: var(--font-size-header);
+    font-weight: var(--font-weight-header);
+}
+
+.vertical-divide {
+    content: '';
+    height: 55px;
+    width: 1px;
+    background-color: var(--divide-color);
+}
+
+.person-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.person-name {
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-header);
+}

@@ -1,0 +1,56 @@
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+.login-text-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.login-main-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.login-user-select {
+    min-width: 400px;
+    height: 40px;
+}
+
+.login-button-group {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 200px;
+}
+
+.login-header-text {
+    font-size: 3rem;
+    line-height: 60px;
+}
+
+.login-lab-name-text {
+    font-size: 2rem;
+    line-height: 40px;
+}
+
+.login-user-option {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: center;
+}

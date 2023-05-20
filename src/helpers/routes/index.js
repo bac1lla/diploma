@@ -1,0 +1,1 @@
+export const createRoute = (pathName, ...restPaths) => [pathName, ...restPaths].join("")
