@@ -19,15 +19,10 @@ import Type1 from "../../pages/Vector/Type1";
 import Type2 from "../../pages/Vector/Type2";
 import Type3 from "../../pages/Vector/Type3";
 import Login from "../Login";
-import LoadingSpinner from "../Spinner";
 
 const AppContainer = () => {
 
     const {user, labs} = useContext(Context)
-
-    if (user.isLoading()) {
-        return <LoadingSpinner/>
-    }
 
     if (!user.isAuth()) {
         return (<BrowserRouter>

@@ -1,7 +1,7 @@
 export default {
     minMatrix: [
         {
-            matrix:
+            matrix: []
         }
     ],
     maxMatrix: {}

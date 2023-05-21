@@ -7,13 +7,13 @@ import {ROUTE__MATRIX_LABS, ROUTE__RESULTS, ROUTE__VECTOR_LAB} from "../../../co
 
 const Stepper = ({steps}) => {
     const location = useLocation()
-    const [currentStep, setCurrentStep] = useState(0)
+    const [currentStep, setCurrentStep] = useState(parseInt(location.pathname.split('/').pop()) - 1 || 0)
     const navigate = useNavigate()
-    const exectLocation = location.pathname.includes('matrix') ? ROUTE__MATRIX_LABS : ROUTE__VECTOR_LAB
+    const exactLocation = location.pathname.includes('matrix') ? ROUTE__MATRIX_LABS : ROUTE__VECTOR_LAB
 
     const handleClick = i => {
         setCurrentStep(i)
-        navigate(`${exectLocation}/${i + 1}`);
+        navigate(`${exactLocation}/${i + 1}`);
     }
 
     const handleResults = () => {

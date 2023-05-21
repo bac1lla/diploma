@@ -6,22 +6,27 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Matrix = ({matrix}) => {
+const Matrix = ({matrix, children}) => {
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableBody>
-                    {matrix.map((row, i) => (
-                        <TableRow
-                            key={`row-${i}`}
-                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                        >
-                            {row.map((cell, i) => (<TableCell align="center" key={`cell-${i}`}>{cell}</TableCell>))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div style={{width: '100%'}}>
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableBody>
+                        {matrix.map((row, i) => (
+                            <TableRow
+                                key={`row-${i}`}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                {row.map((cell, i) => (<TableCell align="center" key={`cell-${i}`}>{cell}</TableCell>))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <div style={{marginTop: 20}}>
+                {children}
+            </div>
+        </div>
     );
 };
 

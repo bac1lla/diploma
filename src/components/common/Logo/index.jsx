@@ -5,9 +5,9 @@ import styles from './styles.css'
 
 const cx = classNames.bind(styles)
 
-const Logo = ({className}) => {
+const Logo = ({className, onClick}) => {
     return (
-        <Md3P className={cx('logo', className)}/>
+        <Md3P className={cx('logo', className)} onClick={onClick}/>
     );
 };
 

@@ -20,10 +20,17 @@ const Vector = () => {
     const {labs} = useContext(Context);
 
     return (
-        <>
+        <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: "center",
+            flexDirection: "column",
+            justifyContent: 'space-between'
+        }}>
             <Outlet/>
             <Stepper steps={[1234, 1234, 1234, 34, 123]}/>
-        </>
+        </div>
     );
 };
 

@@ -1,5 +1,9 @@
 import {makeAutoObservable} from "mobx";
 import {addStudent, getStudentById, signInStudent, signInTeacher} from "../services/ApiService";
+import CryptoJS from 'crypto-js'
+
+export const hash = 'secret'
+
 
 class UserStore {
     constructor() {
@@ -36,9 +40,11 @@ class UserStore {
                 console.log(id)
                 getStudentById(id)
                     .then(user => {
-                        console.log(user)
-                        localStorage.setItem('user', JSON.stringify(user))
-                        this.setUser(user)
+                        const newUser = {...user, id}
+                        const stringUser = JSON.stringify(newUser)
+                        const encryptUser = CryptoJS.AES.encrypt(stringUser, hash).toString();
+                        localStorage.setItem('user', encryptUser)
+                        this.setUser(newUser)
                         this.setAuth(true)
                     })
                     .catch((error) => {
@@ -76,6 +82,16 @@ class UserStore {
     }
 
     isAuth() {
+        let bytes = CryptoJS.AES.decrypt(localStorage.getItem('user') || '', hash);
+        let originalText = bytes?.toString(CryptoJS.enc.Utf8);
+
+        try {
+            JSON.parse(originalText)
+            this._isAuth = true
+        } catch (e) {
+            this._isAuth = false
+        }
+
         return this._isAuth
     }
 
@@ -90,7 +106,6 @@ class UserStore {
     };
     _isAuth = false;
     _isLoading = false
-
 }
 
 export default UserStore;
