@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, query, where } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc, query, where, getDoc, doc} from 'firebase/firestore/lite';
+import { getAuth, signInWithEmailAndPassword, signInAnonymously } from "firebase/auth";
+
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -28,7 +30,13 @@ export const getStudentsByName = async (name) =>  {
     const queryStudents = query(usersCollection, where('name', '<=', name), where('role', '==', "STUDENT"))
     const students = await getDocs(queryStudents);
 
-    return getData(students);
+    return students.forEach((doc) => ({id: doc.id, ...doc.data()}));
+}
+
+export const getStudentById = async (id) =>  {
+    const student = await getDoc(doc(database, 'user', id));
+
+    return student.data();
 }
 
 export const addStudent = async ({name, group}) => {
@@ -42,3 +50,28 @@ export const getAllResults = async (result) => {
     const docRef = await addDoc(tasksCollection, result);
     return docRef.id;
 };
+
+
+const auth = getAuth();
+export const signInTeacher = async (email, password) => {
+
+    return await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            return  userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            return error.message;
+        });
+}
+
+export const signInStudent = () => {
+    return signInAnonymously(auth)
+        .then(() => {
+            return true
+        })
+        .catch((error) => {
+            return error.message;
+        });
+}

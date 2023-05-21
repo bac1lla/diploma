@@ -1,6 +1,7 @@
 :root {
+
     --font-size: 16px;
-    --font-family: 'sans-serif';
+    --font-family: 'Roboto', 'sans-serif';
     --line-height: 18px;
 
     --font-size-header: 18px;

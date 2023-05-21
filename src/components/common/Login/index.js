@@ -1,15 +1,16 @@
 import classNames from "classnames/bind";
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {observer} from "mobx-react-lite";
+import React, {memo, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {InputGroup} from "react-bootstrap";
-import {generatePath, useLocation, useParams,} from "react-router";
+import {generatePath, useLocation, useNavigate, useParams,} from "react-router";
 import Form from 'react-bootstrap/Form';
 import {Link} from "react-router-dom"
-import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import {
-    ROUTE__LOGIN, ROUTE__REGISTRATION,
+    ROUTE__LOGIN, ROUTE__REGISTRATION, ROUTE__SELECT_LAB,
 } from "../../../constants/routes";
-import {addStudent, getAllStudents} from "../../../services/ApiService";
+import {Context} from "../../../index";
+import {addStudent, getAllStudents, getStudentById, signInStudent, signInTeacher} from "../../../services/ApiService";
 import Button from "../Button";
 import Text from "../Text";
 import styles from './styles.css'
@@ -21,7 +22,7 @@ const profiles = {
     teacher: "teacher",
 }
 
-const createOptions = students => students?.map(student => ({value: student?.name + student?.group, label: <span className={cx('login-user-option')}><Text text={student?.name} /><Text text={student?.group} /></span>}));
+const createOptions = students => students?.map(student => ({value: student?.id, label: student?.name}));
 
 const Login = () => {
     const params = useParams();
@@ -29,6 +30,10 @@ const Login = () => {
     const [students, setStudents] = useState([]);
     const [studentName, setStudentName] = useState('')
     const [studentGroup, setStudentGroup] = useState('')
+    const [teacherEmail, setTeacherEmail] = useState('')
+    const [teacherPassword, setTeacherPassword] = useState('')
+    const {user} = useContext(Context);
+    const navigate = useNavigate()
 
 
     const isStudent = params.profile === profiles.student
@@ -41,14 +46,24 @@ const Login = () => {
     const oppositeFormRoute = isLogin ? ROUTE__REGISTRATION : ROUTE__LOGIN;
     const oppositeProfileRoute = isStudent ? profiles.teacher : profiles.student;
 
-    const handleCLick = useCallback(() => {
+    const handleCLick = (id) => {
 
-        if (isLogin) {
+        if (isLogin && isStudent) {
+            user.loginStudent(id)
+            navigate(ROUTE__SELECT_LAB);
             return;
         }
 
-        addStudent({name: studentName, group: studentGroup})
-    }, [isLogin, studentGroup, studentName]);
+        if (isLogin && !isStudent) {
+            user.loginTeacher(teacherEmail, teacherPassword)
+            return;
+        }
+
+        if (!isLogin && isStudent) {
+            user.regStudent(studentName, studentGroup)
+            navigate(ROUTE__SELECT_LAB);
+        }
+    };
 
     useEffect(() => {
         getAllStudents().then(data => setStudents(data))
@@ -62,9 +77,9 @@ const Login = () => {
             </div>
             <div className={cx('login-main-group')}>
                 {isLogin && <>
-                    <Select options={createOptions(students)} className={cx('login-user-select')}/>
+                    <Select options={createOptions(students)} className={cx('login-user-select')} onChange={option => handleCLick(option.value)}/>
                 </>}
-                {!isLogin && <>
+                {!isLogin && isStudent && <>
                     <InputGroup size="sm" className="mb-3 login-user-select">
                         <InputGroup.Text id="inputGroup-sizing-sm">Name</InputGroup.Text>
                         <Form.Control
@@ -82,10 +97,29 @@ const Login = () => {
                         />
                     </InputGroup>
                 </>}
+                {!isStudent && <>
+                    <InputGroup size="sm" className="mb-3 login-user-select">
+                        <InputGroup.Text id="inputGroup-sizing-sm">email</InputGroup.Text>
+                        <Form.Control
+                            aria-label="small"
+                            aria-describedby="inputGroup-sizing-sm"
+                            onChange={e => setTeacherEmail(e.target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup size="sm" className="mb-3 login-user-select">
+                        <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
+                        <Form.Control
+                            aria-label="small"
+                            aria-describedby="inputGroup-sizing-sm"
+                            onChange={e => setTeacherPassword(e.target.value)}
+                        />
+                    </InputGroup>
+                </>}
+
                     <Button onClick={handleCLick} text={isLogin ? 'Войти' : "Зарегистрироваться"} styleBtn={'primary'}/>
             </div>
             <div className={cx('login-button-group')}>
-                <Link to={generatePath(oppositeFormRoute, {profile: params.profile || profiles.student})}>
+                <Link to={generatePath(oppositeFormRoute, {profile: profiles.student})}>
                     <Text text={buttonRegistrationStudentText} />
                 </Link>
                 <Link to={generatePath(formRoute, {profile: oppositeProfileRoute})}>
@@ -96,4 +130,4 @@ const Login = () => {
     );
 };
 
-export default memo(Login);
+export default observer(Login);

@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
-import {Route, RouterProvider, Routes} from "react-router";
-import {BrowserRouter, createBrowserRouter} from "react-router-dom";
-import {ROUTE__LOGIN, ROUTE__REGISTRATION} from "../../../constants/routes";
+import {Route, RouterProvider} from "react-router";
+import {ROUTE__LOGIN, ROUTE__REGISTRATION, ROUTE__SELECT_LAB} from "../../../constants/routes";
+import SelectLab from "../../pages/SelectLab";
 import Login from "../Login";
 
-const routes = createBrowserRouter([
+const routes = [
     {
         path: ROUTE__LOGIN,
         element: <Login />
@@ -13,24 +13,19 @@ const routes = createBrowserRouter([
         path: ROUTE__REGISTRATION,
         element: <Login />
     },
-])
+    {
+        path: ROUTE__SELECT_LAB,
+        element: <SelectLab />
+    }
+]
 
 const AppRouter = () => {
-    const isAuth = false;
 
-    if (true) {
-        return
-            (<BrowserRouter>
-                <Routes>
-                    <Route path={ROUTE__LOGIN} element={Login} />
-                    <Route path={ROUTE__REGISTRATION} element={Login} />
-                </Routes>
-            </BrowserRouter>)
-    }
-
-    return (
-        <RouterProvider router={routes}/>
-    );
+    return routes
+        .map(({path, element}) =>
+            <Route path={path} element={element} />
+        )
+    ;
 };
 
 export default memo(AppRouter);
