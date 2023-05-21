@@ -86,7 +86,8 @@ class UserStore {
         let originalText = bytes?.toString(CryptoJS.enc.Utf8);
 
         try {
-            JSON.parse(originalText)
+            let user = JSON.parse(originalText)
+            this.setUser(user)
             this._isAuth = true
         } catch (e) {
             this._isAuth = false
