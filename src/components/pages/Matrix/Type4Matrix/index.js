@@ -13,7 +13,7 @@ const descriptionTaskOne = "Нижняя цена коалиционной иг�
 const descriptionTaskTwo = "Верхняя цена коалиционной игры s-того игрока против остальных определяется по формуле:"
 const descriptionTaskThree = "Гарантированны выигрыш коалиционной игры s-того игрока при его игре против остальных определяется по формуле:"
 const descriptionMatrix = "Матрица дохода s-того игрока при его игре против остальных: "
-const Type3 = () => {
+const Type4Matrix = () => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -56,4 +56,4 @@ const Type3 = () => {
     );
 };
 
-export default observer(Type3);
+export default observer(Type4Matrix);

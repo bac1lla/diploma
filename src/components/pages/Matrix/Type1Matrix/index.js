@@ -10,30 +10,48 @@ const data = [
     ['', <>
         <div>1</div>
         <div>1</div>
+        <div>1</div>
     </>, <>
         <div>1</div>
+        <div>1</div>
+        <div>2</div>
+    </>, <>
+        <div>1</div>
+        <div>2</div>
+        <div>1</div>
+    </>, <>
+        <div>1</div>
+        <div>2</div>
         <div>2</div>
     </>, <>
         <div>2</div>
         <div>1</div>
+        <div>1</div>
     </>, <>
+        <div>2</div>
+        <div>1</div>
+        <div>2</div>
+    </>, <>
+        <div>2</div>
+        <div>2</div>
+        <div>1</div>
+    </>, <>
+        <div>2</div>
         <div>2</div>
         <div>2</div>
     </>,],
-    ['1  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
-        <input style={{width: 50}}/>],
-    ['1  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
-        <input style={{width: 50}}/>],
-    ['2  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
-        <input style={{width: 50}}/>],
-    ['2  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
-        <input style={{width: 50}}/>]
+    ['1', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
+        <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
+        <input style={{width: 50}}/>, <input style={{width: 50}}/>],
+    ['2', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
+        <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
+        <input style={{width: 50}}/>, <input style={{width: 50}}/>]
 ]
 
-const description = "Сформулируйте матрицу коалиционной игры второго уровня 1 и 2 игроков против остальных. Для этого:"
-const descriptionTaskOne = "Введите число строк (число стратегий коалиции 1 и 2 игроков) и столбцов (число стратегий коалиции остальных игроков) матрицы"
+const description = "Сформулируйте матрицу коалиционной игры первого уровня 1 игрока против остальных. Для этого:"
+const descriptionTaskOne = "Введите число строк (число стратегий 1 игрока) и столбцов (число стратегий коалиции остальных игроков) матрицы"
 const descriptionTaskTwo = "Заполните появившийся шаблон матрицы"
-const Type2 = () => {
+const Type1Matrix = () => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -65,7 +83,7 @@ const Type2 = () => {
             <Button variant='primary' style={{alignSelf: "self-end"}}
                     onClick={handleClick}>Проверить</Button>
 
-            <p>Стратегии коалиции 3 и 4 игроков</p>
+            <p>Стратегии коалиции 2, 3 и 4 игроков</p>
             <Matrix matrix={data}>
 
             </Matrix>
@@ -75,4 +93,4 @@ const Type2 = () => {
     );
 };
 
-export default observer(Type2);
+export default observer(Type1Matrix);
