@@ -48,16 +48,17 @@ const Login = () => {
 
     const handleCLick = (id) => {
 
+        if (!isStudent) {
+            user.loginTeacher(teacherEmail, teacherPassword)
+            return;
+        }
+
         if (isLogin && isStudent) {
             user.loginStudent(id)
             navigate(ROUTE__SELECT_LAB);
             return;
         }
 
-        if (isLogin && !isStudent) {
-            user.loginTeacher(teacherEmail, teacherPassword)
-            return;
-        }
 
         if (!isLogin && isStudent) {
             user.regStudent(studentName, studentGroup)
@@ -76,8 +77,9 @@ const Login = () => {
                 <Text text={'Векторная оптимизация'} className={cx('login-lab-name-text')}/>
             </div>
             <div className={cx('login-main-group')}>
-                {isLogin && <>
-                    <Select options={createOptions(students)} className={cx('login-user-select')} onChange={option => handleCLick(option.value)}/>
+                {isLogin && isStudent && <>
+                    <Select options={createOptions(students)} className={cx('login-user-select')}
+                            onChange={option => handleCLick(option.value)}/>
                 </>}
                 {!isLogin && isStudent && <>
                     <InputGroup size="sm" className="mb-3 login-user-select">
@@ -116,14 +118,15 @@ const Login = () => {
                     </InputGroup>
                 </>}
 
-                    <Button onClick={handleCLick} text={isLogin ? 'Войти' : "Зарегистрироваться"} styleBtn={'primary'}/>
+                <Button onClick={handleCLick} text={isLogin || !isStudent ? 'Войти' : "Зарегистрироваться"}
+                        styleBtn={'primary'}/>
             </div>
             <div className={cx('login-button-group')}>
                 <Link to={generatePath(oppositeFormRoute, {profile: profiles.student})}>
-                    <Text text={buttonRegistrationStudentText} />
+                    <Text text={buttonRegistrationStudentText}/>
                 </Link>
                 <Link to={generatePath(formRoute, {profile: oppositeProfileRoute})}>
-                    <Text text={buttonRegistrationTeacherText} />
+                    <Text text={buttonRegistrationTeacherText}/>
                 </Link>
             </div>
         </div>

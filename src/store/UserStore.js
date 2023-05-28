@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {addStudent, getStudentById, signInStudent, signInTeacher} from "../services/ApiService";
+import {addStudent, getStudentById, getTeacher, signInStudent, signInTeacher} from "../services/ApiService";
 import CryptoJS from 'crypto-js'
 
 export const hash = 'secret'
@@ -16,15 +16,33 @@ class UserStore {
 
     login(id) {
         this._isLoading = true
-        getStudentById(id).then(student => this.setUser(student))
+        getStudentById(id)
+            .then(student => {
+                this.setUser(student)
+                this.setAuth(true)
+            })
+            .catch(() => {
+                this.setAuth(false)
+            });
         this._isLoading = false
     }
 
     loginTeacher(email, password) {
         this._isLoading = true
         signInTeacher(email, password)
-            .then(() => {
+            .then(user => {
+                if (!user) {
+                    this.setAuth(false)
+                    return
+                }
+                const newUser = {...user, role: "TEACHER"}
+                const stringUser = JSON.stringify(newUser)
+                const encryptUser = CryptoJS.AES.encrypt(stringUser, hash).toString();
+                console.log(newUser)
+                localStorage.setItem('user', encryptUser)
+                this.setUser(newUser)
                 this.setAuth(true)
+                this.setRole("TEACHER")
             })
             .catch(() => {
                 console.log('error')
@@ -45,6 +63,7 @@ class UserStore {
                         const encryptUser = CryptoJS.AES.encrypt(stringUser, hash).toString();
                         localStorage.setItem('user', encryptUser)
                         this.setUser(newUser)
+                        this.setRole('STUDENT')
                         this.setAuth(true)
                     })
                     .catch((error) => {
@@ -64,6 +83,7 @@ class UserStore {
         addStudent({name, group})
             .then(() => {
                 this.setUser({name, group, role: "STUDENT"})
+                this.setRole("STUDENT")
                 this.setAuth(true)
             })
             .catch(() => {
@@ -87,13 +107,38 @@ class UserStore {
 
         try {
             let user = JSON.parse(originalText)
+            this.setRole(user?.role ? user.role : 'STUDENT');
             this.setUser(user)
-            this._isAuth = true
+            this.setAuth(true)
         } catch (e) {
-            this._isAuth = false
+            this.setAuth(false)
         }
 
         return this._isAuth
+    }
+
+    isTeacher() {
+        let bytes = CryptoJS.AES.decrypt(localStorage.getItem('user') || '', hash);
+        let originalText = bytes?.toString(CryptoJS.enc.Utf8);
+
+        try {
+            let user = JSON.parse(originalText)
+            this.setRole(user?.role ? user.role : 'STUDENT');
+        } catch (e) {
+            this.setAuth(false)
+        }
+
+        return this._role === "TEACHER"
+    }
+
+    setRole(role) {
+        this._role = role;
+    }
+
+    logout() {
+        localStorage.clear()
+        this.setAuth(false)
+        this.setRole("STUDENT")
     }
 
     isLoading() {
@@ -105,6 +150,7 @@ class UserStore {
         group: "",
         role: "",
     };
+    _role = "STUDENT"
     _isAuth = false;
     _isLoading = false
 }

@@ -24,11 +24,9 @@ const options = [
 ]
 
 const SelectLab = () => {
-    const {labs} = useContext(Context)
     const navigate = useNavigate()
 
     const handleSelect = (option) => {
-        labs.setLab(option.label)
         navigate(option.value.path)
     }
 

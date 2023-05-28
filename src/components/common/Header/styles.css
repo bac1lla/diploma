@@ -10,11 +10,11 @@
     justify-content: space-between;
 }
 
-.logo{
+.logo {
 
 }
 
-.lab-name{
+.lab-name {
     font-size: var(--font-size-header);
     font-weight: var(--font-weight-header);
 }
@@ -34,6 +34,11 @@
 }
 
 .person-name {
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-header);
+}
+
+.teacher-group {
     font-size: var(--font-size);
     font-weight: var(--font-weight-header);
 }

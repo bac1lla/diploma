@@ -45,13 +45,16 @@ class LabsStore {
     }
 
     setLab(labName) {
-        localStorage.setItem('labName', labName);
         this._labName = labName;
         this._results = [];
     }
 
     addResult(taskName, result = 3) {
         this._results.push({taskName, result});
+    }
+
+    setResults(results) {
+        this._results = results;
     }
 
     getResults() {

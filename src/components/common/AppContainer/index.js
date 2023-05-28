@@ -1,14 +1,13 @@
 import {observer} from "mobx-react-lite";
 import React, {useContext} from 'react';
-import {Spinner} from "react-bootstrap";
-import {Route, RouterProvider, Routes} from "react-router";
-import {BrowserRouter, createBrowserRouter} from "react-router-dom";
+import {Route, Routes} from "react-router";
+import {BrowserRouter} from "react-router-dom";
 import {
     ROUTE__UNKNOWN,
     ROUTE__LOGIN,
     ROUTE__REGISTRATION,
     ROUTE__SELECT_LAB,
-    ROUTE__MATRIX_LAB, ROUTE__VECTOR_LAB, ROUTE__VECTOR_LABS, ROUTE__MATRIX_LABS
+    ROUTE__MATRIX_LAB, ROUTE__VECTOR_LABS, ROUTE__MATRIX_LABS, ROUTE__TEACHER_PROFILE
 } from "../../../constants/routes";
 import {Context} from "../../../index";
 import MainLayout from "../../layouts/MainLayout";
@@ -23,6 +22,7 @@ import Type7Matrix from "../../pages/Matrix/Type7Matrix";
 import Type8Matrix from "../../pages/Matrix/Type8Matrix";
 import Results from "../../pages/Results";
 import SelectLab from "../../pages/SelectLab";
+import TeacherProfile from "../../pages/TeacherProfile";
 import Vector from "../../pages/Vector";
 import Type1 from "../../pages/Vector/Type1";
 import Type2 from "../../pages/Vector/Type2";
@@ -33,6 +33,19 @@ const AppContainer = () => {
 
     const {user, labs} = useContext(Context)
 
+    if (user.isTeacher() && user.isAuth()) {
+        return (
+            <BrowserRouter>
+                <Routes>
+                    <Route element={<MainLayout/>}>
+                        <Route path={ROUTE__TEACHER_PROFILE} element={<TeacherProfile/>}/>
+                        <Route path={ROUTE__UNKNOWN} element={<TeacherProfile/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        )
+    }
+
     if (!user.isAuth()) {
         return (<BrowserRouter>
             <Routes>
@@ -42,6 +55,7 @@ const AppContainer = () => {
             </Routes>
         </BrowserRouter>)
     }
+
 
     return (
         <BrowserRouter>
