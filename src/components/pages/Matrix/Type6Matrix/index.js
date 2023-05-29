@@ -17,13 +17,17 @@ const data = [
     </>, <>
         <div>B4</div>
     </>,],
-    ['A1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+    ['A1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+    ['A2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A3', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+    ['A3', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A4', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+    ['A4', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>]
 ]
 
@@ -51,7 +55,7 @@ const task2part1formula1 = 'e_1=(1,...,1)^T\\inR'
 
 const task2part1formula2 = 'e_2=(1,...,1)^T\\inR'
 
-const Type6Matrix = () => {
+const Type6Matrix = ({next}) => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -60,6 +64,7 @@ const Type6Matrix = () => {
     const handleClick = () => {
         labs.addResult(parseInt(location.pathname.split('/').pop()), result)
         navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        next()
     }
 
     return (
@@ -133,8 +138,8 @@ const Type6Matrix = () => {
                     </select>
                     <label htmlFor="task2part2formula2">*X</label>
                     <select>
-                        <option> more or = </option>
-                        <option> less or = </option>
+                        <option> more or =</option>
+                        <option> less or =</option>
                     </select>
                     <select>
                         <option>e_1</option>
@@ -142,8 +147,8 @@ const Type6Matrix = () => {
                     </select>
                     <label>,X</label>
                     <select>
-                        <option>more or = </option>
-                        <option>less or = </option>
+                        <option>more or =</option>
+                        <option>less or =</option>
                     </select>
                     <label>0></label>
 
@@ -154,8 +159,8 @@ const Type6Matrix = () => {
                     </select>
                     <label htmlFor="task2part2formula2">*Y</label>
                     <select>
-                        <option> more or = </option>
-                        <option> less or = </option>
+                        <option> more or =</option>
+                        <option> less or =</option>
                     </select>
                     <select>
                         <option>e_1</option>
@@ -163,8 +168,8 @@ const Type6Matrix = () => {
                     </select>
                     <label>,Y</label>
                     <select>
-                        <option>more or = </option>
-                        <option>less or = </option>
+                        <option>more or =</option>
+                        <option>less or =</option>
                     </select>
                     <label>0></label>
 

@@ -33,7 +33,7 @@ const data = [
 const description = "Сформулируйте матрицу коалиционной игры второго уровня 1 и 2 игроков против остальных. Для этого:"
 const descriptionTaskOne = "Введите число строк (число стратегий коалиции 1 и 2 игроков) и столбцов (число стратегий коалиции остальных игроков) матрицы"
 const descriptionTaskTwo = "Заполните появившийся шаблон матрицы"
-const Type2Matrix = () => {
+const Type2Matrix = ({next}) => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -42,6 +42,7 @@ const Type2Matrix = () => {
     const handleClick = () => {
         labs.addResult(parseInt(location.pathname.split('/').pop()), result)
         navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        next()
     }
 
     return (

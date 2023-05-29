@@ -1,0 +1,17 @@
+.task-2-1-input {
+    width: 50px;
+}
+
+.error {
+    border: 1px solid red !important;
+    background-color: rgba(255, 85, 106, 0.23);
+}
+
+.task-2-1-input {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid var(--main-color);
+    height: 30px;
+    width: 100%;
+    padding: 0 10px;
+}

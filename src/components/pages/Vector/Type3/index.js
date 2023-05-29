@@ -5,7 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import classNames from "classnames/bind";
-import {isEqual} from "lodash/lang";
+import {isEmpty, isEqual} from "lodash/lang";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useState} from 'react';
 import {Button} from "react-bootstrap";
@@ -137,7 +137,7 @@ const prepareAnswers = (answer) => {
 
 const cx = classNames.bind(styles)
 
-const Type3 = () => {
+const Type3 = ({next}) => {
     const {labs} = useContext(Context)
     const navigate = useNavigate();
     const tasksArray = createTask(shuffledArray)
@@ -227,9 +227,9 @@ const Type3 = () => {
     }
 
     const postAnswers = () => {
-        labs.setStep(5)
         labs.addResult(5, tries > 0 ? tries : 0)
         navigate('/vectors-optimizations/results');
+        next()
     }
 
     const handleCheck = () => {
@@ -248,49 +248,65 @@ const Type3 = () => {
         let newS3 = prepareValue(s3)
         let newS4 = prepareValue(s4)
 
-        if (!isEqual(newP1, answerP1)) {
+        if (!isEqual(newP1, answerP1)
+            // && !isEmpty(newP1)
+        ) {
             setP1Error(true)
             error = true
         } else {
             setP1Error(false)
         }
-        if (!isEqual(newP2, answerP2)) {
+        if (!isEqual(newP2, answerP2)
+            // && !isEmpty(newP2)
+        ) {
             setP2Error(true)
             error = true
         } else {
             setP2Error(false)
         }
-        if (!isEqual(newP3, answerP3)) {
+        if (!isEqual(newP3, answerP3)
+            // && !isEmpty(newP3)
+        ) {
             setP3Error(true)
             error = true
         } else {
             setP3Error(false)
         }
-        if (!isEqual(newP4, answerP4)) {
+        if (!isEqual(newP4, answerP4)
+            // && !isEmpty(newP4)
+        ) {
             setP4Error(true)
             error = true
         } else {
             setP4Error(false)
         }
-        if (!isEqual(newS1, answerS1)) {
+        if (!isEqual(newS1, answerS1)
+            // && !isEmpty(newS1)
+        ) {
             setS1Error(true)
             error = true
         } else {
             setS1Error(false)
         }
-        if (!isEqual(newS2, answerS2)) {
+        if (!isEqual(newS2, answerS2)
+            // && !isEmpty(newS2)
+        ) {
             setS2Error(true)
             error = true
         } else {
             setS2Error(false)
         }
-        if (!isEqual(newS3, answerS3)) {
+        if (!isEqual(newS3, answerS3)
+            // && !isEmpty(newS3)
+        ) {
             setS3Error(true)
             error = true
         } else {
             setS3Error(false)
         }
-        if (!isEqual(newS4, answerS4)) {
+        if (!isEqual(newS4, answerS4)
+            // && !isEmpty(newS4)
+        ) {
             setS4Error(true)
             error = true
         } else {

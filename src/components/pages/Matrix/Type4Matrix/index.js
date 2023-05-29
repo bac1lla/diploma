@@ -14,7 +14,7 @@ const descriptionTaskOne = "Нижняя цена коалиционной иг�
 const descriptionTaskTwo = "Верхняя цена коалиционной игры s-того игрока против остальных определяется по формуле:"
 const descriptionTaskThree = "Гарантированны выигрыш коалиционной игры s-того игрока при его игре против остальных определяется по формуле:"
 const descriptionMatrix = "Матрица дохода s-того игрока при его игре против остальных: "
-const Type4Matrix = () => {
+const Type4Matrix = ({next}) => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -23,6 +23,7 @@ const Type4Matrix = () => {
     const handleClick = () => {
         labs.addResult(parseInt(location.pathname.split('/').pop()), result)
         navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        next()
     }
 
     const sampleMatrix = '\\left(\n' +

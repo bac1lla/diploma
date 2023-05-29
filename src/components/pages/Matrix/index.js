@@ -13,14 +13,14 @@ const createRoutes = (i) => {
     return "/" + i
 }
 
-const Matrix = () => {
+const Matrix = ({step, nextStep, setStep}) => {
 
     const {labs} = useContext(Context);
 
     return (
         <>
             <Outlet/>
-            <Stepper steps={[1234, 1234, 1234, 34, 123, 23, 23, 23]}/>
+            <Stepper steps={[1234, 1234, 1234, 34, 123, 23, 23, 23]} next={nextStep} current={step} setStep={setStep}/>
         </>
     );
 };

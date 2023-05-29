@@ -38,7 +38,6 @@ class UserStore {
                 const newUser = {...user, role: "TEACHER"}
                 const stringUser = JSON.stringify(newUser)
                 const encryptUser = CryptoJS.AES.encrypt(stringUser, hash).toString();
-                console.log(newUser)
                 localStorage.setItem('user', encryptUser)
                 this.setUser(newUser)
                 this.setAuth(true)

@@ -24,12 +24,18 @@ const data = [
     </>, <>
         <div>b8</div>
     </>,],
-    ['a1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <input style={{width: 50}}/>, 'b'],
-    ['a2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <input style={{width: 50}}/>, <input style={{width: 50}}/>],
+    ['a1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <input style={{width: 50}}/>, 'b'],
+    ['a2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>,
+        <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        <input style={{width: 50}}/>, <input style={{width: 50}}/>],
     ['', <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
         <input style={{width: 50}}/>, <input style={{width: 50}}/>, <input style={{width: 50}}/>,
         <input style={{width: 50}}/>, <input style={{width: 50}}/>],
@@ -40,7 +46,7 @@ const description = "Найдите верхнюю, нижнюю цены игр
 const descriptionTaskOne = "1. Заполните столбец α (столбец минимумов строк: α = min α ) и строку β  (строка максимумов столбцов: β = max α ),\nпосле чего найдите максимальное из чисел α : α = max α и минимальное из чисел β : β = β ."
 const descriptionTaskTwo = "2. Введите значения нижней, верхней цены игры и гарантированного выигрыша в соответствующие поля и укажите, \nсуществует ли решение игры в чистых стратегиях. "
 const descriptionMatrix = "Стратегии коалиции 2, 3 и 4 игроков"
-const Type5Matrix = () => {
+const Type5Matrix = ({next}) => {
     const {labs} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
@@ -49,6 +55,7 @@ const Type5Matrix = () => {
     const handleClick = () => {
         labs.addResult(parseInt(location.pathname.split('/').pop()), result)
         navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        next()
     }
 
     return (

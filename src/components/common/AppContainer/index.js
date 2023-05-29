@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import React, {useContext} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Route, Routes} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import {
@@ -25,13 +25,23 @@ import SelectLab from "../../pages/SelectLab";
 import TeacherProfile from "../../pages/TeacherProfile";
 import Vector from "../../pages/Vector";
 import Type1 from "../../pages/Vector/Type1";
-import Type2 from "../../pages/Vector/Type2";
+import Type2_1 from "../../pages/Vector/Type2_1";
+import Type2_2 from "../../pages/Vector/Type2_2";
 import Type3 from "../../pages/Vector/Type3";
 import Login from "../Login";
 
 const AppContainer = () => {
 
     const {user, labs} = useContext(Context)
+    const [currentStep, setStep] = useState(0)
+
+    const handleNextStep = useCallback(() => {
+        setStep(prev => prev + 1)
+    }, [])
+
+    const handleSetStep = useCallback(step => {
+        setStep(step)
+    })
 
     if (user.isTeacher() && user.isAuth()) {
         return (
@@ -61,30 +71,30 @@ const AppContainer = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<MainLayout/>}>
-                    <Route path={ROUTE__VECTOR_LABS} element={<Vector/>}>
-                        <Route path={ROUTE__VECTOR_LABS + '/1'} element={<Type1/>}/>
-                        <Route path={ROUTE__VECTOR_LABS + '/2'} element={<Type1/>}/>
-                        <Route path={ROUTE__VECTOR_LABS + '/3'}
-                               element={<Type2 description={"sdfjkwehmipwef"} matrix={[[12, 12], [1, 2]]}/>}/>
-                        <Route path={ROUTE__VECTOR_LABS + '/4'}
-                               element={<Type2 description={"sdfjkwehmipwef"} matrix={[[12, 12], [1, 2]]}/>}/>
-                        <Route path={ROUTE__VECTOR_LABS + '/5'} element={<Type3/>}/>
+                    <Route path={ROUTE__VECTOR_LABS}
+                           element={<Vector step={currentStep} nextStep={handleNextStep} setStep={handleSetStep}/>}>
+                        <Route path={ROUTE__VECTOR_LABS + '/1'} element={<Type1 next={handleNextStep}/>}/>
+                        <Route path={ROUTE__VECTOR_LABS + '/2'} element={<Type1 next={handleNextStep}/>}/>
+                        <Route path={ROUTE__VECTOR_LABS + '/3'} element={<Type2_1 next={handleNextStep}/>}/>
+                        <Route path={ROUTE__VECTOR_LABS + '/4'} element={<Type2_2 next={handleNextStep}/>}/>
+                        <Route path={ROUTE__VECTOR_LABS + '/5'} element={<Type3 next={handleNextStep}/>}/>
                         <Route path={ROUTE__VECTOR_LABS + '/results'} element={<Results/>}/>
                     </Route>
-                    <Route path={ROUTE__MATRIX_LAB} element={<Matrix/>}>
-                        <Route path={ROUTE__MATRIX_LABS + '/1'} element={<Type1Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/2'} element={<Type2Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/3'} element={<Type3Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/4'} element={<Type4Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/5'} element={<Type5Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/6'} element={<Type6Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/7'} element={<Type7Matrix/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/8'} element={<Type8Matrix/>}/>
+                    <Route path={ROUTE__MATRIX_LAB}
+                           element={<Matrix step={currentStep} nextStep={handleNextStep} setStep={handleSetStep}/>}>
+                        <Route path={ROUTE__MATRIX_LABS + '/1'} element={<Type1Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/2'} element={<Type2Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/3'} element={<Type3Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/4'} element={<Type4Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/5'} element={<Type5Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/6'} element={<Type6Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/7'} element={<Type7Matrix next={handleNextStep}/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/8'} element={<Type8Matrix next={handleNextStep}/>}/>
                         <Route path={ROUTE__MATRIX_LABS + '/results'} element={<Results/>}/>
                     </Route>
                 </Route>
-                <Route path={ROUTE__SELECT_LAB} element={<SelectLab/>}/>
-                <Route path={ROUTE__UNKNOWN} element={<SelectLab/>}/>
+                <Route path={ROUTE__SELECT_LAB} element={<SelectLab setStep={handleSetStep}/>}/>
+                <Route path={ROUTE__UNKNOWN} element={<SelectLab setStep={handleSetStep}/>}/>
             </Routes>
         </BrowserRouter>
     );

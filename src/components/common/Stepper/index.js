@@ -5,24 +5,24 @@ import {Steps} from "rsuite";
 import {ROUTE__MATRIX_LABS, ROUTE__RESULTS, ROUTE__VECTOR_LAB} from "../../../constants/routes";
 
 
-const Stepper = ({steps}) => {
+const Stepper = ({steps, next, current, setStep}) => {
     const location = useLocation()
-    const [currentStep, setCurrentStep] = useState(parseInt(location.pathname.split('/').pop()) - 1 || 0)
+    // const [currentStep, setCurrentStep] = useState(parseInt(location.pathname.split('/').pop()) - 1 || 0)
     const navigate = useNavigate()
     const exactLocation = location.pathname.includes('matrix') ? ROUTE__MATRIX_LABS : ROUTE__VECTOR_LAB
 
     const handleClick = i => {
-        setCurrentStep(i)
+        setStep(i)
         navigate(`${exactLocation}/${i + 1}`);
     }
 
     const handleResults = () => {
-        setCurrentStep(steps.length);
+        setStep(steps.length);
         navigate(ROUTE__RESULTS);
     }
 
     return (
-        <Steps current={currentStep} className={'stepper'}>
+        <Steps current={current} className={'stepper'}>
             {steps.map((step, i) => <Steps.Item key={i} onClick={() => handleClick(i)}/>)}
             <Steps.Item title="Result" icon={null} onClick={handleResults}/>
         </Steps>
