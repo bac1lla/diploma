@@ -44,13 +44,28 @@ class LabsStore {
         makeAutoObservable(this)
     }
 
+    setStep(step) {
+        this._step = step
+    }
+
+    getStep() {
+        return this._step
+    }
+
     setLab(labName) {
         this._labName = labName;
         this._results = [];
     }
 
-    addResult(taskName, result = 3) {
-        this._results.push({taskName, result});
+    addResult(taskNum, result = 3) {
+        if (this._results?.find(e => e?.i === taskNum)) {
+            return
+        }
+
+        this._results.push({
+            i: taskNum,
+            result
+        });
     }
 
     setResults(results) {
@@ -58,13 +73,37 @@ class LabsStore {
     }
 
     getResults() {
-        return this._results;
+        return this._results?.slice().sort((a, b) => a?.i - b?.i);
     }
 
     getLab() {
         return this._labName;
     }
 
+    setVectorResults() {
+        let results = [
+            this._task1,
+            this._task2,
+            this._task3,
+            this._task4,
+            this._task5,
+        ]
+        this._results = results
+    }
+
+    setVectorTask5(result) {
+        this._task5 = result
+    }
+
+    _step = 1
+    _task1 = 0
+    _task2 = 0
+    _task3 = 0
+    _task4 = 0
+    _task5 = 0
+    _task6 = 0
+    _task7 = 0
+    _task8 = 0
     _results = []
     _labName = ''
     _tasksCount = ''

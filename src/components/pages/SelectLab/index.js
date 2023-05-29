@@ -24,10 +24,12 @@ const options = [
 ]
 
 const SelectLab = () => {
+    const {labs} = useContext(Context);
     const navigate = useNavigate()
 
     const handleSelect = (option) => {
-        navigate(option.value.path)
+        navigate(option.value.path + "/1")
+        labs.setStep(1 - 1)
     }
 
     return (

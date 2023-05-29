@@ -1,7 +1,12 @@
 import {observer} from "mobx-react-lite";
-import React, {useContext} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useLocation} from "react-router";
+import {ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
+import {getBDRange} from "../../../services/ApiService";
 import Matrix from "../../common/Matrix";
+import Text from "../../common/Text";
+import './styles.css'
 
 const prepareData = (data) => {
     if (!data) {
@@ -13,21 +18,81 @@ const prepareData = (data) => {
 }
 const Results = () => {
     const {labs} = useContext(Context);
+    const location = useLocation();
+    const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
+    const [range, setRange] = useState({})
+
+    const modifyResult = useCallback((points) => {
+        if (+points >= +range.minRange5) {
+            return 5
+        }
+        if (+points >= +range.minRange4) {
+            return 4
+        }
+        if (+points >= +range.minRange3) {
+            return 3
+        }
+
+        return 2
+    }, [range])
+
+    const [grade, setGrade] = useState(modifyResult(labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)));
+
+    const getRange = () => {
+        const labName = isVector ? 'vector' : 'matrix';
+        getBDRange(labName)
+            .then(range => {
+                setRange(range)
+            })
+            .catch(() => {
+                console.log('error')
+            })
+    }
+
+    useEffect(() => {
+        getRange();
+    }, [isVector])
 
     return (
         <div style={{
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: "center",
-            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 50,
             justifyContent: 'space-between'
         }}>
-            <Matrix
-                matrix={labs.getResults().map(e => [`Задание ${e?.taskName}`, e?.result])?.sort((a, b) => a?.[0] > b?.[0] ? 1 : -1)}>
-
-                <h2>Result: {labs.getResults().reduce((acc, item) => acc + item?.result || 0, 0)}/{labs.getResults()?.length * 3}</h2>
+            <Matrix className={'results-table-student'}
+                    matrix={labs.getResults()?.map(e => [`Задание ${e?.i}`, e?.result])}>
+                <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
+                <h2>Оценка: {grade}</h2>
             </Matrix>
+            <div className={'student-range-column'}>
+                <div className={'change-range-row'}>
+                    <Text text={'5'} className={'change-range-number'}/>
+                    <Text text={+range.minRange5} className={'change-range-field'}/>
+                    <Text text={"-"} className={'change-range-sep'}/>
+                    <Text text={+range.maxValue} className={'change-range-field'}/>
+                </div>
+                <div className={'change-range-row'}>
+                    <Text text={'4'} className={'change-range-number'}/>
+                    <Text text={+range.minRange4} className={'change-range-field'}/>
+                    <Text text={"-"} className={'change-range-sep'}/>
+                    <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
+                </div>
+                <div className={'change-range-row'}>
+                    <Text text={'3'} className={'change-range-number'}/>
+                    <Text text={+range.minRange3} className={'change-range-field'}/>
+                    <Text text={"-"} className={'change-range-sep'}/>
+                    <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
+                </div>
+                <div className={'change-range-row'}>
+                    <Text text={'2'} className={'change-range-number'}/>
+                    <Text text={+range.minValue} className={'change-range-field'}/>
+                    <Text text={"-"} className={'change-range-sep'}/>
+                    <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
+                </div>
+            </div>
         </div>
     );
 };

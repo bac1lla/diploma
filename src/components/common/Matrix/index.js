@@ -6,10 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Matrix = ({matrix, children}) => {
+const Matrix = ({matrix, children, className}) => {
     return (
         <div style={{width: '100%'}}>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} className={className}>
                 <Table aria-label="simple table">
                     <TableBody>
                         {matrix.map((row, i) => (
