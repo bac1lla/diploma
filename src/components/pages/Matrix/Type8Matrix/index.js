@@ -28,11 +28,12 @@ const Type8Matrix = () => {
         <div style={{
             width: '100%',
             height: '100%',
-            display: 'flex',
+            // display: 'flex',
             alignItems: "center",
             flexDirection: "column",
             justifyContent: 'space-between'
         }}>
+            <p>Задание 8</p>
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
 

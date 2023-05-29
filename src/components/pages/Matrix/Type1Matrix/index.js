@@ -62,33 +62,55 @@ const Type1Matrix = () => {
         navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
     }
 
+    const checkTaskOne = () => {
+        if (document.getElementById("rows").value === "2" && document.getElementById("cols").value === "8") {
+            document.getElementById("task_2").hidden = false;
+            alert("u r right, keep it up")
+        }
+        if (document.getElementById("rows").value !== "2" && document.getElementById("cols").value === "8") {
+            alert("rows are not right, u suck some dick")
+        }
+        if (document.getElementById("rows").value === "2" && document.getElementById("cols").value !== "8") {
+            alert("cols are not right, u suck some dick")
+        }
+        if (document.getElementById("rows").value !== "2" && document.getElementById("cols").value !== "8") {
+            alert("u totally suck some dick")
+        }
+    }
+
+    const checkTaskTwo = () => {
+        handleClick()
+    }
+
     return (
         <div style={{
             width: '100%',
             height: '100%',
-            display: 'flex',
+            // display: 'flex',
             alignItems: "center",
             flexDirection: "column",
             justifyContent: 'space-between'
         }}>
+            <p>Задание 1</p>
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
             <p color="grey">{descriptionTaskTwo}</p>
-
             <label>число строк</label>
-            <input type="input"/>
+            <input type="text" id="rows"/>
             <label>число столбцов</label>
-            <input type="input"/>
+            <input type="text" id="cols"/>
 
             <Button variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={handleClick}>Проверить</Button>
+                    onClick={checkTaskOne}>Проверить</Button>
 
-            <p>Стратегии коалиции 2, 3 и 4 игроков</p>
-            <Matrix matrix={data}>
+            <div id="task_2" hidden="true">
+                <p>Стратегии коалиции 2, 3 и 4 игроков</p>
+                <Matrix matrix={data}>
 
-            </Matrix>
-            <Button variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={handleClick} hidden="true">Проверить</Button>
+                </Matrix>
+                <Button variant='primary' style={{alignSelf: "self-end"}}
+                        onClick={checkTaskTwo}>Проверить</Button>
+            </div>
         </div>
     );
 };

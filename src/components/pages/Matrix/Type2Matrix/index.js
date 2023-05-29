@@ -48,11 +48,12 @@ const Type2Matrix = () => {
         <div style={{
             width: '100%',
             height: '100%',
-            display: 'flex',
+            // display: 'flex',
             alignItems: "center",
             flexDirection: "column",
             justifyContent: 'space-between'
         }}>
+            <p>Задание 2</p>
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
             <p color="grey">{descriptionTaskTwo}</p>

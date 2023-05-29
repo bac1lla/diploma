@@ -40,11 +40,12 @@ const Type3Matrix = () => {
         <div style={{
             width: '100%',
             height: '100%',
-            display: 'flex',
+            // display: 'flex',
             alignItems: "center",
             flexDirection: "column",
             justifyContent: 'space-between'
         }}>
+            <p>Задание 3</p>
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
             <p color="grey">{descriptionTaskTwo}</p>
@@ -57,12 +58,14 @@ const Type3Matrix = () => {
             <Button variant='primary' style={{alignSelf: "self-end"}}
                     onClick={handleClick}>Проверить</Button>
 
-            <p>Стратегии коалиции 4 игрока</p>
-            <Matrix matrix={data}>
+            <div hidden="hidden">
+                <p>Стратегии коалиции 4 игрока</p>
+                <Matrix matrix={data}>
 
-            </Matrix>
-            <Button variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={handleClick} hidden="hidden">Проверить</Button>
+                </Matrix>
+                <Button variant='primary' style={{alignSelf: "self-end"}}
+                        onClick={handleClick}>Проверить</Button>
+            </div>
         </div>
     );
 };
