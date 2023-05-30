@@ -17,17 +17,13 @@ const data = [
     </>, <>
         <div>B4</div>
     </>,],
-    ['A1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>,
+    ['A1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>,
+    ['A2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A3', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>,
+    ['A3', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>],
-    ['A4', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-        <label style={{width: 50}}>value</label>,
+    ['A4', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
         <label style={{width: 50}}>value</label>]
 ]
 
@@ -50,8 +46,6 @@ const task1Ender = 'alpha:U=A+alpha*E>0(u_{i,j}>0);E=\\begin{pmatrix}\n' +
     '... & 1 & ... \\\\\n' +
     '1 & ... & 1\n' +
     '\\end{pmatrix}_{n*m}'
-
-const task2part1formula1 = 'e_1=(1,...,1)^T\\inR'
 
 const task2part1formula2 = 'e_2=(1,...,1)^T\\inR'
 
@@ -80,112 +74,39 @@ const Type6Matrix = ({next}) => {
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
             <p color="grey">{descriptionTaskTwo}</p>
-            <p color="grey">{descriptionTaskThree}</p>
-            <p color="grey">{descriptionMatrix}</p>
-            <p>Матрица игры:</p>
-            <Latex>{matrixStarter}</Latex>
-            <Matrix matrix={data}></Matrix>
+            <p>{descriptionMatrix}</p>
+            <div>
+                <Matrix matrix={data}>
 
-            <div id="task1">
-                <p>Переход к преобразованной паре</p>
-                <label for="task1answer">alpha =</label>
-                <input type="text" id="task1answer"/>
-                <label htmlFor="task1answer">; <Latex>{task1Ender}</Latex></label>
+                </Matrix>
 
                 <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleClick} hidden="hidden">Проверить</Button>
+                        onClick={handleClick}>Проверить</Button>
             </div>
-
-            <div id="task2">
-                <p>Составление ЗЛП</p>
+            <div>
                 <div>
-                    <label for="task2part1formula1"><Latex>{task2part1formula1}</Latex></label>
-                    <input type="text" id="task2part1formula1"/>
-
-                    <label for="task2part2formula1">(</label>
-                    <select id="task2part2formula1">
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label htmlFor="task2part2formula1">,X)-></label>
-                    <select>
-                        <option>max</option>
-                        <option>min</option>
-                    </select>
-                    <label>X \\in R_x</label>
-
-                    <label htmlFor="task2part3formula1">(</label>
-                    <select id="task2part3formula1">
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label htmlFor="task2part3formula1">,Y)-></label>
-                    <select>
-                        <option>max</option>
-                        <option>min</option>
-                    </select>
-                    <label>Y \\in R_y</label>
-
-                    <p></p>
-
-                    <label for="task2part1formula2"><Latex>{task2part1formula2}</Latex></label>
-                    <input type="text" id="task2part1formula2"/>
-
-                    <label htmlFor="task2part2formula2">R_X=X:</label>
-                    <select id="task2part2formula1">
-                        <option>U</option>
-                        <option>U^T</option>
-                    </select>
-                    <label htmlFor="task2part2formula2">*X</label>
-                    <select>
-                        <option> more or =</option>
-                        <option> less or =</option>
-                    </select>
-                    <select>
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label>,X</label>
-                    <select>
-                        <option>more or =</option>
-                        <option>less or =</option>
-                    </select>
-                    <label>0></label>
-
-                    <label htmlFor="task2part2formula2">R_Y=Y:</label>
-                    <select id="task2part2formula1">
-                        <option>U</option>
-                        <option>U^T</option>
-                    </select>
-                    <label htmlFor="task2part2formula2">*Y</label>
-                    <select>
-                        <option> more or =</option>
-                        <option> less or =</option>
-                    </select>
-                    <select>
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label>,Y</label>
-                    <select>
-                        <option>more or =</option>
-                        <option>less or =</option>
-                    </select>
-                    <label>0></label>
-
-
+                    <label htmlFor="task2part1">Нижняя цена игры</label>
+                    <input type="text" id="task2part1"/>
                 </div>
-            </div>
+                <div>
+                    <label htmlFor="task2part2">Верхняя цена игры</label>
+                    <input type="text" id="task2part2"/>
+                </div>
+                <div>
+                    <label htmlFor="task2part2">Гарантированный выигрыш</label>
+                    <input type="text" id="task2part2"/>
+                </div>
+                <div>
+                    <p>Решение в чистых стратегиях:</p>
+                    <input type="radio" name="task2part3" id="task2part31"/>
+                    <label for="task2part31">Существует</label>
+                    <p></p>
+                    <input type="radio" name="task2part3" id="task2part32"/>
+                    <label htmlFor="task2part32">Не существует</label>
+                </div>
 
-            <div id="task3">
-                <p>Решения ЗЛП</p>
-
-                // toDO: данная матрицв
-
-                <p>Решения исходной задачи</p>
-
-                // toDO: матрица с инпутами и v
-
+                <Button variant='primary' style={{alignSelf: "self-end"}}
+                        onClick={handleClick}>Проверить</Button>
             </div>
         </div>
     );
