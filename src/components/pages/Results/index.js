@@ -67,11 +67,13 @@ const Results = ({tasksNames}) => {
         }}>
             <Matrix className={'results-table-student'}
                     style={{width: '100%'}}
-                    matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{e?.result}/3   </span>])}
+                    matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{3 - e?.result}</span>,
+                        <span>{e?.result}/3   </span>])}
                     cellClassName={'table-cell'}
                     head={<TableHead>
                         <TableRow>
                             <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>Допущенные ошибки</TableCell>
                             <TableCell align={'center'} className={'table-head-cell'}>Количество баллов</TableCell>
                         </TableRow>
                     </TableHead>}
