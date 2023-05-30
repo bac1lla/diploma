@@ -1,3 +1,6 @@
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useLocation} from "react-router";
@@ -16,8 +19,8 @@ const prepareData = (data) => {
     return data.map(result => [])
 
 }
-const Results = () => {
-    const {labs} = useContext(Context);
+const Results = ({tasksNames}) => {
+    const {labs, user} = useContext(Context);
     const location = useLocation();
     const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
     const [range, setRange] = useState({})
@@ -63,7 +66,17 @@ const Results = () => {
             justifyContent: 'space-between'
         }}>
             <Matrix className={'results-table-student'}
-                    matrix={labs.getResults()?.map(e => [`Задание ${e?.i}`, e?.result])}>
+                    style={{width: '100%'}}
+                    matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{e?.result}/3   </span>])}
+                    cellClassName={'table-cell'}
+                    head={<TableHead>
+                        <TableRow>
+                            <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>Количество баллов</TableCell>
+                        </TableRow>
+                    </TableHead>}
+                // firstColumn={tasksNames}
+                    prefix={<h1>Результаты</h1>}>
                 <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
                 <h2>Оценка: {grade}</h2>
             </Matrix>

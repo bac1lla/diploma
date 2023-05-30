@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import classNames from "classnames/bind";
+import {delay} from "lodash/function";
 import {isEmpty, isEqual} from "lodash/lang";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useState} from 'react';
@@ -138,7 +139,7 @@ const prepareAnswers = (answer) => {
 const cx = classNames.bind(styles)
 
 const Type3 = ({next}) => {
-    const {labs} = useContext(Context)
+    const {labs, user} = useContext(Context)
     const navigate = useNavigate();
     const tasksArray = createTask(shuffledArray)
     const [tries, setTries] = useState(3)
@@ -226,10 +227,16 @@ const Type3 = ({next}) => {
         setS4(newS4);
     }
 
-    const postAnswers = () => {
-        labs.addResult(5, tries > 0 ? tries : 0)
+    const postResultsToBD = () => {
+        const {name, group} = user.getUser();
+        labs.postResultsToBd({name, group, lab: 'vector'})
+    }
+    const postAnswers = async () => {
+        await labs.addResult(5, tries > 0 ? tries : 0)
         navigate('/vectors-optimizations/results');
-        next()
+        next();
+        delay(postResultsToBD);
+
     }
 
     const handleCheck = () => {
@@ -349,7 +356,7 @@ const Type3 = ({next}) => {
             {
                 success &&
                 <Button variant='primary' style={{alignSelf: "self-end"}} onClick={postAnswers}>
-                    Далее
+                    Отправить результаты
                 </Button>
             }
             {

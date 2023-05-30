@@ -2,6 +2,13 @@
     height: 100%;
     width: 100%;
     overflow: auto;
+    display: flex;
+    align-items: center;
+}
+
+.results-table-student-cell {
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-header);
 }
 
 .student-range-column {

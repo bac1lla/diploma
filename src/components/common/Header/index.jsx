@@ -32,11 +32,13 @@ const Header = () => {
 
     const handleCLick = (option) => {
         if (option.value === "Выйти") {
+            navigate('/')
             user.logout()
         }
     }
 
     const logout = () => {
+        navigate('/')
         user.logout()
     }
 

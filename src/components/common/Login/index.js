@@ -73,8 +73,8 @@ const Login = () => {
     return (
         <div className={cx('login-wrapper')}>
             <div className={cx('login-text-group')}>
-                <Text text={'Лабораторная работа №1'} className={cx('login-header-text')}/>
-                <Text text={'Векторная оптимизация'} className={cx('login-lab-name-text')}/>
+                <Text text={'<ДИЦИПЛИНА>'} className={cx('login-header-text')}/>
+                <Text text={'Лабораторная работа'} className={cx('login-header-text')}/>
             </div>
             <div className={cx('login-main-group')}>
                 {isLogin && isStudent && <>

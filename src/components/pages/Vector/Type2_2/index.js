@@ -1,3 +1,6 @@
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import {isEmpty, isEqual} from "lodash/lang";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useEffect, useState} from 'react';
@@ -20,11 +23,12 @@ const prepareValue = (value) => {
     return value?.match(/\d+/g, '')?.map(e => +e)?.sort((a, b) => a - b)
 }
 
+const task = tasks[randomInteger(0, 14)]
+
 const Type2_2 = ({next}) => {
     const {labs} = useContext(Context)
     const navigate = useNavigate();
 
-    const [task] = useState(tasks[randomInteger(0, 15)]);
     const [tries, setTries] = useState(3)
     const [success, setSuccess] = useState(false);
 
@@ -363,7 +367,25 @@ const Type2_2 = ({next}) => {
             justifyContent: 'space-between'
         }}>
             <p>{description}</p>
-            <Matrix matrix={task.task} style={{width: 200}}/>
+            <Matrix matrix={task.task} style={{width: '90%'}}
+                    head={
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align={'center'} className={'table-head-cell'}></TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x1</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x2</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x3</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x4</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x5</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x6</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>x7</TableCell>
+                            </TableRow>
+                        </TableHead>}
+                    firstColumn={[<TableCell align={'center'} className={'table-head-cell'}>g1</TableCell>,
+                        <TableCell align={'center'} className={'table-head-cell'}>g2</TableCell>,
+                        <TableCell align={'center'} className={'table-head-cell'}>g3</TableCell>,]}
+                    cellClassName={'table-cell'}
+            />
             <Matrix matrix={data} style={{width: '90%', margin: 'auto'}}>
                 <p>{explanation}</p>
 

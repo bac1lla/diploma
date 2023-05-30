@@ -78,7 +78,12 @@ const AppContainer = () => {
                         <Route path={ROUTE__VECTOR_LABS + '/3'} element={<Type2_1 next={handleNextStep}/>}/>
                         <Route path={ROUTE__VECTOR_LABS + '/4'} element={<Type2_2 next={handleNextStep}/>}/>
                         <Route path={ROUTE__VECTOR_LABS + '/5'} element={<Type3 next={handleNextStep}/>}/>
-                        <Route path={ROUTE__VECTOR_LABS + '/results'} element={<Results/>}/>
+                        <Route
+                            path={ROUTE__VECTOR_LABS + '/results'}
+                            element={<Results
+                                tasksNames={['Задание 1', 'Задание 2', 'Задание 3', 'Задание 4', 'Задание 5', 'Задание 6', 'Задание 7', 'Задание 8']}
+                            />}
+                        />
                     </Route>
                     <Route path={ROUTE__MATRIX_LAB}
                            element={<Matrix step={currentStep} nextStep={handleNextStep} setStep={handleSetStep}/>}>
@@ -90,7 +95,8 @@ const AppContainer = () => {
                         <Route path={ROUTE__MATRIX_LABS + '/6'} element={<Type6Matrix next={handleNextStep}/>}/>
                         <Route path={ROUTE__MATRIX_LABS + '/7'} element={<Type7Matrix next={handleNextStep}/>}/>
                         <Route path={ROUTE__MATRIX_LABS + '/8'} element={<Type8Matrix next={handleNextStep}/>}/>
-                        <Route path={ROUTE__MATRIX_LABS + '/results'} element={<Results/>}/>
+                        <Route path={ROUTE__MATRIX_LABS + '/results'} element={<Results
+                            tasksNames={['Задание 1', 'Задание 2', 'Задание 3', 'Задание 4', 'Задание 5']}/>}/>
                     </Route>
                 </Route>
                 <Route path={ROUTE__SELECT_LAB} element={<SelectLab setStep={handleSetStep}/>}/>

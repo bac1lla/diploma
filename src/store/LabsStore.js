@@ -1,5 +1,7 @@
 import CryptoJS from "crypto-js";
+import dayjs from "dayjs";
 import {makeAutoObservable} from "mobx";
+import {postResult} from "../services/ApiService";
 import {hash} from "./UserStore";
 
 class LabsStore {
@@ -9,6 +11,7 @@ class LabsStore {
 
     setLab(labName) {
         this._labName = labName;
+        localStorage.setItem('labName', labName)
         localStorage.removeItem('results')
         this._results = [];
     }
@@ -23,14 +26,16 @@ class LabsStore {
         const encryptResults = CryptoJS.AES.encrypt(stringResults, hash).toString();
         localStorage.setItem('results', encryptResults)
 
-        this._results.push({
-            i: taskNum,
-            result
-        });
+        this.setResults(results)
     }
 
     setResults(results) {
         this._results = results;
+    }
+
+    _addResult(result) {
+        const newResults = [...this._results, result]
+        this.setResults(newResults)
     }
 
     getResults() {
@@ -46,7 +51,20 @@ class LabsStore {
     }
 
     getLab() {
-        return this._labName;
+
+        return this._labName || localStorage.getItem('labName') || 'Лабораторная работа';
+    }
+
+    postResultsToBd({name, group, lab}) {
+        const labName = lab.includes('matrix') ? 'matrix' : 'vector';
+
+        postResult({
+            date: dayjs().format('DD.MM.YYYY'),
+            name,
+            group,
+            pointsCount: this.getResults().reduce((acc, result) => acc + result?.result, 0),
+            results: this.getResults().map(result => result?.result),
+        }, labName).then(() => window.alert('Результаты отправлены')).catch(() => window.alert('Ошибка при отправке результатов'))
     }
 
     _results = []
