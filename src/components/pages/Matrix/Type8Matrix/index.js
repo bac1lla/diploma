@@ -7,6 +7,7 @@ import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
 import Latex from "react-latex";
 import {delay} from "lodash/function";
+import Select from "react-select";
 
 const data = [
     ['', <>
@@ -40,17 +41,32 @@ const descriptionTaskThree = "3. По найденным решениям ЗЛП
     "и игрока В - q и цену игры v"
 const descriptionMatrix = "Матрица дохода s-того игрока при его игре против остальных: "
 
-const matrixStarter = 'A = A_{1,2}^2 = (a_{1,2 i,j}^2)_{n*m} = '
+const matrixStarter = '$A = A_{1,2}^2 = (a_{1,2 i,j}^2)_{n*m} = $'
 
-const task1Ender = 'alpha:U=A+alpha*E>0(u_{i,j}>0);E=\\begin{pmatrix}\n' +
+const task1Ender = '$alpha:U=A+alpha*E>0(u_{i,j}>0);E=\\begin{pmatrix}\n' +
     '1 & ... & 1 \\\\\n' +
     '... & 1 & ... \\\\\n' +
     '1 & ... & 1\n' +
-    '\\end{pmatrix}_{n*m}'
+    '\\end{pmatrix}_{n*m}$'
 
-const task2part1formula1 = 'e_1=(1,...,1)^T\\inR'
+const task2part1formula1 = '$e_1=(1,...,1)^T\\inR$'
 
-const task2part1formula2 = 'e_2=(1,...,1)^T\\inR'
+const task2part1formula2 = '$e_2=(1,...,1)^T\\inR$'
+
+const task2part1option1 = '$e_1$'
+
+const task2part1option2 = '$e_2$'
+
+const optionsPart1 = [
+    {
+        value: '1',
+        label: <Latex>{task2part1option1}</Latex>
+    },
+    {
+        value: '2',
+        label: <Latex>{task2part1option2}</Latex>
+    },
+]
 
 const Type8Matrix = ({next}) => {
     const {labs, user} = useContext(Context)
@@ -86,98 +102,125 @@ const Type8Matrix = ({next}) => {
             <p color="grey">{descriptionTaskThree}</p>
             <p color="grey">{descriptionMatrix}</p>
             <p>Матрица игры:</p>
-            <Latex>{matrixStarter}</Latex>
-            <Matrix matrix={data}></Matrix>
+            <div style={{display: "flex"}}>
+                <Latex>{matrixStarter}</Latex>
+                <Matrix matrix={data} style={{width: "30%"}}></Matrix>
 
-            <div id="task1">
-                <p>Переход к преобразованной паре</p>
-                <label for="task1answer">alpha =</label>
-                <input type="text" id="task1answer"/>
-                <label htmlFor="task1answer">; <Latex>{task1Ender}</Latex></label>
-
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleClick} hidden="hidden">Проверить</Button>
-            </div>
-
-            <div id="task2">
-                <p>Составление ЗЛП</p>
                 <div>
-                    <label for="task2part1formula1"><Latex>{task2part1formula1}</Latex></label>
-                    <input type="text" id="task2part1formula1"/>
+                    <div id="task1">
+                        <p>Переход к преобразованной паре</p>
+                        <label htmlFor="task1answer">alpha =</label>
+                        <input type="text" id="task1answer"/>
+                        <label htmlFor="task1answer">; <Latex>{task1Ender}</Latex></label>
 
-                    <label for="task2part2formula1">(</label>
-                    <select id="task2part2formula1">
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label htmlFor="task2part2formula1">,X)-></label>
-                    <select>
-                        <option>max</option>
-                        <option>min</option>
-                    </select>
-                    <label>X \\in R_x</label>
+                        <Button variant='primary' style={{alignSelf: "self-end"}}
+                                onClick={handleClick} hidden="hidden">Проверить</Button>
+                    </div>
 
-                    <label htmlFor="task2part3formula1">(</label>
-                    <select id="task2part3formula1">
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label htmlFor="task2part3formula1">,Y)-></label>
-                    <select>
-                        <option>max</option>
-                        <option>min</option>
-                    </select>
-                    <label>Y \\in R_y</label>
+                    <div id="task2">
+                        <p>Составление ЗЛП</p>
+                        <Matrix matrix={[
+                            [<div>
+                                <label htmlFor="task2part1formula1"><Latex>{task2part1formula1}</Latex></label>
+                                <input type="text" id="task2part1formula1"/>
+                            </div>,
+                            <div style={{display: "flex", alignItems: "center"}}>
+                                <label htmlFor="task2part2formula1">(</label>
+                                <Select id={'task2part2formula1'} options={optionsPart1}/>
+                            </div>,
+                            <div style={{display: "flex", alignItems: "center"}}>
+                                <label htmlFor="task2part2formula1"><Latex>{", X)->"}</Latex></label>
+                                <select>
+                                    <option>max</option>
+                                    <option>min</option>
+                                </select>
+                                <label>X \\in R_x</label>
+                            </div>,
+                            <div>
+                                <label htmlFor="task2part3formula1">(</label>
+                                <select id="task2part3formula1">
+                                    <option>e_1</option>
+                                    <option>e_2</option>
+                                </select>
+                                <label htmlFor="task2part3formula1">,Y)-></label>
+                            </div>,
+                            <div>
+                                <select>
+                                    <option>max</option>
+                                    <option>min</option>
+                                </select>
+                                <label>Y \\in R_y</label>
+                            </div>
+                            ],
+                            [
+                                <div>
+                                    <label htmlFor="task2part1formula2"><Latex>{task2part1formula2}</Latex></label>
+                                    <input type="text" id="task2part1formula2"/>
+                                </div>,
+                                <div>
+                                    <label htmlFor="task2part2formula2">R_X=X:</label>
+                                    <select id="task2part2formula1">
+                                        <option>U</option>
+                                        <option>U^T</option>
+                                    </select>
+                                    <label htmlFor="task2part2formula2">*X</label>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option> more or =</option>
+                                        <option> less or =</option>
+                                    </select>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option>e_1</option>
+                                        <option>e_2</option>
+                                    </select>
+                                    <label>,X</label>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option>more or =</option>
+                                        <option>less or =</option>
+                                    </select>
+                                    <label>0></label>
+                                </div>,
+                                <div>
+                                    <label htmlFor="task2part2formula2">R_Y=Y:</label>
+                                    <select id="task2part2formula2">
+                                        <option>U</option>
+                                        <option>U^T</option>
+                                    </select>
+                                    <label htmlFor="task2part2formula2">*Y</label>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option> more or =</option>
+                                        <option> less or =</option>
+                                    </select>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option>e_1</option>
+                                        <option>e_2</option>
+                                    </select>
+                                    <label>,Y</label>
+                                </div>,
+                                <div>
+                                    <select>
+                                        <option>more or =</option>
+                                        <option>less or =</option>
+                                    </select>
+                                    <label>0></label>
+                                </div>
+                            ]
+                        ]}/>
 
-                    <p></p>
-
-                    <label for="task2part1formula2"><Latex>{task2part1formula2}</Latex></label>
-                    <input type="text" id="task2part1formula2"/>
-
-                    <label htmlFor="task2part2formula2">R_X=X:</label>
-                    <select id="task2part2formula1">
-                        <option>U</option>
-                        <option>U^T</option>
-                    </select>
-                    <label htmlFor="task2part2formula2">*X</label>
-                    <select>
-                        <option> more or = </option>
-                        <option> less or = </option>
-                    </select>
-                    <select>
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label>,X</label>
-                    <select>
-                        <option>more or = </option>
-                        <option>less or = </option>
-                    </select>
-                    <label>0></label>
-
-                    <label htmlFor="task2part2formula2">R_Y=Y:</label>
-                    <select id="task2part2formula1">
-                        <option>U</option>
-                        <option>U^T</option>
-                    </select>
-                    <label htmlFor="task2part2formula2">*Y</label>
-                    <select>
-                        <option> more or = </option>
-                        <option> less or = </option>
-                    </select>
-                    <select>
-                        <option>e_1</option>
-                        <option>e_2</option>
-                    </select>
-                    <label>,Y</label>
-                    <select>
-                        <option>more or = </option>
-                        <option>less or = </option>
-                    </select>
-                    <label>0></label>
-
+                    </div>
                 </div>
             </div>
+
+
 
             <div id="task3">
                 <p>Решения ЗЛП</p>

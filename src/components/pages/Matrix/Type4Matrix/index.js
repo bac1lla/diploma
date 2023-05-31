@@ -8,6 +8,7 @@ import Matrix from "../../../common/Matrix";
 import Latex from "react-latex";
 import Select from "react-select";
 import styles from "./styles.css"
+import {answers} from './answers'
 
 
 const description = "Составьте формулы для нахождения нижней, верхней цены и гарантированного выигрыша матричной игры на примере\nкоалиционной игры первого уровня."
@@ -20,24 +21,23 @@ const Type4Matrix = ({next}) => {
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
     const [success, setSuccess] = useState(false);
+    const [value, setValue] = useState()
 
-    const handleClick = useCallback(() => {
+    const handleClickNext = useCallback(() => {
         labs.addResult(3, tries > 0 ? tries : 0)
         navigation(`${ROUTE__MATRIX_LABS}/5`)
         next()
     }, [tries])
 
-    const checkTask = () => {
-        console.log(document.getElementById('select1-formula1-part1'))
-
-        // toDO: чек на селекты
-    }
-
-    const handleCheckSelect = useCallback(option => {
-        if (option.value == 1) {
-            alert('gg')
-        }
+    const handleClick = useCallback(option => {
+        setValue(option.value)
     }, [])
+
+    const handleCheckSelect = () => {
+        if (value.value == answers?.answers[0]) {
+            console.log(123)
+        }
+    }
 
     const sampleMatrix = '$\\left(\n' +
         '\\begin{matrix}\n' +
@@ -102,15 +102,15 @@ const Type4Matrix = ({next}) => {
                     <p><Latex>{formula1Starter}</Latex></p>
 
                     <div id="formula1part1-2">
-                        <Select id={'select1-formula1-part1'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula1-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula1-part2'}  onChange={handleCheckSelect} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula1-part2'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <div id="formula1part3-4">
-                        <Select id={'select1-formula1-part3'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula1-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula1-part4'}  onChange={handleCheckSelect} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula1-part4'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <p><Latex>{formulaEnder}</Latex></p>
@@ -122,15 +122,15 @@ const Type4Matrix = ({next}) => {
                     <p><Latex>{formula2Starter}</Latex></p>
 
                     <div id="formula2part1-2">
-                        <Select id={'select1-formula2-part1'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula2-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula2-part2'} onChange={handleCheckSelect}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula2-part2'} onChange={handleClick}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <div id="formula2part3-4">
-                        <Select id={'select1-formula2-part3'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula2-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula2-part4'}  onChange={handleCheckSelect} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula2-part4'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <p><Latex>{formulaEnder}</Latex></p>
@@ -142,15 +142,15 @@ const Type4Matrix = ({next}) => {
                     <p><Latex>{formula3Starter}</Latex></p>
 
                     <div id="formula3part1-2">
-                        <Select id={'select1-formula3-part1'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula3-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula3-part2'}  onChange={handleCheckSelect} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula3-part2'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <div id="formula3part3-4">
-                        <Select id={'select1-formula3-part3'}  onChange={handleCheckSelect} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula3-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                         <p></p>
-                        <Select id={'select1-formula3-part4'} onChange={handleCheckSelect}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                        <Select id={'select1-formula3-part4'} onChange={handleClick}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                     </div>
 
                     <p><Latex>{formulaEnder}</Latex></p>
@@ -161,14 +161,14 @@ const Type4Matrix = ({next}) => {
             <p></p>
             {
                 success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClickNext}>
                     Далее
                 </Button>
             }
             {
                 !success &&
                 <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={checkTask}>
+                        onClick={handleCheckSelect}>
                     {tries > 0 ? "Проверить" : "Показать ответы"}
                 </Button>
             }
