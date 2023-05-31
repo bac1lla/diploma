@@ -364,45 +364,52 @@ const Type2_2 = ({next}) => {
             display: 'flex',
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 5% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>{description}</p>
-            <Matrix matrix={task.task} style={{width: '90%'}}
-                    head={
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align={'center'} className={'table-head-cell'}></TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x1</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x2</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x3</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x4</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x5</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x6</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x7</TableCell>
-                            </TableRow>
-                        </TableHead>}
-                    firstColumn={[<TableCell align={'center'} className={'table-head-cell'}>g1</TableCell>,
-                        <TableCell align={'center'} className={'table-head-cell'}>g2</TableCell>,
-                        <TableCell align={'center'} className={'table-head-cell'}>g3</TableCell>,]}
-                    cellClassName={'table-cell'}
-            />
-            <Matrix matrix={data} style={{width: '90%', margin: 'auto'}}>
-                <p>{explanation}</p>
-
-            </Matrix>
-            {
-                success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
-                    Далее
-                </Button>
-            }
-            {
-                !success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleCheck}>
-                    {tries > 0 ? "Проверить" : "Показать ответы"}
-                </Button>
-            }
+            <div className={cx('vector-description-matrix')}>
+                <p>{description}</p>
+                <Matrix matrix={task.task} style={{alignSelf: 'flex-start'}}
+                        size={'small'} ariaLabel={"a dense table"}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}></TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x1</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x2</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x3</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x4</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x5</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x6</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x7</TableCell>
+                                </TableRow>
+                            </TableHead>}
+                        firstColumn={[<TableCell align={'center'} className={'table-head-cell'}>g1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>g2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>g3</TableCell>,]}
+                        cellClassName={'table-cell'}
+                />
+            </div>
+            <div className={'vector-matrix-buttons'}>
+                <Matrix matrix={data}>
+                    <p className={'vector-explanation'}>{explanation}</p>
+                </Matrix>
+                {
+                    success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
+                        Далее
+                    </Button>
+                }
+                {
+                    !success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={handleCheck}>
+                        {tries > 0 ? "Проверить" : "Показать ответы"}
+                    </Button>
+                }
+            </div>
         </div>
     );
 };

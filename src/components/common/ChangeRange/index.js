@@ -5,6 +5,7 @@ import {Button} from "react-bootstrap";
 import {useLocation} from "react-router";
 import {ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
+import Matrix from "../Matrix";
 import styles from './styles.css'
 import Text from "../Text";
 import classNames from "classnames/bind";
@@ -56,36 +57,43 @@ const ChangeRange = ({onClose, onSave, range}) => {
 
     return (
         <div className={'change-range-wrapper'}>
+            <Text className={'range-header'}
+                  text={isVector ? 'Изменить критерий оценки лабораторной работы \n"Задачи векторной оптимизации"' : 'Изменить критерий оценки лабораторной работы \n"Матричные игры"'}/>
             <div className={'change-range-column'}>
-                <Text className={'range-header'}
-                      text={isVector ? 'Изменить критерий оценки лабораторной работы \n"Задачи векторной оптимизации"' : 'Изменить критерий оценки лабораторной работы \n"Матричные игры"'}/>
-                <div className={'change-range-row'}>
-                    <Text text={'5'} className={'change-range-number'}/>
-                    <Text text={minRange5} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={maxValue} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'4'} className={'change-range-number'}/>
-                    <Text text={minRange4} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={minRange5 - 1} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'3'} className={'change-range-number'}/>
-                    <Text text={minRange3} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={minRange4 - 1} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'2'} className={'change-range-number'}/>
-                    <Text text={minValue} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={minRange3 - 1} className={'change-range-field'}/>
-                </div>
+                <Matrix
+                    style={{}}
+                    size={'small'} ariaLabel={"a dense table"}
+                    matrix={[
+                        [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
+                            <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={minRange5}
+                                                                                                className={'change-range-field'}/>
+                                <Text text={"-"} className={'change-range-sep'}/>
+                                <Text text={maxValue} className={'change-range-field'}/></div>],
+                        [
+                            <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
+                            <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={minRange4}
+                                                                                                className={'change-range-field'}/>
+                                <Text text={"-"} className={'change-range-sep'}/>
+                                <Text text={minRange5 - 1} className={'change-range-field'}/>
+                            </div>],
+                        [
+                            <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
+                            <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={minRange3}
+                                                                                                className={'change-range-field'}/>
+                                <Text text={"-"} className={'change-range-sep'}/>
+                                <Text text={minRange4 - 1} className={'change-range-field'}/>
+                            </div>], [
+                            <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
+                            <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={minValue}
+                                                                                                className={'change-range-field'}/>
+                                <Text text={"-"} className={'change-range-sep'}/>
+                                <Text text={minRange3 - 1} className={'change-range-field'}/>
+                            </div>]
+                    ]}/>
+
                 <Slider
-                    min={0}
-                    max={30}
+                    min={minValue}
+                    max={maxValue}
                     step={1}
                     valueLabelDisplay="on"
                     marks={marks}
@@ -93,14 +101,14 @@ const ChangeRange = ({onClose, onSave, range}) => {
                     className={'change-range-input'}
                     onChange={handleChange}
                 />
-                <div className={'change-range-row-btn'}>
-                    <Button className={'change-range-btn'} variant={'danger'} onClick={onClose}>
-                        Отменить
-                    </Button>
-                    <Button className={'change-range-btn'} onClick={handleSave}>
-                        Сохранить
-                    </Button>
-                </div>
+            </div>
+            <div className={'change-range-row-btn'}>
+                <Button className={'change-range-btn'} variant={'danger'} onClick={onClose}>
+                    Отменить
+                </Button>
+                <Button className={'change-range-btn'} onClick={handleSave}>
+                    Сохранить
+                </Button>
             </div>
         </div>
     );

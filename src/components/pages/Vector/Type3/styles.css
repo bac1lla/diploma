@@ -11,3 +11,10 @@
     width: 150px;
     padding: 0 10px;
 }
+
+.vector-matrix-buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+}

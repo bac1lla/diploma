@@ -11,14 +11,6 @@ import Matrix from "../../common/Matrix";
 import Text from "../../common/Text";
 import './styles.css'
 
-const prepareData = (data) => {
-    if (!data) {
-        return;
-    }
-
-    return data.map(result => [])
-
-}
 const Results = ({tasksNames}) => {
     const {labs, user} = useContext(Context);
     const location = useLocation();
@@ -61,53 +53,69 @@ const Results = ({tasksNames}) => {
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: "flex-start",
-            gap: 50,
-            justifyContent: 'space-between'
+            alignItems: "center",
+            justifyContent: 'space-between',
+            padding: '0 5% 5% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <Matrix className={'results-table-student'}
-                    style={{width: '100%'}}
-                    matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{3 - e?.result}</span>,
-                        <span>{e?.result}/3   </span>])}
-                    cellClassName={'table-cell'}
-                    head={<TableHead>
-                        <TableRow>
-                            <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>Допущенные ошибки</TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>Количество баллов</TableCell>
-                        </TableRow>
-                    </TableHead>}
-                // firstColumn={tasksNames}
-                    prefix={<h1>Результаты</h1>}>
-                <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
-                <h2>Оценка: {grade}</h2>
-            </Matrix>
-            <div className={'student-range-column'}>
-                <div className={'change-range-row'}>
-                    <Text text={'5'} className={'change-range-number'}/>
-                    <Text text={+range.minRange5} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={+range.maxValue} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'4'} className={'change-range-number'}/>
-                    <Text text={+range.minRange4} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'3'} className={'change-range-number'}/>
-                    <Text text={+range.minRange3} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
-                </div>
-                <div className={'change-range-row'}>
-                    <Text text={'2'} className={'change-range-number'}/>
-                    <Text text={+range.minValue} className={'change-range-field'}/>
-                    <Text text={"-"} className={'change-range-sep'}/>
-                    <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
+            <div style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                flexDirection: 'column',
+                height: "100%",
+            }}>
+                <Matrix className={'results-table-student'}
+                        style={{width: '100%'}}
+                        matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{3 - e?.result}</span>,
+                            <span>{e?.result}/3   </span>])}
+                        cellClassName={'table-cell'}
+                        head={<TableHead>
+                            <TableRow>
+                                <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>Допущенные ошибки</TableCell>
+                                <TableCell align={'center'} className={'table-head-cell'}>Количество баллов</TableCell>
+                            </TableRow>
+                        </TableHead>}
+                    // firstColumn={tasksNames}
+                        prefix={<h1>Результаты</h1>}>
+                </Matrix>
+                <div>
+                    <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
+                    <h2>Оценка: {grade}</h2>
                 </div>
             </div>
+            <Matrix
+                style={{alignSelf: 'center'}}
+                size={'small'} ariaLabel={"a dense table"}
+                matrix={[
+                    [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
+                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange5}
+                                                                                            className={'change-range-field'}/>
+                            <Text text={"-"} className={'change-range-sep'}/>
+                            <Text text={+range.maxValue} className={'change-range-field'}/></div>],
+                    [
+                        <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
+                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange4}
+                                                                                            className={'change-range-field'}/>
+                            <Text text={"-"} className={'change-range-sep'}/>
+                            <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
+                        </div>],
+                    [
+                        <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
+                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange3}
+                                                                                            className={'change-range-field'}/>
+                            <Text text={"-"} className={'change-range-sep'}/>
+                            <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
+                        </div>], [
+                        <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
+                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minValue}
+                                                                                            className={'change-range-field'}/>
+                            <Text text={"-"} className={'change-range-sep'}/>
+                            <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
+                        </div>]
+                ]}/>
         </div>
     );
 };

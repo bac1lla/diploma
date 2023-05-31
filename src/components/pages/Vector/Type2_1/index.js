@@ -17,7 +17,7 @@ import {tasks} from './tasks'
 const cx = classNames.bind(styles)
 
 const description = "Для критериев g1(x), g2(x) и g3(x), найдите области эффективных векторных оценок на множестве X={x1, x2, x3}, для всех предложенных задач"
-const explanation = "Пример ввода: 1,4,5"
+const explanation = "Формат ввода: номера точек через запятую, пробел или любой другой разделитель\nПример ввода: 1,4,5"
 
 const prepareValue = (value) => {
     return value?.match(/\d+/g, '')?.map(e => +e)?.sort((a, b) => a - b)
@@ -363,41 +363,50 @@ const Type2_1 = ({next}) => {
             display: 'flex',
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 5% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>{description}</p>
-            <Matrix matrix={task.task} style={{width: '30%'}}
-                    head={
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align={'center'} className={'table-head-cell'}></TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x1</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x2</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>x3</TableCell>
-                            </TableRow>
-                        </TableHead>}
-                    firstColumn={[<TableCell align={'center'} className={'table-head-cell'}>g1</TableCell>,
-                        <TableCell align={'center'} className={'table-head-cell'}>g2</TableCell>,
-                        <TableCell align={'center'} className={'table-head-cell'}>g3</TableCell>,]}
-                    cellClassName={'table-cell'}
-            />
-            <Matrix matrix={data} style={{width: '90%', margin: 'auto'}}>
-                <p>{explanation}</p>
+            <div className={cx('vector-description-matrix')}>
 
-            </Matrix>
-            {
-                success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
-                    Далее
-                </Button>
-            }
-            {
-                !success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleCheck}>
-                    {tries > 0 ? "Проверить" : "Показать ответы"}
-                </Button>
-            }
+                <p>{description}</p>
+                <Matrix matrix={task.task} style={{alignSelf: "flex-start"}}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}></TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x1</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x2</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>x3</TableCell>
+                                </TableRow>
+                            </TableHead>}
+                        firstColumn={[<TableCell align={'center'} className={'table-head-cell'}>g1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>g2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>g3</TableCell>,]}
+                        cellClassName={'table-cell'}
+                        size={'small'} ariaLabel={"a dense table"}
+                />
+            </div>
+            <div className={'vector-matrix-buttons'}>
+                <Matrix matrix={data} style={{alignSelf: 'flex-start'}}>
+                    <p className={'vector-explanation'}>{explanation}</p>
+
+                </Matrix>
+                {
+                    success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
+                        Далее
+                    </Button>
+                }
+                {
+                    !success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={handleCheck}>
+                        {tries > 0 ? "Проверить" : "Показать ответы"}
+                    </Button>
+                }
+            </div>
         </div>
     );
 };

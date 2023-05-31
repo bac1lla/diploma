@@ -29,3 +29,15 @@
     font-size: var(--font-size) !important;
     font-weight: 500 !important;
 }
+
+.vector-description-matrix {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.vector-explanation {
+    font-style: italic;
+    white-space: pre-line;
+}

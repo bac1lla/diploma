@@ -333,9 +333,12 @@ const Type3 = ({next}) => {
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: "center",
+            alignItems: "flex-start",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 5% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
             <Text text={description}/>
             <Matrix matrix={tasksArray}/>
