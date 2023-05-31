@@ -6,6 +6,7 @@ import {ROUTE__MATRIX_LABS, ROUTE__VECTOR_LABS} from "../../../../constants/rout
 import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
 import Latex from "react-latex";
+import {delay} from "lodash/function";
 
 const data = [
     ['', <>
@@ -52,15 +53,21 @@ const task2part1formula1 = 'e_1=(1,...,1)^T\\inR'
 const task2part1formula2 = 'e_2=(1,...,1)^T\\inR'
 
 const Type8Matrix = ({next}) => {
-    const {labs} = useContext(Context)
+    const {labs, user} = useContext(Context)
     const location = useLocation();
     const navigation = useNavigate();
     const [result, setResult] = useState(1);
 
+    const postResultsToBD = () => {
+        const {name, group} = user.getUser();
+        labs.postResultsToBd({name, group, lab: 'matrix'})
+    }
+
     const handleClick = () => {
-        labs.addResult(parseInt(location.pathname.split('/').pop()), result)
-        navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        labs.addResult(8, result)
+        navigation(`${ROUTE__MATRIX_LABS}/results`)
         next();
+        postResultsToBD()
     }
 
     return (

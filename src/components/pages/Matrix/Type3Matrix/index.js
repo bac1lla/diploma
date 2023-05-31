@@ -1,45 +1,372 @@
 import {observer} from "mobx-react-lite";
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Button} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router";
 import {ROUTE__MATRIX_LABS, ROUTE__VECTOR_LABS} from "../../../../constants/routes";
 import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
+import {isEqual} from "lodash/lang";
+import classNames from "classnames/bind";
+import styles from "./styles.css"
+import {tasks} from './tasks'
+import {randomInteger} from "../../../../helpers";
 
-const data = [
-    ['', <>
-        <div>1</div>
-    </>, <>
-        <div>2</div>
-    </>],
-    ['1  1  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['1  1  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['1  2  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['1  2  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['2  1  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['2  1  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['2  2  1', <input style={{width: 50}}/>, <input style={{width: 50}}/>],
-    ['2  2  2', <input style={{width: 50}}/>, <input style={{width: 50}}/>]
-]
+const cx = classNames.bind(styles)
+
+const task = tasks[0]
+
 
 const description = "Сформулируйте матрицу коалиционной игры второго уровня 1, 2 и 3 игроков против 4. Для этого:"
-const descriptionTaskOne = "Введите число строк (число стратегий коалиции 1, 2 и 3 игроков) и столбцов (число стратегий 4 игрока) матрицы"
-const descriptionTaskTwo = "Заполните появившийся шаблон матрицы"
+const descriptionTaskOne = "1. Введите число строк (число стратегий коалиции 1, 2 и 3 игроков) и столбцов (число стратегий 4 игрока) матрицы"
+const descriptionTaskTwo = "2. Заполните появившийся шаблон матрицы"
 const Type3Matrix = ({next}) => {
     const {labs} = useContext(Context)
-    const location = useLocation();
     const navigation = useNavigate();
-    const [result, setResult] = useState(1);
+    const [tries, setTries] = useState(3)
+    const [success, setSuccess] = useState(false);
+    const [p1, setP1] = useState('');
+    const [p2, setP2] = useState('');
+    const [p1Error, setP1Error] = useState(false);
+    const [p2Error, setP2Error] = useState(false);
 
-    const handleClick = () => {
-        labs.addResult(parseInt(location.pathname.split('/').pop()), result)
-        navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+    const handleSetP1 = useCallback(e => {
+        setP1(e.target.value);
+    }, []);
+    const handleSetP2 = useCallback(e => {
+        setP2(e.target.value);
+    }, []);
+
+    const handleClick = useCallback(() => {
+        labs.addResult(3, tries > 0 ? tries : 0)
+        navigation(`${ROUTE__MATRIX_LABS}/4`)
         next()
+    }, [tries])
+
+    const showAnswersPart1 = () => {
+        setP1("4");
+        setP2("4");
     }
+
+    const checkTaskOne = () => {
+        if (tries < 1) {
+            showAnswersPart1()
+            document.getElementById("check1").hidden = true;
+            document.getElementById("task2").hidden = false;
+        }
+        let error = false
+
+        if (!isEqual(p1, "4")
+            // && !isEmpty(newP1)
+        ) {
+            setP1Error(true)
+            error = true
+        } else {
+            setP1Error(false)
+        }
+        if (!isEqual(p2, "4")
+            // && !isEmpty(newP2)
+        ) {
+            setP2Error(true)
+            error = true
+        } else {
+            setP2Error(false)
+        }
+
+        if (!error) {
+            showAnswersPart1()
+            document.getElementById("task1part1input1").readOnly = true;
+            document.getElementById("task1part1input2").readOnly = true;
+            document.getElementById("check1").hidden = true;
+            document.getElementById("task2").hidden = false;
+            return;
+        }
+
+        setTries(prev => prev - 1)
+    }
+
+    const [m11, setM11] = useState('');
+    const [m12, setM12] = useState('');
+    const [m21, setM21] = useState('');
+    const [m22, setM22] = useState('');
+    const [m31, setM31] = useState('');
+    const [m32, setM32] = useState('');
+    const [m41, setM41] = useState('');
+    const [m42, setM42] = useState('');
+    const [m51, setM51] = useState('');
+    const [m52, setM52] = useState('');
+    const [m61, setM61] = useState('');
+    const [m62, setM62] = useState('');
+    const [m71, setM71] = useState('');
+    const [m72, setM72] = useState('');
+    const [m81, setM81] = useState('');
+    const [m82, setM82] = useState('');
+
+
+    const [m11Error, setM11Error] = useState(false);
+    const [m12Error, setM12Error] = useState(false);
+    const [m21Error, setM21Error] = useState(false);
+    const [m22Error, setM22Error] = useState(false);
+    const [m31Error, setM31Error] = useState(false);
+    const [m32Error, setM32Error] = useState(false);
+    const [m41Error, setM41Error] = useState(false);
+    const [m42Error, setM42Error] = useState(false);
+    const [m51Error, setM51Error] = useState(false);
+    const [m52Error, setM52Error] = useState(false);
+    const [m61Error, setM61Error] = useState(false);
+    const [m62Error, setM62Error] = useState(false);
+    const [m71Error, setM71Error] = useState(false);
+    const [m72Error, setM72Error] = useState(false);
+    const [m81Error, setM81Error] = useState(false);
+    const [m82Error, setM82Error] = useState(false);
+
+    const handleSetM11 = useCallback(e => {
+        setM11(e.target.value);
+    }, []);
+    const handleSetM12 = useCallback(e => {
+        setM12(e.target.value);
+    }, []);
+    const handleSetM21 = useCallback(e => {
+        setM21(e.target.value);
+    }, []);
+    const handleSetM22 = useCallback(e => {
+        setM22(e.target.value);
+    }, []);
+    const handleSetM31 = useCallback(e => {
+        setM31(e.target.value);
+    }, []);
+    const handleSetM32 = useCallback(e => {
+        setM32(e.target.value);
+    }, []);
+    const handleSetM41 = useCallback(e => {
+        setM41(e.target.value);
+    }, []);
+    const handleSetM42 = useCallback(e => {
+        setM42(e.target.value);
+    }, []);
+    const handleSetM51 = useCallback(e => {
+        setM51(e.target.value);
+    }, []);
+    const handleSetM52 = useCallback(e => {
+        setM52(e.target.value);
+    }, []);
+    const handleSetM61 = useCallback(e => {
+        setM61(e.target.value);
+    }, []);
+    const handleSetM62 = useCallback(e => {
+        setM62(e.target.value);
+    }, []);
+    const handleSetM71 = useCallback(e => {
+        setM71(e.target.value);
+    }, []);
+    const handleSetM72 = useCallback(e => {
+        setM72(e.target.value);
+    }, []);
+    const handleSetM81 = useCallback(e => {
+        setM81(e.target.value);
+    }, []);
+    const handleSetM82 = useCallback(e => {
+        setM82(e.target.value);
+    }, []);
+
+    const showAnswers = () => {
+        setM11(task?.answers[0]);
+        setM12(task?.answers[1]);
+        setM21(task?.answers[2]);
+        setM22(task?.answers[3]);
+        setM31(task?.answers[4]);
+        setM32(task?.answers[5]);
+        setM41(task?.answers[6]);
+        setM42(task?.answers[7]);
+        setM51(task?.answers[8]);
+        setM52(task?.answers[9]);
+        setM61(task?.answers[10]);
+        setM62(task?.answers[11]);
+        setM71(task?.answers[12]);
+        setM72(task?.answers[13]);
+        setM81(task?.answers[14]);
+        setM82(task?.answers[15]);
+    }
+
+    const checkTaskTwo = () => {
+        if (tries < 1) {
+            setSuccess(true);
+            showAnswers()
+        }
+        let error = false
+
+        if (!isEqual(m11, task?.answers[0])
+            // && !isEmpty(newP1)
+        ) {
+            setM11Error(true)
+            error = true
+        } else {
+            setM11Error(false)
+        }
+        if (!isEqual(m12, task?.answers[1])
+            // && !isEmpty(newP2)
+        ) {
+            setM12Error(true)
+            error = true
+        } else {
+            setM12Error(false)
+        }
+        if (!isEqual(m21, task?.answers[2])
+            // && !isEmpty(newP3)
+        ) {
+            setM21Error(true)
+            error = true
+        } else {
+            setM21Error(false)
+        }
+        if (!isEqual(m22, task?.answers[3])
+            // && !isEmpty(newP4)
+        ) {
+            setM22Error(true)
+            error = true
+        } else {
+            setM22Error(false)
+        }
+        if (!isEqual(m31, task?.answers[4])
+            // && !isEmpty(newP5)
+        ) {
+            setM31Error(true)
+            error = true
+        } else {
+            setM31Error(false)
+        }
+        if (!isEqual(m32, task?.answers[5])
+            // && !isEmpty(newP6)
+        ) {
+            setM32Error(true)
+            error = true
+        } else {
+            setM32Error(false)
+        }
+        if (!isEqual(m41, task?.answers[6])
+            // && !isEmpty(newP7)
+        ) {
+            setM41Error(true)
+            error = true
+        } else {
+            setM41Error(false)
+        }
+        if (!isEqual(m42, task?.answers[7])
+            // && !isEmpty(newP8)
+        ) {
+            setM42Error(true)
+            error = true
+        } else {
+            setM42Error(false)
+        }
+        if (!isEqual(m51, task?.answers[8])
+            // && !isEmpty(newS1)
+        ) {
+            setM51Error(true)
+            error = true
+        } else {
+            setM51Error(false)
+        }
+        if (!isEqual(m52, task?.answers[9])
+            // && !isEmpty(newS2)
+        ) {
+            setM52Error(true)
+            error = true
+        } else {
+            setM52Error(false)
+        }
+        if (!isEqual(m61, task?.answers[10])
+            // && !isEmpty(newS3)
+        ) {
+            setM61Error(true)
+            error = true
+        } else {
+            setM61Error(false)
+        }
+        if (!isEqual(m62, task?.answers[11])
+            // && !isEmpty(newS4)
+        ) {
+            setM62Error(true)
+            error = true
+        } else {
+            setM62Error(false)
+        }
+        if (!isEqual(m71, task?.answers[12])
+            // && !isEmpty(newS5)
+        ) {
+            setM71Error(true)
+            error = true
+        } else {
+            setM71Error(false)
+        }
+        if (!isEqual(m72, task?.answers[13])
+            // && !isEmpty(newS6)
+        ) {
+            setM72Error(true)
+            error = true
+        } else {
+            setM72Error(false)
+        }
+        if (!isEqual(m81, task?.answers[14])
+            // && !isEmpty(newS7)
+        ) {
+            setM81Error(true)
+            error = true
+        } else {
+            setM81Error(false)
+        }
+        if (!isEqual(m82, task?.answers[15])
+            // && !isEmpty(newS8)
+        ) {
+            setM82Error(true)
+            error = true
+        } else {
+            setM82Error(false)
+        }
+
+        if (!error) {
+            setSuccess(true);
+            return;
+        }
+
+        setTries(prev => prev - 1)
+
+    }
+
+    const data = [
+        ['', <>
+            <div>1</div>
+        </>, <>
+            <div>2</div>
+        </>],
+        ['1  1  1',
+            <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}} style={{width: 50}}/>],
+        ['1  1  2',
+            <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}} style={{width: 50}}/>],
+        ['1  2  1',
+            <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32} style={{width: 50}} style={{width: 50}}/>],
+        ['1  2  2',
+            <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42} style={{width: 50}} style={{width: 50}}/>],
+        ['2  1  1',
+            <input className={cx('input51', {error: m51Error})} value={m51} onChange={handleSetM51} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input52', {error: m52Error})} value={m52} onChange={handleSetM52} style={{width: 50}} style={{width: 50}}/>],
+        ['2  1  2',
+            <input className={cx('input61', {error: m61Error})} value={m61} onChange={handleSetM61} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input62', {error: m62Error})} value={m62} onChange={handleSetM62} style={{width: 50}} style={{width: 50}}/>],
+        ['2  2  1',
+            <input className={cx('input71', {error: m71Error})} value={m71} onChange={handleSetM71} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input72', {error: m72Error})} value={m72} onChange={handleSetM72} style={{width: 50}} style={{width: 50}}/>],
+        ['2  2  2',
+            <input className={cx('input81', {error: m81Error})} value={m81} onChange={handleSetM81} style={{width: 50}} style={{width: 50}}/>,
+            <input className={cx('input82', {error: m82Error})} value={m82} onChange={handleSetM82} style={{width: 50}} style={{width: 50}}/>]
+    ]
 
     return (
         <div style={{
-            width: '100%',
+            width: '75%',
             height: '100%',
             // display: 'flex',
             alignItems: "center",
@@ -47,25 +374,39 @@ const Type3Matrix = ({next}) => {
             justifyContent: 'space-between'
         }}>
             <p>Задание 3</p>
+
+            // FIXME: изменять цвет текста при переходе к некст пункту
+
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
             <p color="grey">{descriptionTaskTwo}</p>
 
             <label>число строк</label>
-            <input type="input"/>
+            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1} onChange={handleSetP1}/>
             <label>число столбцов</label>
-            <input type="input"/>
+            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2} onChange={handleSetP2}/>
 
-            <Button variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={handleClick}>Проверить</Button>
+            <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
+                    onClick={checkTaskOne}>Проверить</Button>
 
-            <div hidden="hidden">
+            <div id={'task2'} hidden={true}>
                 <p>Стратегии коалиции 4 игрока</p>
                 <Matrix matrix={data}>
 
                 </Matrix>
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleClick}>Проверить</Button>
+                {
+                    success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                        Далее
+                    </Button>
+                }
+                {
+                    !success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={checkTaskTwo}>
+                        {tries > 0 ? "Проверить" : "Показать ответы"}
+                    </Button>
+                }
             </div>
         </div>
     );

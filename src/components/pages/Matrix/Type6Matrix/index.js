@@ -56,14 +56,14 @@ const Type6Matrix = ({next}) => {
     const [result, setResult] = useState(1);
 
     const handleClick = () => {
-        labs.addResult(parseInt(location.pathname.split('/').pop()), result)
-        navigation(`${ROUTE__MATRIX_LABS}/${parseInt(location.pathname.split('/').pop()) + 1}`)
+        labs.addResult(6, result)
+        navigation(`${ROUTE__MATRIX_LABS}/7`)
         next()
     }
 
     return (
         <div style={{
-            width: '100%',
+            width: '75%',
             height: '100%',
             // display: 'flex',
             alignItems: "center",
@@ -71,42 +71,34 @@ const Type6Matrix = ({next}) => {
             justifyContent: 'space-between'
         }}>
             <p>Задание 6</p>
+
+            // FIXME: изменять цвет текста при переходе к некст пункту
+
             <p>{description}</p>
             <p>{descriptionTaskOne}</p>
-            <p color="grey">{descriptionTaskTwo}</p>
+            <p className={''}>{descriptionTaskTwo}</p>
             <p>{descriptionMatrix}</p>
-            <div>
-                <Matrix matrix={data}>
+            <div style={{display: "flex"}}>
+                <div>
+                    <Matrix matrix={data}>
 
-                </Matrix>
+                    </Matrix>
 
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleClick}>Проверить</Button>
-            </div>
-            <div>
-                <div>
-                    <label htmlFor="task2part1">Нижняя цена игры</label>
-                    <input type="text" id="task2part1"/>
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={handleClick}>Проверить</Button>
                 </div>
                 <div>
-                    <label htmlFor="task2part2">Верхняя цена игры</label>
-                    <input type="text" id="task2part2"/>
-                </div>
-                <div>
-                    <label htmlFor="task2part2">Гарантированный выигрыш</label>
-                    <input type="text" id="task2part2"/>
-                </div>
-                <div>
-                    <p>Решение в чистых стратегиях:</p>
-                    <input type="radio" name="task2part3" id="task2part31"/>
-                    <label for="task2part31">Существует</label>
-                    <p></p>
-                    <input type="radio" name="task2part3" id="task2part32"/>
-                    <label htmlFor="task2part32">Не существует</label>
-                </div>
+                    <Matrix matrix={[
+                        [<label htmlFor="task2part1">Нижняя цена игры</label>, <input type="text" id="task2part1" style={{width: 50}}/>],
+                        [<label htmlFor="task2part2">Верхняя цена игры</label>, <input type="text" id="task2part2" style={{width: 50}}/>],
+                        [<label htmlFor="task2part2">Гарантированный выигрыш</label>, <input type="text" id="task2part2" style={{width: 50}}/>],
+                        [<p>Решение в чистых стратегиях:</p>, <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3" id={'task2part31'}/><label htmlFor="task2part31">существует</label></div>],
+                        ['', <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3" id={'task2part32'}/><label htmlFor="task2part31">не существует</label></div>]
+                    ]}/>
 
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleClick}>Проверить</Button>
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={handleClick}>Проверить</Button>
+                </div>
             </div>
         </div>
     );
