@@ -10,7 +10,12 @@ import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router";
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
-import {ROUTE__MATRIX_LAB__TEACHER, ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
+import {uniqueId} from "lodash";
+import {
+    ROUTE__MATRIX_LAB__TEACHER,
+    ROUTE__PAYMENT_MATRIX_LAB__TEACHER,
+    ROUTE__VECTOR_LAB__TEACHER
+} from "../../../constants/routes";
 import {Context} from "../../../index";
 import {getAllResults, changeRange, getBDRange, postResult} from "../../../services/ApiService";
 import ChangeRange from "../../common/ChangeRange";
@@ -27,9 +32,10 @@ const cx = classNames.bind(styles)
 
 
 const TeacherProfile = () => {
-    const {user, labs} = useContext(Context)
+    const {labs} = useContext(Context)
     const location = useLocation()
     const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
+    const isPaymentMatrix = location.pathname.includes(ROUTE__PAYMENT_MATRIX_LAB__TEACHER);
     const navigate = useNavigate();
     const [isOpenModal, setIsOpen] = useState(false);
     const [isOpenResults, setIsOpenResults] = useState(false);
@@ -48,6 +54,10 @@ const TeacherProfile = () => {
         navigate(ROUTE__VECTOR_LAB__TEACHER)
     }
 
+    const handleGoMatrixPayment = () => {
+        navigate(ROUTE__PAYMENT_MATRIX_LAB__TEACHER)
+    }
+
     const handleOpenModal = useCallback(() => {
         setIsOpen(true)
     }, [])
@@ -57,7 +67,7 @@ const TeacherProfile = () => {
     }, [])
 
     const getResults = () => {
-        const labName = isVector ? 'vector' : 'matrix';
+        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
         getAllResults(labName)
             .then(results => {
                 labs.setResults(results)
@@ -73,7 +83,7 @@ const TeacherProfile = () => {
     }, [])
 
     const getRange = () => {
-        const labName = isVector ? 'vector' : 'matrix';
+        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
         getBDRange(labName)
             .then(range => {
                 setRange(range)
@@ -86,7 +96,7 @@ const TeacherProfile = () => {
     useEffect(() => {
         getResults();
         getRange()
-    }, [isVector])
+    }, [location.pathname])
 
     const clearDate = useCallback(() => {
         setDisableDate(prev => !prev)
@@ -112,7 +122,7 @@ const TeacherProfile = () => {
     }) : results
 
     const handleSaveRange = useCallback((range) => {
-        const labName = isVector ? 'vector' : 'matrix';
+        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
         setRange(range)
         changeRange(range, labName)
             .then(() => {
@@ -148,7 +158,7 @@ const TeacherProfile = () => {
     }, [])
 
     const handleAddResult = () => {
-        const labName = isVector ? 'vector' : 'matrix';
+        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
 
         postResult({
             date: dayjs().format('DD.MM.YYYY'),
@@ -163,13 +173,17 @@ const TeacherProfile = () => {
     return (
         <div className={cx('teacher-wrapper')}>
             <div className={cx('teacher-side')}>
-                <Button className={cx('teacher-side-item', {teacherSideItemActive: !isVector})}
+                <Button className={cx('teacher-side-item', {teacherSideItemActive: !isVector && !isPaymentMatrix})}
                         onClick={handleGoMatrix}>
                     <Text text={'Матричные игры'} className={cx('teacher-side-item-text')}/>
                 </Button>
                 <Button className={cx('teacher-side-item', {teacherSideItemActive: isVector})}
                         onClick={handleGoVector}>
                     <Text text={'Задачи векторной оптимизации'} className={cx('teacher-side-item-text')}/>
+                </Button>
+                <Button className={cx('teacher-side-item', {teacherSideItemActive: isPaymentMatrix})}
+                        onClick={handleGoMatrixPayment}>
+                    <Text text={'Платежные матрциы'} className={cx('teacher-side-item-text')}/>
                 </Button>
                 <div className={'teacher-side-column'}>
                     <div className={'change-range-row'}>
@@ -226,19 +240,19 @@ const TeacherProfile = () => {
                         <TableBody>
                             {data.map((result, i) => (
                                 <TableRow
-                                    key={`row-${i}`}
+                                    key={uniqueId()}
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                 >
                                     <TableCell className={'teacher-table-cell'} align="left"
-                                               key={`cell-${i}`}>{result?.name}</TableCell>
+                                               key={uniqueId()}>{result?.name}</TableCell>
                                     <TableCell className={'teacher-table-cell'} align="center"
-                                               key={`cell-${i + 1}`}>{result?.group}</TableCell>
+                                               key={uniqueId()}>{result?.group}</TableCell>
                                     <TableCell className={'teacher-table-cell'} align="center"
-                                               key={`cell-${i + 2}`}>{result?.pointsCount}</TableCell>
+                                               key={uniqueId()}>{result?.pointsCount}</TableCell>
                                     <TableCell className={'teacher-table-cell'} align="center"
-                                               key={`cell-${i + 3}`}>{modifyResult(result?.pointsCount)}</TableCell>
+                                               key={uniqueId()}>{modifyResult(result?.pointsCount)}</TableCell>
                                     <TableCell className={'teacher-table-cell'} align="center"
-                                               key={`cell-${i + 3}`}>
+                                               key={uniqueId()}>
                                         <Button variant={'outline'}
                                                 onClick={() => openResultsDescription(result)}>Подробнее</Button>
                                     </TableCell>

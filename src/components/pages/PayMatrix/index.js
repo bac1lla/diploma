@@ -12,7 +12,7 @@ const createRoutes = (i) => {
     return "/" + i
 }
 
-const Vector = ({step, nextStep, setStep}) => {
+const PayMatrix = ({step, nextStep, setStep}) => {
 
     const {labs} = useContext(Context);
 
@@ -26,9 +26,9 @@ const Vector = ({step, nextStep, setStep}) => {
             justifyContent: 'space-between'
         }}>
             <Outlet/>
-            <Stepper steps={[1234, 1234, 1234]} next={nextStep} current={step} setStep={setStep}/>
+            <Stepper steps={[1, 1, 1, 1, 1, 1, 1, 1]} next={nextStep} current={step} setStep={setStep}/>
         </div>
     );
 };
 
-export default observer(Vector);
+export default observer(PayMatrix);

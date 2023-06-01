@@ -3,7 +3,7 @@ import React, {useContext, useMemo, useState} from 'react';
 import Slider from '@mui/material/Slider';
 import {Button} from "react-bootstrap";
 import {useLocation} from "react-router";
-import {ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
+import {ROUTE__PAYMENT_MATRIX_LAB__TEACHER, ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
 import Matrix from "../Matrix";
 import styles from './styles.css'
@@ -18,6 +18,7 @@ const ChangeRange = ({onClose, onSave, range}) => {
     const {labs} = useContext(Context);
     const location = useLocation();
     const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
+    const isPaymentMatrix = location.pathname.includes(ROUTE__PAYMENT_MATRIX_LAB__TEACHER);
 
     const minValue = range.minValue;
     const maxValue = range.maxValue;
@@ -58,7 +59,7 @@ const ChangeRange = ({onClose, onSave, range}) => {
     return (
         <div className={'change-range-wrapper'}>
             <Text className={'range-header'}
-                  text={isVector ? 'Изменить критерий оценки лабораторной работы \n"Задачи векторной оптимизации"' : 'Изменить критерий оценки лабораторной работы \n"Матричные игры"'}/>
+                  text={isVector ? 'Изменить критерий оценки лабораторной работы \n"Задачи векторной оптимизации"' : isPaymentMatrix ? 'Изменить критерий оценки теста "Платежные матрицы"' : 'Изменить критерий оценки лабораторной работы \n"Матричные игры"'}/>
             <div className={'change-range-column'}>
                 <Matrix
                     style={{}}
@@ -92,7 +93,7 @@ const ChangeRange = ({onClose, onSave, range}) => {
                     ]}/>
 
                 <Slider
-                    min={minValue}
+                    min={minValue + 1}
                     max={maxValue}
                     step={1}
                     valueLabelDisplay="on"

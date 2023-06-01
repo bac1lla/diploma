@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {uniqueId} from "lodash";
 
 
 const rows = [];
@@ -26,7 +27,7 @@ export default function BasicTable({head, data}) {
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={uniqueId}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell component="th" scope="row">

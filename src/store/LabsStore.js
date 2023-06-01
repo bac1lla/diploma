@@ -56,7 +56,10 @@ class LabsStore {
     }
 
     postResultsToBd({name, group, lab}) {
-        const labName = lab.includes('matrix') ? 'matrix' : 'vector';
+        let labName = lab
+        if (!lab) {
+            labName = 'matrix'
+        }
 
         postResult({
             date: dayjs().format('DD.MM.YYYY'),

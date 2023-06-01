@@ -1,3 +1,4 @@
+import {uniqueId} from "lodash";
 import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,14 +15,14 @@ const Matrix = ({matrix, children, className, style, prefix, head, firstColumn, 
                 <Table aria-label="simple table" size={size} aria-label={ariaLabel}>
                     {head}
                     <TableBody>
-                        {matrix.map((row, i) => (
+                        {matrix?.map((row, i) => (
                             <TableRow
-                                key={`row-${i}`}
+                                key={uniqueId}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 {firstColumn?.[i]}
-                                {row.map((cell, i) => (<TableCell align="center" key={`cell-${i}`}
-                                                                  className={cellClassName || ''}>{cell}</TableCell>))}
+                                {row?.map((cell, i) => (<TableCell align="center" key={uniqueId}
+                                                                   className={cellClassName || ''}>{cell}</TableCell>))}
                             </TableRow>
                         ))}
                     </TableBody>

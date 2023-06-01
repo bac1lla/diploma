@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useLocation} from "react-router";
-import {ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
+import {ROUTE__PAYMENT_MATRIX_LAB__TEACHER, ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
 import {getBDRange} from "../../../services/ApiService";
 import Matrix from "../../common/Matrix";
@@ -14,6 +14,7 @@ import './styles.css'
 const Results = ({tasksNames}) => {
     const {labs, user} = useContext(Context);
     const location = useLocation();
+    const isPaymentMatrix = location.pathname.includes('test');
     const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
     const [range, setRange] = useState({})
 
@@ -34,7 +35,7 @@ const Results = ({tasksNames}) => {
     const [grade, setGrade] = useState(modifyResult(labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)));
 
     const getRange = () => {
-        const labName = isVector ? 'vector' : 'matrix';
+        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
         getBDRange(labName)
             .then(range => {
                 setRange(range)
@@ -79,14 +80,15 @@ const Results = ({tasksNames}) => {
                             </TableRow>
                         </TableHead>}
                     // firstColumn={tasksNames}
-                        prefix={<h1>Результаты</h1>}>
+                        prefix={<h2 style={{marginBottom: 10}}>Результаты</h2>}>
                 </Matrix>
-                <div>
+                <div style={{marginTop: 20}}>
                     <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
                     <h2>Оценка: {grade}</h2>
                 </div>
             </div>
             <Matrix
+                className={'results-range-table'}
                 style={{alignSelf: 'center'}}
                 size={'small'} ariaLabel={"a dense table"}
                 matrix={[

@@ -4,6 +4,7 @@
     padding: 10px 16px;
     height: 64px;
     width: 100%;
+    padding: 0 5% 0px;
     flex-shrink: 0;
     background-color: var(--main-background-color);
     box-shadow: var(--main-box-shadow);

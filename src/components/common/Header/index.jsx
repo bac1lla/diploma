@@ -3,16 +3,22 @@ import React, {useCallback, useContext} from 'react';
 import {Button} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router";
 import Select from "react-select";
-import {ROUTE__MATRIX_LAB__TEACHER, ROUTE__SELECT_LAB, ROUTE__TEACHER_PROFILE} from "../../../constants/routes";
+import {
+    ROUTE__MATRIX_LAB__TEACHER, ROUTE__MATRIX_LABS, ROUTE__MATRIX_TEST,
+    ROUTE__SELECT_LAB,
+    ROUTE__TEACHER_PROFILE,
+    ROUTE__VECTOR_LAB
+} from "../../../constants/routes";
 import {Context} from "../../../index";
 import styles from './styles.css'
 import classNames from "classnames/bind";
 import Logo from "../Logo";
 import Text from "../Text";
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 
 const cx = classNames.bind(styles)
 
-const Header = ({setModal}) => {
+const Header = ({setModal, setVector, setMatrix, setPayment}) => {
     const {user, labs} = useContext(Context)
     const navigate = useNavigate();
     const location = useLocation();
@@ -42,6 +48,22 @@ const Header = ({setModal}) => {
         }
     }
 
+    const openTheory = () => {
+        const exactLocation = location.pathname.includes('vector') ? ROUTE__VECTOR_LAB : location.pathname.includes('test') ? ROUTE__MATRIX_TEST : ROUTE__MATRIX_LABS
+
+        if (exactLocation === ROUTE__VECTOR_LAB) {
+            setVector(true)
+        }
+
+        if (exactLocation === ROUTE__MATRIX_TEST) {
+            setPayment(true)
+        }
+
+        if (exactLocation === ROUTE__MATRIX_LABS) {
+            setMatrix(true)
+        }
+    }
+
     const logout = () => {
         navigate('/')
         user.logout()
@@ -67,6 +89,7 @@ const Header = ({setModal}) => {
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>
                 {isMatrix && <Button onClick={handleSetMatrixModalOpen}>Посмотреть задание</Button>}
+                <HelpCenterIcon onClick={openTheory}/>
                 <div className={cx('vertical-divide')}/>
                 <Select onChange={handleCLick} options={options} value={options[0]} className={cx('header-select')}/>
                 <Text text={user.getUser()?.group} className={cx("person-group")}/>

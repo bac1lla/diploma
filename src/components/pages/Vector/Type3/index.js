@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import classNames from "classnames/bind";
+import {uniqueId} from "lodash";
 import {delay} from "lodash/function";
 import {isEmpty, isEqual} from "lodash/lang";
 import {observer} from "mobx-react-lite";
@@ -231,12 +232,12 @@ const Type3 = ({next}) => {
         const {name, group} = user.getUser();
         labs.postResultsToBd({name, group, lab: 'vector'})
     }
+
     const postAnswers = async () => {
-        await labs.addResult(5, tries > 0 ? tries : 0)
+        await labs.addResult(3, tries > 0 ? tries : 0)
         navigate('/vectors-optimizations/results');
         next();
-        delay(postResultsToBD);
-
+        postResultsToBD();
     }
 
     const handleCheck = () => {
@@ -347,10 +348,10 @@ const Type3 = ({next}) => {
                     <TableBody>
                         {data.map((row, i) => (
                             <TableRow
-                                key={`row-${i}`}
+                                key={uniqueId()}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                {row.map((cell, i) => (<TableCell align="center" key={`cell-${i}`}>{cell}</TableCell>))}
+                                {row.map((cell, i) => (<TableCell align="center" key={uniqueId()}>{cell}</TableCell>))}
                             </TableRow>
                         ))}
                     </TableBody>

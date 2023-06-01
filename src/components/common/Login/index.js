@@ -73,7 +73,7 @@ const Login = () => {
     return (
         <div className={cx('login-wrapper')}>
             <div className={cx('login-text-group')}>
-                <Text text={'<ДИЦИПЛИНА>'} className={cx('login-header-text')}/>
+                <Text text={'ИССЛЕДОВАНИЕ ОПЕРАЦИЙ'} className={cx('login-header-text')}/>
                 <Text text={'Лабораторная работа'} className={cx('login-header-text')}/>
             </div>
             <div className={cx('login-main-group')}>

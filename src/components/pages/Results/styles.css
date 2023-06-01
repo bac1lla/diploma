@@ -3,7 +3,7 @@
     width: 100%;
     overflow: auto;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .results-table-student-cell {

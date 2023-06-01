@@ -18,3 +18,7 @@
     flex-direction: column;
     justify-content: flex-start;
 }
+
+.results-range-table {
+    padding: 10px;
+}

@@ -9,13 +9,13 @@ import styles from './styles.css'
 
 const cx = classNames.bind(styles)
 
-const MainLayout = ({setModal}) => {
+const MainLayout = ({setModal, setVector, setMatrix, setPayment}) => {
     const {labs} = useContext(Context)
 
 
     return (
         <div className={cx('main-layout')}>
-            <Header setModal={setModal}/>
+            <Header setModal={setModal} setVector={setVector} setMatrix={setMatrix} setPayment={setPayment}/>
             <div className={cx('content')}>
                 <Outlet/>
             </div>

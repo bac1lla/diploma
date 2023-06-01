@@ -69,8 +69,8 @@ const Type2_1 = ({next}) => {
     const [s8Error, setS8Error] = useState(false);
 
     const handlePostResults = useCallback(() => {
-        labs.addResult(3, tries > 0 ? tries : 0)
-        navigate('/vectors-optimizations/4');
+        labs.addResult(1, tries > 0 ? tries : 0)
+        navigate('/vectors-optimizations/2');
         next();
     }, [tries])
 
@@ -370,7 +370,7 @@ const Type2_1 = ({next}) => {
         }}>
             <div className={cx('vector-description-matrix')}>
 
-                <p>{description}</p>
+                <p className={'task-text-description-vector'}>{description}</p>
                 <Matrix matrix={task.task} style={{alignSelf: "flex-start"}}
                         head={
                             <TableHead>

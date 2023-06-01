@@ -8,11 +8,16 @@ import {
     ROUTE__LOGIN,
     ROUTE__REGISTRATION,
     ROUTE__SELECT_LAB,
-    ROUTE__MATRIX_LAB, ROUTE__VECTOR_LABS, ROUTE__MATRIX_LABS, ROUTE__TEACHER_PROFILE
+    ROUTE__MATRIX_LAB,
+    ROUTE__VECTOR_LABS,
+    ROUTE__MATRIX_LABS,
+    ROUTE__TEACHER_PROFILE,
+    ROUTE__MATRIX_TEST
 } from "../../../constants/routes";
 import {Context} from "../../../index";
 import MainLayout from "../../layouts/MainLayout";
-import Matrix from "../../pages/Matrix";
+import Matrix from "../../common/Matrix";
+import MatrixPage from "../../pages/Matrix";
 import Type1Matrix from "../../pages/Matrix/Type1Matrix";
 import Type2Matrix from "../../pages/Matrix/Type2Matrix";
 import Type3Matrix from "../../pages/Matrix/Type3Matrix";
@@ -21,24 +26,33 @@ import Type5Matrix from "../../pages/Matrix/Type5Matrix";
 import Type6Matrix from "../../pages/Matrix/Type6Matrix";
 import Type7Matrix from "../../pages/Matrix/Type7Matrix";
 import Type8Matrix from "../../pages/Matrix/Type8Matrix";
+import PayMatrix from "../../pages/PayMatrix";
+import PaymentMatrix from "../../pages/PayMatrix/PaymentMatrix";
 import Results from "../../pages/Results";
 import SelectLab from "../../pages/SelectLab";
 import TeacherProfile from "../../pages/TeacherProfile";
 import Vector from "../../pages/Vector";
-import Type1 from "../../pages/Vector/Type1";
 import Type2_1 from "../../pages/Vector/Type2_1";
 import Type2_2 from "../../pages/Vector/Type2_2";
 import Type3 from "../../pages/Vector/Type3";
 import Login from "../Login";
 
 const AppContainer = () => {
-
-    const {user, labs} = useContext(Context)
+    const {user} = useContext(Context)
     const [currentStep, setStep] = useState(0)
     const [openMatrixModal, setOpenMatrixModal] = useState(false)
+    const [openMatrixTheory, setOpenMatrixTheory] = useState(false)
+    const [openVectorTheory, setOpenVectorTheory] = useState(false)
+    const [openPaymentTheory, setOpenPaymentTheory] = useState(false)
 
     const handleCloseModal = useCallback(() => setOpenMatrixModal(false), []);
+    const handleCloseMatrix = useCallback(() => setOpenMatrixTheory(false), []);
+    const handleCloseVector = useCallback(() => setOpenVectorTheory(false), []);
+    const handleClosePayment = useCallback(() => setOpenPaymentTheory(false), []);
     const handleSetModal = useCallback((bool) => setOpenMatrixModal(bool), []);
+    const handleSetMatrixTheory = useCallback((bool) => setOpenMatrixTheory(bool), []);
+    const handleSetVectorTheory = useCallback((bool) => setOpenVectorTheory(bool), []);
+    const handleSetPaymentTheory = useCallback((bool) => setOpenPaymentTheory(bool), []);
 
     const handleNextStep = useCallback(() => {
         setStep(prev => prev + 1)
@@ -46,7 +60,7 @@ const AppContainer = () => {
 
     const handleSetStep = useCallback(step => {
         setStep(step)
-    })
+    }, [])
 
     if (user.isTeacher() && user.isAuth()) {
         return (
@@ -74,21 +88,28 @@ const AppContainer = () => {
 
     return (
         <>
-            <Modal show={openMatrixModal} onHide={handleCloseModal}>
-                <div>
-                    <Matrix data={[[1, 2], [1, 2]]}/>
-                </div>
-            </Modal>
             <BrowserRouter>
+                <Modal show={openMatrixModal} onHide={handleCloseModal} size="xl">
+                    <Matrix matrix={[[1, 2], [1, 2]]} style={{padding: 50}}/>
+                </Modal>
+                <Modal show={openMatrixTheory} onHide={handleCloseMatrix} size="xl">
+                    МАТРИЧНЫЕ ИГРЫ тЕОРИЯ
+                </Modal>
+                <Modal show={openVectorTheory} onHide={handleCloseVector} size="xl">
+                    ВЕКТОРНАЯ ОПТИМИЗАЦИЯ ТЕОРИЯ
+                </Modal>
+                <Modal show={openPaymentTheory} onHide={handleClosePayment} size="xl">
+                    ПЛАТЕЖНЫЕ МаТРИЦЫ ТЕОРИЯ
+                </Modal>
                 <Routes>
-                    <Route element={<MainLayout setModal={handleSetModal}/>}>
+                    <Route element={<MainLayout setModal={handleSetModal} setVector={handleSetVectorTheory}
+                                                setMatrix={handleSetMatrixTheory}
+                                                setPayment={handleSetPaymentTheory}/>}>
                         <Route path={ROUTE__VECTOR_LABS}
                                element={<Vector step={currentStep} nextStep={handleNextStep} setStep={handleSetStep}/>}>
-                            <Route path={ROUTE__VECTOR_LABS + '/1'} element={<Type1 next={handleNextStep}/>}/>
-                            <Route path={ROUTE__VECTOR_LABS + '/2'} element={<Type1 next={handleNextStep}/>}/>
-                            <Route path={ROUTE__VECTOR_LABS + '/3'} element={<Type2_1 next={handleNextStep}/>}/>
-                            <Route path={ROUTE__VECTOR_LABS + '/4'} element={<Type2_2 next={handleNextStep}/>}/>
-                            <Route path={ROUTE__VECTOR_LABS + '/5'} element={<Type3 next={handleNextStep}/>}/>
+                            <Route path={ROUTE__VECTOR_LABS + '/1'} element={<Type2_1 next={handleNextStep}/>}/>
+                            <Route path={ROUTE__VECTOR_LABS + '/2'} element={<Type2_2 next={handleNextStep}/>}/>
+                            <Route path={ROUTE__VECTOR_LABS + '/3'} element={<Type3 next={handleNextStep}/>}/>
                             <Route
                                 path={ROUTE__VECTOR_LABS + '/results'}
                                 element={<Results
@@ -96,8 +117,41 @@ const AppContainer = () => {
                                 />}
                             />
                         </Route>
+                        <Route path={ROUTE__MATRIX_TEST}
+                               element={<PayMatrix step={currentStep} nextStep={handleNextStep}
+                                                   setStep={handleSetStep}/>}>
+                            <Route path={ROUTE__MATRIX_TEST + '/1'}
+                                   element={<PaymentMatrix step={currentStep} goTo={2} columns={3} rows={3}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/2'}
+                                   element={<PaymentMatrix step={currentStep} goTo={3} columns={4} rows={3}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/3'}
+                                   element={<PaymentMatrix step={currentStep} goTo={4} columns={5} rows={4}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/4'}
+                                   element={<PaymentMatrix step={currentStep} goTo={5} columns={5} rows={4}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/5'}
+                                   element={<PaymentMatrix step={currentStep} goTo={6} columns={6} rows={5}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/6'}
+                                   element={<PaymentMatrix step={currentStep} goTo={7} columns={6} rows={5}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/7'}
+                                   element={<PaymentMatrix step={currentStep} goTo={8} columns={6} rows={6}
+                                                           next={handleNextStep}/>}/>
+                            <Route path={ROUTE__MATRIX_TEST + '/8'}
+                                   element={<PaymentMatrix step={currentStep} goTo={'results'} columns={8} rows={8}
+                                                           needToPost={true} next={handleNextStep}/>}/>
+                            <Route
+                                path={ROUTE__MATRIX_TEST + '/results'}
+                                element={<Results/>}
+                            />
+                        </Route>
                         <Route path={ROUTE__MATRIX_LAB}
-                               element={<Matrix step={currentStep} nextStep={handleNextStep} setStep={handleSetStep}/>}>
+                               element={<MatrixPage step={currentStep} nextStep={handleNextStep}
+                                                    setStep={handleSetStep}/>}>
                             <Route path={ROUTE__MATRIX_LABS + '/1'} element={<Type1Matrix next={handleNextStep}/>}/>
                             <Route path={ROUTE__MATRIX_LABS + '/2'} element={<Type2Matrix next={handleNextStep}/>}/>
                             <Route path={ROUTE__MATRIX_LABS + '/3'} element={<Type3Matrix next={handleNextStep}/>}/>

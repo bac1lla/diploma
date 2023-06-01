@@ -70,8 +70,8 @@ const Type2_2 = ({next}) => {
     const [s8Error, setS8Error] = useState(false);
 
     const handlePostResults = useCallback(() => {
-        labs.addResult(4, tries > 0 ? tries : 0)
-        navigate('/vectors-optimizations/5');
+        labs.addResult(2, tries > 0 ? tries : 0)
+        navigate('/vectors-optimizations/3');
         next();
     }, [tries])
 

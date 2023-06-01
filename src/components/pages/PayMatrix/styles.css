@@ -1,0 +1,18 @@
+.payment-matrix-eplanation-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-direction: column;
+}
+
+.payment-matrix-eplanation-input {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.paymaten-matrix-task {
+    display: flex;
+    height: 100%;
+}

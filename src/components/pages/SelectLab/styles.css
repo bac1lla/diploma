@@ -5,9 +5,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .lab-select {
     min-width: 500px;
     /*height: 80px !important;*/
+}
+
+.lab-select-item {
+    background-color: white;
+    width: 40%;
+    box-shadow: var(--main-box-shadow);
+    padding: 20px 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lab-select-item:hover {
+    background-color: rgba(234, 234, 234, 0.52);
+}
+
+.lab-select-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
 }
