@@ -29,6 +29,9 @@ const Type1Matrix = ({next}) => {
     const [p1Error, setP1Error] = useState(false);
     const [p2Error, setP2Error] = useState(false);
 
+    // переменная прогреса считатай что -просто числа 0 1 2 3 4
+    const [progress, setProgress] = useState(0)
+
     const handleSetP1 = useCallback(e => {
         setP1(e.target.value);
     }, []);
@@ -50,6 +53,7 @@ const Type1Matrix = ({next}) => {
     const checkTaskOne = () => {
         if (tries < 1) {
             showAnswersPart1()
+            setProgress(prev => prev + 1)
             document.getElementById("check1").hidden = true;
             document.getElementById("task_2").hidden = false;
         }
@@ -73,7 +77,8 @@ const Type1Matrix = ({next}) => {
         }
 
         if (!error) {
-            showAnswersPart1()
+            showAnswersPart1();
+            setProgress(prev => prev + 1)
             document.getElementById("task1part1input1").readOnly = true;
             document.getElementById("task1part1input2").readOnly = true;
             document.getElementById("check1").hidden = true;
@@ -194,6 +199,8 @@ const Type1Matrix = ({next}) => {
         if (tries < 1) {
             setSuccess(true);
             showAnswers()
+            // прибавляем прогресс
+            setProgress(prev => prev + 1);
         }
         let error = false
 
@@ -327,6 +334,7 @@ const Type1Matrix = ({next}) => {
         }
 
         if (!error) {
+            setProgress(prev => prev + 1)
             setSuccess(true);
             return;
         }
@@ -368,22 +376,38 @@ const Type1Matrix = ({next}) => {
             <div>2</div>
             <div>2</div>
         </>,],
-        ['1', <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
-            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>,
-            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13} style={{width: 50}}/>,
-            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14} style={{width: 50}}/>,
-            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15} style={{width: 50}}/>,
-            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16} style={{width: 50}}/>,
-            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17} style={{width: 50}}/>,
-            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18} style={{width: 50}}/>],
-        ['2', <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
-            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>,
-            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23} style={{width: 50}}/>,
-            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24} style={{width: 50}}/>,
-            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25} style={{width: 50}}/>,
-            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26} style={{width: 50}}/>,
-            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27} style={{width: 50}}/>,
-            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28} style={{width: 50}}/>]
+        ['1', <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11}
+                     style={{width: 50}}/>,
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12}
+                   style={{width: 50}}/>,
+            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13}
+                   style={{width: 50}}/>,
+            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14}
+                   style={{width: 50}}/>,
+            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15}
+                   style={{width: 50}}/>,
+            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16}
+                   style={{width: 50}}/>,
+            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17}
+                   style={{width: 50}}/>,
+            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18}
+                   style={{width: 50}}/>],
+        ['2', <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21}
+                     style={{width: 50}}/>,
+            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22}
+                   style={{width: 50}}/>,
+            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23}
+                   style={{width: 50}}/>,
+            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24}
+                   style={{width: 50}}/>,
+            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25}
+                   style={{width: 50}}/>,
+            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26}
+                   style={{width: 50}}/>,
+            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27}
+                   style={{width: 50}}/>,
+            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28}
+                   style={{width: 50}}/>]
     ]
 
     return (
@@ -400,12 +424,16 @@ const Type1Matrix = ({next}) => {
             // FIXME: изменять цвет текста при переходе к некст пункту
 
             <p>{description}</p>
-            <p>{descriptionTaskOne}</p>
-            <p color="grey">{descriptionTaskTwo}</p>
+            <p
+                className={cx({grayText: progress > 0})}
+            >{descriptionTaskOne}</p>
+            <p color="grey" className={cx({grayText: progress >= 2})}>{descriptionTaskTwo}</p>
             <label>число строк</label>
-            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1} onChange={handleSetP1}/>
+            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
+                   onChange={handleSetP1}/>
             <label>число столбцов</label>
-            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2} onChange={handleSetP2}/>
+            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2}
+                   onChange={handleSetP2}/>
 
             <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
                     onClick={checkTaskOne}>Проверить</Button>
