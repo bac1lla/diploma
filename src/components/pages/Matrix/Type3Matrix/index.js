@@ -339,34 +339,50 @@ const Type3Matrix = ({next}) => {
             <div>2</div>
         </>],
         ['1  1  1',
-            <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
-            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>],
+            <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11}
+                   style={{width: 50}}/>,
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12}
+                   style={{width: 50}}/>],
         ['1  1  2',
-            <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
-            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>],
+            <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21}
+                   style={{width: 50}}/>,
+            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22}
+                   style={{width: 50}}/>],
         ['1  2  1',
-            <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31} style={{width: 50}}/>,
-            <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32} style={{width: 50}}/>],
+            <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31}
+                   style={{width: 50}}/>,
+            <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32}
+                   style={{width: 50}}/>],
         ['1  2  2',
-            <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41} style={{width: 50}}/>,
-            <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42} style={{width: 50}}/>],
+            <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41}
+                   style={{width: 50}}/>,
+            <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42}
+                   style={{width: 50}}/>],
         ['2  1  1',
-            <input className={cx('input51', {error: m51Error})} value={m51} onChange={handleSetM51} style={{width: 50}}/>,
-            <input className={cx('input52', {error: m52Error})} value={m52} onChange={handleSetM52} style={{width: 50}}/>],
+            <input className={cx('input51', {error: m51Error})} value={m51} onChange={handleSetM51}
+                   style={{width: 50}}/>,
+            <input className={cx('input52', {error: m52Error})} value={m52} onChange={handleSetM52}
+                   style={{width: 50}}/>],
         ['2  1  2',
-            <input className={cx('input61', {error: m61Error})} value={m61} onChange={handleSetM61} style={{width: 50}}/>,
-            <input className={cx('input62', {error: m62Error})} value={m62} onChange={handleSetM62} style={{width: 50}}/>],
+            <input className={cx('input61', {error: m61Error})} value={m61} onChange={handleSetM61}
+                   style={{width: 50}}/>,
+            <input className={cx('input62', {error: m62Error})} value={m62} onChange={handleSetM62}
+                   style={{width: 50}}/>],
         ['2  2  1',
-            <input className={cx('input71', {error: m71Error})} value={m71} onChange={handleSetM71} style={{width: 50}}/>,
-            <input className={cx('input72', {error: m72Error})} value={m72} onChange={handleSetM72} style={{width: 50}}/>],
+            <input className={cx('input71', {error: m71Error})} value={m71} onChange={handleSetM71}
+                   style={{width: 50}}/>,
+            <input className={cx('input72', {error: m72Error})} value={m72} onChange={handleSetM72}
+                   style={{width: 50}}/>],
         ['2  2  2',
-            <input className={cx('input81', {error: m81Error})} value={m81} onChange={handleSetM81} style={{width: 50}}/>,
-            <input className={cx('input82', {error: m82Error})} value={m82} onChange={handleSetM82} style={{width: 50}}/>]
+            <input className={cx('input81', {error: m81Error})} value={m81} onChange={handleSetM81}
+                   style={{width: 50}}/>,
+            <input className={cx('input82', {error: m82Error})} value={m82} onChange={handleSetM82}
+                   style={{width: 50}}/>]
     ]
 
     return (
         <div style={{
-            width: '75%',
+            width: '100%',
             height: '100%',
             // display: 'flex',
             alignItems: "center",
@@ -382,9 +398,11 @@ const Type3Matrix = ({next}) => {
             <p color="grey">{descriptionTaskTwo}</p>
 
             <label>число строк</label>
-            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1} onChange={handleSetP1}/>
+            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
+                   onChange={handleSetP1}/>
             <label>число столбцов</label>
-            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2} onChange={handleSetP2}/>
+            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2}
+                   onChange={handleSetP2}/>
 
             <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
                     onClick={checkTaskOne}>Проверить</Button>

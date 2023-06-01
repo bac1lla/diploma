@@ -8,8 +8,10 @@
 
 .payment-matrix-eplanation-input {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 50px;
+    min-width: 800px;
+    justify-content: space-between;
 }
 
 .paymaten-matrix-task {

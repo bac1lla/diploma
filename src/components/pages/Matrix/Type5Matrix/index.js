@@ -335,29 +335,41 @@ const Type5Matrix = ({next}) => {
             <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>, 'β'],
+            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1}
+                   style={{width: 50}}/>, 'β'],
         ['α2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>,
             <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <input id={'beta2'}  className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>,
-            <input id={'beta'}  className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>],
-        ['', <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>,
-            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2} onChange={handleSetAlpha2} style={{width: 50}}/>,
-            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3} onChange={handleSetAlpha3} style={{width: 50}}/>,
-            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4} onChange={handleSetAlpha4} style={{width: 50}}/>,
-            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5} onChange={handleSetAlpha5} style={{width: 50}}/>,
-            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6} onChange={handleSetAlpha6} style={{width: 50}}/>,
-            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7} onChange={handleSetAlpha7} style={{width: 50}}/>,
-            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8} onChange={handleSetAlpha8} style={{width: 50}}/>],
+            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2}
+                   style={{width: 50}}/>,
+            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta}
+                   style={{width: 50}}/>],
+        ['', <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1}
+                    onChange={handleSetAlpha1} style={{width: 50}}/>,
+            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2}
+                   onChange={handleSetAlpha2} style={{width: 50}}/>,
+            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3}
+                   onChange={handleSetAlpha3} style={{width: 50}}/>,
+            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4}
+                   onChange={handleSetAlpha4} style={{width: 50}}/>,
+            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5}
+                   onChange={handleSetAlpha5} style={{width: 50}}/>,
+            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6}
+                   onChange={handleSetAlpha6} style={{width: 50}}/>,
+            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7}
+                   onChange={handleSetAlpha7} style={{width: 50}}/>,
+            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8}
+                   onChange={handleSetAlpha8} style={{width: 50}}/>],
         ['', '', '', '', 'α',
-            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha} style={{width: 50}}/>]
+            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha}
+                   style={{width: 50}}/>]
     ]
 
     return (
         <div style={{
-            width: '75%',
+            width: '100%',
             height: '100%',
             // display: 'flex',
             alignItems: "center",
@@ -391,13 +403,21 @@ const Type5Matrix = ({next}) => {
                 <div id={'task2'} hidden={true} style={{marginLeft: "60px", marginTop: "45px"}}>
                     <Matrix matrix={[
                         [<label htmlFor="task2part1">Нижняя цена игры</label>,
-                            <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1} onChange={handleSetV1} type="text" style={{width: 50}}/>],
+                            <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1} onChange={handleSetV1}
+                                   type="text" style={{width: 50}}/>],
                         [<label htmlFor="task2part2">Верхняя цена игры</label>,
-                            <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2} onChange={handleSetV2} type="text" style={{width: 50}}/>],
+                            <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2} onChange={handleSetV2}
+                                   type="text" style={{width: 50}}/>],
                         [<label htmlFor="task2part2">Гарантированный выигрыш</label>,
-                            <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3} type="text" style={{width: 50}}/>],
-                        [<p>Решение в чистых стратегиях:</p>, <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3" id={'task2part31'}/><label htmlFor="task2part31">существует</label></div>],
-                        ['', <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3" id={'task2part32'}/><label htmlFor="task2part31">не существует</label></div>]
+                            <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3}
+                                   type="text" style={{width: 50}}/>],
+                        [<p>Решение в чистых стратегиях:</p>,
+                            <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
+                                                                          id={'task2part31'}/><label
+                                htmlFor="task2part31">существует</label></div>],
+                        ['', <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
+                                                                           id={'task2part32'}/><label
+                            htmlFor="task2part31">не существует</label></div>]
                     ]}/>
 
                     {

@@ -16,7 +16,7 @@ const Results = ({tasksNames}) => {
     const location = useLocation();
     const isPaymentMatrix = location.pathname.includes('test');
     const isVector = location.pathname.includes(ROUTE__VECTOR_LAB__TEACHER)
-    const [range, setRange] = useState({})
+    const [range, setRange] = useState({minValue: 0, maxValue: 0, minRange3: 1, minRange4: 1, minRange5: 1})
 
     const modifyResult = useCallback((points) => {
         if (+points >= +range.minRange5) {
@@ -54,18 +54,21 @@ const Results = ({tasksNames}) => {
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: "center",
-            justifyContent: 'space-between',
+            alignItems: "flex-start",
+            justifyContent: 'center',
+            flexDirection: 'column',
             padding: '0 5% 5% 5%',
             overflow: 'auto',
             margin: 'auto',
         }}>
+            <h2 style={{marginBottom: 10}}>Результаты</h2>
             <div style={{
                 display: "flex",
-                alignItems: "flex-start",
+                // alignItems: "center",
                 justifyContent: "space-between",
-                flexDirection: 'column',
+                // flexDirection: 'column',
                 height: "100%",
+                gap: 50,
             }}>
                 <Matrix className={'results-table-student'}
                         style={{width: '100%'}}
@@ -80,44 +83,55 @@ const Results = ({tasksNames}) => {
                             </TableRow>
                         </TableHead>}
                     // firstColumn={tasksNames}
-                        prefix={<h2 style={{marginBottom: 10}}>Результаты</h2>}>
+                >
                 </Matrix>
-                <div style={{marginTop: 20}}>
-                    <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
-                    <h2>Оценка: {grade}</h2>
+                <div style={{
+                    display: 'flex',
+                    alignItems: "center",
+                    // justifyContent: 'center',
+                    flexDirection: 'column',
+                }}>
+                    <Matrix
+                        className={'results-range-page-table'}
+                        style={{}}
+                        size={'small'} ariaLabel={"a dense table"}
+                        matrix={[
+                            [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
+                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                    text={+range.minRange5}
+                                    className={'change-range-field'}/>
+                                    <Text text={"-"} className={'change-range-sep'}/>
+                                    <Text text={+range.maxValue} className={'change-range-field'}/></div>],
+                            [
+                                <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
+                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                    text={+range.minRange4}
+                                    className={'change-range-field'}/>
+                                    <Text text={"-"} className={'change-range-sep'}/>
+                                    <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
+                                </div>],
+                            [
+                                <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
+                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                    text={+range.minRange3}
+                                    className={'change-range-field'}/>
+                                    <Text text={"-"} className={'change-range-sep'}/>
+                                    <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
+                                </div>], [
+                                <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
+                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                    text={+range.minValue}
+                                    className={'change-range-field'}/>
+                                    <Text text={"-"} className={'change-range-sep'}/>
+                                    <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
+                                </div>]
+                        ]}/>
+                    <div style={{marginTop: 20}}>
+                        <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
+                        <h2>Оценка: {grade}</h2>
+                    </div>
                 </div>
             </div>
-            <Matrix
-                className={'results-range-table'}
-                style={{alignSelf: 'center'}}
-                size={'small'} ariaLabel={"a dense table"}
-                matrix={[
-                    [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
-                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange5}
-                                                                                            className={'change-range-field'}/>
-                            <Text text={"-"} className={'change-range-sep'}/>
-                            <Text text={+range.maxValue} className={'change-range-field'}/></div>],
-                    [
-                        <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
-                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange4}
-                                                                                            className={'change-range-field'}/>
-                            <Text text={"-"} className={'change-range-sep'}/>
-                            <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
-                        </div>],
-                    [
-                        <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
-                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minRange3}
-                                                                                            className={'change-range-field'}/>
-                            <Text text={"-"} className={'change-range-sep'}/>
-                            <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
-                        </div>], [
-                        <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
-                        <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text text={+range.minValue}
-                                                                                            className={'change-range-field'}/>
-                            <Text text={"-"} className={'change-range-sep'}/>
-                            <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
-                        </div>]
-                ]}/>
         </div>
     );
 };

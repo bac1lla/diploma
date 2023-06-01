@@ -18,10 +18,18 @@ const Matrix = ({step, nextStep, setStep}) => {
     const {labs} = useContext(Context);
 
     return (
-        <>
+        <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: "flex-start",
+            flexDirection: "column",
+            justifyContent: 'space-between',
+            padding: '0 5%',
+        }}>
             <Outlet/>
             <Stepper steps={[1234, 1234, 1234, 34, 123, 23, 23, 23]} next={nextStep} current={step} setStep={setStep}/>
-        </>
+        </div>
     );
 };
 

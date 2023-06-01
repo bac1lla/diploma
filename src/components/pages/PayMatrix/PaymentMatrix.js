@@ -149,31 +149,36 @@ const PaymentMatrix = ({rows, columns, goTo, step, next, needToPost}) => {
                     <Matrix style={{height: '100%'}} className={'paymaten-matrix-task'} matrix={task.matrix}
                             size={'small'}
                             ariaLabel={"a dense table"}/>
+                    <div>
 
-                    <Matrix style={{height: '100%'}} className={'paymaten-matrix-task'}
-                            matrix={[['Нижняя цена игры', 'Верхняя цена игры'], [<input type="number"
-                                                                                        value={minMaxInput}
-                                                                                        className={cx('input-value-vector-3', {error: minMaxError})}
-                                                                                        onChange={e => setMinMaxInput(e.target.value)}/>,
-                                <input type="number" value={maxMinInput}
-                                       className={cx('input-value-vector-3', {error: maxMinError})}
-                                       onChange={e => setMaxMinInput(e.target.value)}/>]]}/>
+                        <Matrix style={{display: 'flex', alignItems: 'center'}} className={'paymaten-matrix-task'}
+                                matrix={[['Нижняя цена игры', 'Верхняя цена игры'], [<input type="number"
+                                                                                            value={minMaxInput}
+                                                                                            className={cx('input-value-vector-3', {error: minMaxError})}
+                                                                                            onChange={e => setMinMaxInput(e.target.value)}/>,
+                                    <input type="number" value={maxMinInput}
+                                           className={cx('input-value-vector-3', {error: maxMinError})}
+                                           onChange={e => setMaxMinInput(e.target.value)}/>]]}
+                        />
+                        <div style={{
+                            display: 'flex',
+                            alignItems: "center",
+                            justifyContent: 'center',
+                            marginTop: 20
+                        }}>
 
+                            {success ?
+                                <Button variant='primary' style={{}} onClick={handlePostResults}>
+                                    {needToPost ? 'Отправить результаты' : 'Далее'}
+                                </Button> : <Button variant='primary' style={{}}
+                                                    onClick={handleCheck}>
+                                    {tries > 0 ? "Проверить" : "Показать ответы"}
+                                </Button>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-            {
-                success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
-                    {needToPost ? 'Отправить результаты' : 'Далее'}
-                </Button>
-            }
-            {
-                !success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleCheck}>
-                    {tries > 0 ? "Проверить" : "Показать ответы"}
-                </Button>
-            }
         </div>
     );
 };

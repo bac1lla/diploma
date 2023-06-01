@@ -7,7 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Matrix = ({matrix, children, className, style, prefix, head, firstColumn, cellClassName, size, ariaLabel}) => {
+const Matrix = ({
+                    matrix,
+                    children,
+                    className,
+                    style,
+                    prefix,
+                    head,
+                    firstColumn,
+                    cellClassName,
+                    size,
+                    ariaLabel,
+                    postfix
+                }) => {
     return (
         <div style={style || {width: '100%'}}>
             {prefix}
@@ -28,6 +40,7 @@ const Matrix = ({matrix, children, className, style, prefix, head, firstColumn, 
                     </TableBody>
                 </Table>
             </TableContainer>
+            {postfix}
             <div style={{marginTop: 20}}>
                 {children}
             </div>

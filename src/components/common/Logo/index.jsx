@@ -7,7 +7,7 @@ const cx = classNames.bind(styles)
 
 const Logo = ({className, onClick}) => {
     return (
-        <Md3P className={cx('logo', className)} onClick={onClick}/>
+        <Md3P className={cx('logo.svg', className)} onClick={onClick}/>
     );
 };
 

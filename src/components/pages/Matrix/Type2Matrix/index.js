@@ -393,7 +393,7 @@ const Type2Matrix = ({next}) => {
 
     return (
         <div style={{
-            width: '75%',
+            width: '100%',
             height: '100%',
             // display: 'flex',
             alignItems: "center",

@@ -85,7 +85,7 @@ const Type4Matrix = ({next}) => {
 
     return (
         <div style={{
-            width: '75%',
+            width: '100%',
             height: '100%',
             display: 'flex',
             margin: "auto",
@@ -97,67 +97,79 @@ const Type4Matrix = ({next}) => {
             <p style={{alignSelf: "flex-start"}}>Задание 4</p>
             <p style={{alignSelf: "flex-start"}}>{description}</p>
 
-                <p>{descriptionTaskOne}</p>
-                <div id="formula1" style={{display: "flex", alignItems: "center", gap: "20px"}}>
-                    <p><Latex>{formula1Starter}</Latex></p>
+            <p>{descriptionTaskOne}</p>
+            <div id="formula1" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+                <p><Latex>{formula1Starter}</Latex></p>
 
-                    <div id="formula1part1-2">
-                        <Select id={'select1-formula1-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula1-part2'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
-
-                    <div id="formula1part3-4">
-                        <Select id={'select1-formula1-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula1-part4'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
-
-                    <p><Latex>{formulaEnder}</Latex></p>
+                <div id="formula1part1-2">
+                    <Select id={'select1-formula1-part1'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula1-part2'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                 </div>
 
-                <p>{descriptionTaskTwo}</p>
-
-                <div id="formula2" style={{display: "flex", alignItems: "center", gap: "20px"}}>
-                    <p><Latex>{formula2Starter}</Latex></p>
-
-                    <div id="formula2part1-2">
-                        <Select id={'select1-formula2-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula2-part2'} onChange={handleClick}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
-
-                    <div id="formula2part3-4">
-                        <Select id={'select1-formula2-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula2-part4'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
-
-                    <p><Latex>{formulaEnder}</Latex></p>
+                <div id="formula1part3-4">
+                    <Select id={'select1-formula1-part3'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula1-part4'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                 </div>
 
-                <p>{descriptionTaskThree}</p>
+                <p><Latex>{formulaEnder}</Latex></p>
+            </div>
 
-                <div id="formula3" style={{display: "flex", alignItems: "center", gap: "20px"}}>
-                    <p><Latex>{formula3Starter}</Latex></p>
+            <p>{descriptionTaskTwo}</p>
 
-                    <div id="formula3part1-2">
-                        <Select id={'select1-formula3-part1'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula3-part2'} onChange={handleClick} options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
+            <div id="formula2" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+                <p><Latex>{formula2Starter}</Latex></p>
 
-                    <div id="formula3part3-4">
-                        <Select id={'select1-formula3-part3'} onChange={handleClick} options={optionsPart1} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                        <p></p>
-                        <Select id={'select1-formula3-part4'} onChange={handleClick}  options={optionsPart2} className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
-                    </div>
-
-                    <p><Latex>{formulaEnder}</Latex></p>
+                <div id="formula2part1-2">
+                    <Select id={'select1-formula2-part1'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula2-part2'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
                 </div>
 
-                <p>{descriptionMatrix}</p>
-                <Latex>{sampleMatrix}</Latex>
+                <div id="formula2part3-4">
+                    <Select id={'select1-formula2-part3'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula2-part4'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                </div>
+
+                <p><Latex>{formulaEnder}</Latex></p>
+            </div>
+
+            <p>{descriptionTaskThree}</p>
+
+            <div id="formula3" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+                <p><Latex>{formula3Starter}</Latex></p>
+
+                <div id="formula3part1-2">
+                    <Select id={'select1-formula3-part1'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula3-part2'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                </div>
+
+                <div id="formula3part3-4">
+                    <Select id={'select1-formula3-part3'} onChange={handleClick} options={optionsPart1}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                    <p></p>
+                    <Select id={'select1-formula3-part4'} onChange={handleClick} options={optionsPart2}
+                            className={'type4Matrix-select'} placeholder={'Выберите ответ'}/>
+                </div>
+
+                <p><Latex>{formulaEnder}</Latex></p>
+            </div>
+
+            <p>{descriptionMatrix}</p>
+            <Latex>{sampleMatrix}</Latex>
             <p></p>
             {
                 success &&

@@ -15,6 +15,12 @@
 
 }
 
+.logosvg {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+
 .lab-name {
     font-size: var(--font-size-header);
     font-weight: var(--font-weight-header);

@@ -12,7 +12,7 @@ import {
 import {Context} from "../../../index";
 import styles from './styles.css'
 import classNames from "classnames/bind";
-import Logo from "../Logo";
+import Logo from "../logo.svg"
 import Text from "../Text";
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 
@@ -72,7 +72,7 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
     if (user.isTeacher()) {
         return (
             <div className={cx('header')}>
-                <Logo className={cx('logo')} onClick={() => navigate(ROUTE__TEACHER_PROFILE)}/>
+                <Logo className={cx('logosvg')} onClick={() => navigate(ROUTE__TEACHER_PROFILE)}/>
                 <div className={cx('person-group')}>
                     <div className={cx('vertical-divide')}/>
                     <Button onClick={logout}>
@@ -85,7 +85,8 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
 
     return (
         <div className={cx('header')}>
-            <Logo className={cx('logo')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>
+            <img src={Logo} className={cx('logo.svg')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>
+            {/*<Logo className={cx('logo.svg')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>*/}
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>
                 {isMatrix && <Button onClick={handleSetMatrixModalOpen}>Посмотреть задание</Button>}
