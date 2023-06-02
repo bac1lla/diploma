@@ -40,7 +40,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
-const MatrixVariant = generateMatrix(16, 4)
 
 function generateMatrix(rows, cols) {
     // Helper function to generate a random integer between min and max (inclusive)
@@ -62,6 +61,8 @@ function generateMatrix(rows, cols) {
 
     return matrix
 }
+
+const MatrixVariant = generateMatrix(16, 4)
 
 const AppContainer = () => {
     const {user} = useContext(Context)
@@ -117,14 +118,19 @@ const AppContainer = () => {
             <BrowserRouter>
                 <Modal show={openMatrixModal} onHide={handleCloseModal} size="xl">
                     <Matrix matrix={MatrixVariant} style={{padding: 50}}
-                            head = {
+                            head={
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align={'center'} className={'table-head-cell'}>Сочетание номеров стратегий</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 1-го игрока</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 2-го игрока</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 3-го игрока</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 4-го игрока</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>Сочетание номеров
+                                            стратегий</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 1-го
+                                            игрока</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 2-го
+                                            игрока</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 3-го
+                                            игрока</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>Выигрыш 4-го
+                                            игрока</TableCell>
                                     </TableRow>
                                 </TableHead>
                             }
@@ -211,14 +217,22 @@ const AppContainer = () => {
                         <Route path={ROUTE__MATRIX_LAB}
                                element={<MatrixPage step={currentStep} nextStep={handleNextStep}
                                                     setStep={handleSetStep}/>}>
-                            <Route path={ROUTE__MATRIX_LABS + '/1'} element={<Type1Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/2'} element={<Type2Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/3'} element={<Type3Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/4'} element={<Type4Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/5'} element={<Type5Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/6'} element={<Type6Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/7'} element={<Type7Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/8'} element={<Type8Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/1'}
+                                   element={<Type1Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/2'}
+                                   element={<Type2Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/3'}
+                                   element={<Type3Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/4'}
+                                   element={<Type4Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/5'}
+                                   element={<Type5Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/6'}
+                                   element={<Type6Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/7'}
+                                   element={<Type7Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            <Route path={ROUTE__MATRIX_LABS + '/8'}
+                                   element={<Type8Matrix next={handleNextStep} task={MatrixVariant}/>}/>
                             <Route path={ROUTE__MATRIX_LABS + '/results'} element={<Results
                                 tasksNames={['Задание 1', 'Задание 2', 'Задание 3', 'Задание 4', 'Задание 5']}/>}/>
                         </Route>

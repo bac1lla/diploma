@@ -1,6 +1,6 @@
 .error {
     border: 1px solid red !important;
-    background-color: rgba(255, 85, 106, 0.23);
+    background-color: rgba(255, 85, 106, 0.23) !important;
 }
 
 .input-value-vector-3 {

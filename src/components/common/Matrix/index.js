@@ -29,11 +29,11 @@ const Matrix = ({
                     <TableBody>
                         {matrix?.map((row, i) => (
                             <TableRow
-                                key={uniqueId}
+                                key={uniqueId()}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 {firstColumn?.[i]}
-                                {row?.map((cell, i) => (<TableCell align="center" key={uniqueId}
+                                {row?.map((cell, i) => (<TableCell align="center" key={uniqueId()}
                                                                    className={cellClassName || ''}>{cell}</TableCell>))}
                             </TableRow>
                         ))}

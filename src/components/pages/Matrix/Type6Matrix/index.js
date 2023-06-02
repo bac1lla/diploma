@@ -38,7 +38,7 @@ const Type6Matrix = ({next, task}) => {
     for (let i = 0; i < 4; i++) {
         const row = [];
 
-        for (let j= 0; j < 4; j++) {
+        for (let j = 0; j < 4; j++) {
             row.push(task[el][0] + task[el][1]);
             el++;
         }
@@ -275,6 +275,9 @@ const Type6Matrix = ({next, task}) => {
     const [v3Error, setV3Error] = useState(false);
     const [v4Error, setV4Error] = useState(false);
 
+    const [radio1, setRadio1] = useState(false)
+    const [radio2, setRadio2] = useState(false)
+
 
     const handleSetV1 = useCallback(e => {
         setV1(e.target.value);
@@ -350,38 +353,61 @@ const Type6Matrix = ({next, task}) => {
             <label style={{width: 50}}>{matrixVariant[0][1]}</label>,
             <label style={{width: 50}}>{matrixVariant[0][2]}</label>,
             <label style={{width: 50}}>{matrixVariant[0][3]}</label>,
-            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>
+            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1}
+                   style={{width: 50}}/>
         ],
         [<label style={{width: 50}}>{matrixVariant[1][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][1]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][2]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][3]}</label>,
-            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>,
+            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2}
+                   style={{width: 50}}/>,
         ],
         [<label style={{width: 50}}>{matrixVariant[2][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[2][1]}</label>,
             <label style={{width: 50}}>{matrixVariant[2][2]}</label>,
             <label style={{width: 50}}>{matrixVariant[2][3]}</label>,
-            <input id={'beta3'} className={cx('beta3', {error: beta3Error})} value={beta3} onChange={handleSetBeta3} style={{width: 50}}/>,
-            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>
+            <input id={'beta3'} className={cx('beta3', {error: beta3Error})} value={beta3} onChange={handleSetBeta3}
+                   style={{width: 50}}/>,
+            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta}
+                   style={{width: 50}}/>
         ],
         [<label style={{width: 50}}>{matrixVariant[3][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[3][1]}</label>,
             <label style={{width: 50}}>{matrixVariant[3][2]}</label>,
             <label style={{width: 50}}>{matrixVariant[3][3]}</label>,
-            <input id={'beta4'} className={cx('beta4', {error: beta4Error})} value={beta4} onChange={handleSetBeta4} style={{width: 50}}/>
+            <input id={'beta4'} className={cx('beta4', {error: beta4Error})} value={beta4} onChange={handleSetBeta4}
+                   style={{width: 50}}/>
         ],
         [
-            <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>,
-            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2} onChange={handleSetAlpha2} style={{width: 50}}/>,
-            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3} onChange={handleSetAlpha3} style={{width: 50}}/>,
-            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4} onChange={handleSetAlpha4} style={{width: 50}}/>
+            <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1}
+                   onChange={handleSetAlpha1} style={{width: 50}}/>,
+            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2}
+                   onChange={handleSetAlpha2} style={{width: 50}}/>,
+            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3}
+                   onChange={handleSetAlpha3} style={{width: 50}}/>,
+            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4}
+                   onChange={handleSetAlpha4} style={{width: 50}}/>
         ],
         ['', '',
-            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha} style={{width: 50}}/>
+            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha}
+                   style={{width: 50}}/>
         ]
     ]
 
+    const handleClickradio1 = () => {
+        setRadio1(prev => {
+            setRadio2(prev)
+            return !prev
+        })
+    }
+
+    const handleClickRadio2 = () => {
+        setRadio2(prev => {
+            setRadio1(prev)
+            return !prev
+        })
+    }
     return (
         <div style={{
             width: '100%',
@@ -402,6 +428,7 @@ const Type6Matrix = ({next, task}) => {
             <div style={{display: "flex"}}>
                 <div>
                     <Matrix matrix={data}
+                            size={'small'} ariaLabel={"a dense table"}
                             head={
                                 <TableHead>
                                     <TableRow>
@@ -447,12 +474,17 @@ const Type6Matrix = ({next, task}) => {
                             <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3}
                                    type="text" style={{width: 50}}/>],
                         [<p>Решение в чистых стратегиях:</p>,
-                            <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
-                                                                          id={'task2part31'}/><label
-                                htmlFor="task2part31">существует</label></div>],
-                        ['', <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
-                                                                           id={'task2part32'}/><label
-                            htmlFor="task2part31">не существует</label></div>]
+                            <div style={{display: "flex", gap: 5}}>
+                                <label htmlFor="task2part31">
+                                    <input type="radio" name="task2part31" checked={radio1}
+                                           onClick={handleClickradio1} id={'task2part31'} onChange={() => null}/>
+                                    &nbsp;существует
+                                </label></div>],
+                        ['', <div style={{display: "flex", gap: 5}}>
+                            <label htmlFor="task2part32">
+                                <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
+                                       onClick={handleClickRadio2} onChange={() => null}/>&nbsp;не существует</label>
+                        </div>]
                     ]}/>
 
                     {

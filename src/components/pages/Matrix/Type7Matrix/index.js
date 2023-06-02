@@ -36,7 +36,7 @@ const Type7Matrix = ({next, task}) => {
     for (let i = 0; i < 8; i++) {
         const row = [];
 
-        for (let j= 0; j < 2; j++) {
+        for (let j = 0; j < 2; j++) {
             row.push(task[el][0] + task[el][1] + task[el][3]);
             el++;
         }
@@ -372,34 +372,46 @@ const Type7Matrix = ({next, task}) => {
     const data = [
         [<label style={{width: 50}}>{matrixVariant[0][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[0][1]}</label>,
-            <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>],
+            <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1}
+                   onChange={handleSetAlpha1} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[1][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][1]}</label>,
-            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2} onChange={handleSetAlpha2} style={{width: 50}}/>],
+            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2}
+                   onChange={handleSetAlpha2} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[2][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[2][1]}</label>,
-            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3} onChange={handleSetAlpha3} style={{width: 50}}/>],
+            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3}
+                   onChange={handleSetAlpha3} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[3][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[3][1]}</label>,
-            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4} onChange={handleSetAlpha4} style={{width: 50}}/>],
+            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4}
+                   onChange={handleSetAlpha4} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[4][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[4][1]}</label>,
-            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5} onChange={handleSetAlpha5} style={{width: 50}}/>,
-            <input id={'alpha'} className={cx('alpha', {error: alpha1Error})} value={alpha} onChange={handleSetAlpha} style={{width: 50}}/>],
+            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5}
+                   onChange={handleSetAlpha5} style={{width: 50}}/>,
+            <input id={'alpha'} className={cx('alpha', {error: alpha1Error})} value={alpha} onChange={handleSetAlpha}
+                   style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[5][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[5][1]}</label>,
-            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6} onChange={handleSetAlpha6} style={{width: 50}}/>],
+            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6}
+                   onChange={handleSetAlpha6} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[6][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[6][1]}</label>,
-            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7} onChange={handleSetAlpha7} style={{width: 50}}/>],
+            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7}
+                   onChange={handleSetAlpha7} style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[7][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[7][1]}</label>,
-            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8} onChange={handleSetAlpha8} style={{width: 50}}/>],
+            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8}
+                   onChange={handleSetAlpha8} style={{width: 50}}/>],
         [
-            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>,
-            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>],
+            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1}
+                   style={{width: 50}}/>,
+            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2}
+                   style={{width: 50}}/>],
         [
-            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>]
+            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta}
+                   style={{width: 50}}/>]
     ]
 
     return (
@@ -421,7 +433,8 @@ const Type7Matrix = ({next, task}) => {
 
             <div style={{display: "flex", alignItems: "center", marginLeft: "200px"}}>
                 <div style={{display: "flex", alignItems: "center", width: "60%"}}>
-                    <Matrix matrix={data}
+                    <Matrix matrix={data} style={{width: 400}}
+                            size={'small'} ariaLabel={"a dense table"}
                             head={
                                 <TableHead>
                                     <TableRow>
