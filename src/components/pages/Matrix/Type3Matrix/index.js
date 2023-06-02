@@ -8,18 +8,18 @@ import Matrix from "../../../common/Matrix";
 import {isEqual} from "lodash/lang";
 import classNames from "classnames/bind";
 import styles from "./styles.css"
-import {tasks} from './tasks'
-import {randomInteger} from "../../../../helpers";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 const cx = classNames.bind(styles)
 
-const task = tasks[0]
 
 
 const description = "Сформулируйте матрицу коалиционной игры второго уровня 1, 2 и 3 игроков против 4. Для этого:"
 const descriptionTaskOne = "1. Введите число строк (число стратегий коалиции 1, 2 и 3 игроков) и столбцов (число стратегий 4 игрока) матрицы"
 const descriptionTaskTwo = "2. Заполните появившийся шаблон матрицы"
-const Type3Matrix = ({next}) => {
+const Type3Matrix = ({next, task}) => {
     const {labs} = useContext(Context)
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
@@ -43,8 +43,8 @@ const Type3Matrix = ({next}) => {
     }, [tries])
 
     const showAnswersPart1 = () => {
-        setP1("4");
-        setP2("4");
+        setP1("8");
+        setP2("2");
     }
 
     const checkTaskOne = () => {
@@ -55,7 +55,7 @@ const Type3Matrix = ({next}) => {
         }
         let error = false
 
-        if (!isEqual(p1, "4")
+        if (!isEqual(p1, "8")
             // && !isEmpty(newP1)
         ) {
             setP1Error(true)
@@ -63,7 +63,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setP1Error(false)
         }
-        if (!isEqual(p2, "4")
+        if (!isEqual(p2, "2")
             // && !isEmpty(newP2)
         ) {
             setP2Error(true)
@@ -169,22 +169,22 @@ const Type3Matrix = ({next}) => {
     }, []);
 
     const showAnswers = () => {
-        setM11(task?.answers[0]);
-        setM12(task?.answers[1]);
-        setM21(task?.answers[2]);
-        setM22(task?.answers[3]);
-        setM31(task?.answers[4]);
-        setM32(task?.answers[5]);
-        setM41(task?.answers[6]);
-        setM42(task?.answers[7]);
-        setM51(task?.answers[8]);
-        setM52(task?.answers[9]);
-        setM61(task?.answers[10]);
-        setM62(task?.answers[11]);
-        setM71(task?.answers[12]);
-        setM72(task?.answers[13]);
-        setM81(task?.answers[14]);
-        setM82(task?.answers[15]);
+        setM11(task[0][0] + task[0][1] + task[0][2]);
+        setM12(task[1][0] + task[1][1] + task[1][2]);
+        setM21(task[2][0] + task[2][1] + task[2][2]);
+        setM22(task[3][0] + task[3][1] + task[3][2]);
+        setM31(task[4][0] + task[4][1] + task[4][2]);
+        setM32(task[5][0] + task[5][1] + task[5][2]);
+        setM41(task[6][0] + task[6][1] + task[6][2]);
+        setM42(task[7][0] + task[7][1] + task[7][2]);
+        setM51(task[8][0] + task[8][1] + task[8][2]);
+        setM52(task[9][0] + task[9][1] + task[9][2]);
+        setM61(task[10][0] + task[10][1] + task[10][2]);
+        setM62(task[11][0] + task[11][1] + task[11][2]);
+        setM71(task[12][0] + task[12][1] + task[12][2]);
+        setM72(task[13][0] + task[13][1] + task[13][2]);
+        setM81(task[14][0] + task[14][1] + task[14][2]);
+        setM82(task[15][0] + task[15][1] + task[15][2]);
     }
 
     const checkTaskTwo = () => {
@@ -194,7 +194,7 @@ const Type3Matrix = ({next}) => {
         }
         let error = false
 
-        if (!isEqual(m11, task?.answers[0])
+        if (!isEqual(m11, (task[0][0] + task[0][1] + task[0][2]).toString())
             // && !isEmpty(newP1)
         ) {
             setM11Error(true)
@@ -202,7 +202,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM11Error(false)
         }
-        if (!isEqual(m12, task?.answers[1])
+        if (!isEqual(m12, (task[1][0] + task[1][1] + task[1][2]).toString())
             // && !isEmpty(newP2)
         ) {
             setM12Error(true)
@@ -210,7 +210,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM12Error(false)
         }
-        if (!isEqual(m21, task?.answers[2])
+        if (!isEqual(m21, (task[2][0] + task[2][1] + task[2][2]).toString())
             // && !isEmpty(newP3)
         ) {
             setM21Error(true)
@@ -218,7 +218,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM21Error(false)
         }
-        if (!isEqual(m22, task?.answers[3])
+        if (!isEqual(m22, (task[3][0] + task[3][1] + task[3][2]).toString())
             // && !isEmpty(newP4)
         ) {
             setM22Error(true)
@@ -226,7 +226,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM22Error(false)
         }
-        if (!isEqual(m31, task?.answers[4])
+        if (!isEqual(m31, (task[4][0] + task[4][1] + task[4][2]).toString())
             // && !isEmpty(newP5)
         ) {
             setM31Error(true)
@@ -234,7 +234,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM31Error(false)
         }
-        if (!isEqual(m32, task?.answers[5])
+        if (!isEqual(m32, (task[5][0] + task[5][1] + task[5][2]).toString())
             // && !isEmpty(newP6)
         ) {
             setM32Error(true)
@@ -242,7 +242,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM32Error(false)
         }
-        if (!isEqual(m41, task?.answers[6])
+        if (!isEqual(m41, (task[6][0] + task[6][1] + task[6][2]).toString())
             // && !isEmpty(newP7)
         ) {
             setM41Error(true)
@@ -250,7 +250,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM41Error(false)
         }
-        if (!isEqual(m42, task?.answers[7])
+        if (!isEqual(m42, (task[7][0] + task[7][1] + task[7][2]).toString())
             // && !isEmpty(newP8)
         ) {
             setM42Error(true)
@@ -258,7 +258,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM42Error(false)
         }
-        if (!isEqual(m51, task?.answers[8])
+        if (!isEqual(m51, (task[8][0] + task[8][1] + task[8][2]).toString())
             // && !isEmpty(newS1)
         ) {
             setM51Error(true)
@@ -266,7 +266,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM51Error(false)
         }
-        if (!isEqual(m52, task?.answers[9])
+        if (!isEqual(m52, (task[9][0] + task[9][1] + task[9][2]).toString())
             // && !isEmpty(newS2)
         ) {
             setM52Error(true)
@@ -274,7 +274,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM52Error(false)
         }
-        if (!isEqual(m61, task?.answers[10])
+        if (!isEqual(m61, (task[10][0] + task[10][1] + task[10][2]).toString())
             // && !isEmpty(newS3)
         ) {
             setM61Error(true)
@@ -282,7 +282,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM61Error(false)
         }
-        if (!isEqual(m62, task?.answers[11])
+        if (!isEqual(m62, (task[11][0] + task[11][1] + task[11][2]).toString())
             // && !isEmpty(newS4)
         ) {
             setM62Error(true)
@@ -290,7 +290,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM62Error(false)
         }
-        if (!isEqual(m71, task?.answers[12])
+        if (!isEqual(m71, (task[12][0] + task[12][1] + task[12][2]).toString())
             // && !isEmpty(newS5)
         ) {
             setM71Error(true)
@@ -298,7 +298,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM71Error(false)
         }
-        if (!isEqual(m72, task?.answers[13])
+        if (!isEqual(m72, (task[13][0] + task[13][1] + task[13][2]).toString())
             // && !isEmpty(newS6)
         ) {
             setM72Error(true)
@@ -306,7 +306,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM72Error(false)
         }
-        if (!isEqual(m81, task?.answers[14])
+        if (!isEqual(m81, (task[14][0] + task[14][1] + task[14][2]).toString())
             // && !isEmpty(newS7)
         ) {
             setM81Error(true)
@@ -314,7 +314,7 @@ const Type3Matrix = ({next}) => {
         } else {
             setM81Error(false)
         }
-        if (!isEqual(m82, task?.answers[15])
+        if (!isEqual(m82, (task[15][0] + task[15][1] + task[15][2]).toString())
             // && !isEmpty(newS8)
         ) {
             setM82Error(true)
@@ -333,33 +333,28 @@ const Type3Matrix = ({next}) => {
     }
 
     const data = [
-        ['', <>
-            <div>1</div>
-        </>, <>
-            <div>2</div>
-        </>],
-        ['1  1  1',
+        [
             <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
             <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>],
-        ['1  1  2',
+        [
             <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
             <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>],
-        ['1  2  1',
+        [
             <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31} style={{width: 50}}/>,
             <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32} style={{width: 50}}/>],
-        ['1  2  2',
+        [
             <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41} style={{width: 50}}/>,
             <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42} style={{width: 50}}/>],
-        ['2  1  1',
+        [
             <input className={cx('input51', {error: m51Error})} value={m51} onChange={handleSetM51} style={{width: 50}}/>,
             <input className={cx('input52', {error: m52Error})} value={m52} onChange={handleSetM52} style={{width: 50}}/>],
-        ['2  1  2',
+        [
             <input className={cx('input61', {error: m61Error})} value={m61} onChange={handleSetM61} style={{width: 50}}/>,
             <input className={cx('input62', {error: m62Error})} value={m62} onChange={handleSetM62} style={{width: 50}}/>],
-        ['2  2  1',
+        [
             <input className={cx('input71', {error: m71Error})} value={m71} onChange={handleSetM71} style={{width: 50}}/>,
             <input className={cx('input72', {error: m72Error})} value={m72} onChange={handleSetM72} style={{width: 50}}/>],
-        ['2  2  2',
+        [
             <input className={cx('input81', {error: m81Error})} value={m81} onChange={handleSetM81} style={{width: 50}}/>,
             <input className={cx('input82', {error: m82Error})} value={m82} onChange={handleSetM82} style={{width: 50}}/>]
     ]
@@ -391,7 +386,32 @@ const Type3Matrix = ({next}) => {
 
             <div id={'task2'} hidden={true}>
                 <p>Стратегии коалиции 4 игрока</p>
-                <Matrix matrix={data}>
+                <Matrix matrix={data}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}/>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        1
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        2
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                        }
+                        firstColumn={[
+                            <TableCell align={'center'} className={'table-head-cell'}>1 1 1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>1 1 2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>1 2 1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>1 2 2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>2 1 1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>2 1 2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>2 2 1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>2 2 2</TableCell>
+                        ]}
+
+                >
 
                 </Matrix>
                 {

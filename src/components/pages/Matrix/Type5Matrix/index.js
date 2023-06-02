@@ -6,19 +6,17 @@ import {ROUTE__MATRIX_LABS, ROUTE__VECTOR_LABS} from "../../../../constants/rout
 import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
 import {isEqual} from "lodash/lang";
-import {tasks} from './tasks'
 import classNames from "classnames/bind";
 import styles from "../Type3Matrix/styles.css";
 
 const cx = classNames.bind(styles)
 
-const task = tasks[0]
 
 const description = "Найдите верхнюю, нижнюю цены игры и гарантированный выигрыш для коалиционной игры первого уровня 1 игрока \n против остальных и укажите, существует ли решение в чистых стратегиях, или нет. \n        Для этого:"
 const descriptionTaskOne = "1. Заполните столбец α (столбец минимумов строк: α = min α ) и строку β (строка максимумов столбцов: β = max α ),\nпосле чего найдите максимальное из чисел α : α = max α и минимальное из чисел β : β = β ."
 const descriptionTaskTwo = "2. Введите значения нижней, верхней цены игры и гарантированного выигрыша в соответствующие поля и укажите, \nсуществует ли решение игры в чистых стратегиях. "
 const descriptionMatrix = "Стратегии коалиции 2, 3 и 4 игроков"
-const Type5Matrix = ({next}) => {
+const Type5Matrix = ({next, task}) => {
     const {labs} = useContext(Context)
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
@@ -29,6 +27,44 @@ const Type5Matrix = ({next}) => {
         navigation(`${ROUTE__MATRIX_LABS}/6`)
         next()
     }, [tries])
+
+    const matrixVariant = []
+    let el = 0;
+    for (let i = 0; i < 2; i++) {
+        const row = [];
+
+        for (let j= 0; j < 8; j++) {
+            row.push(task[el][0]);
+            el++;
+        }
+
+        matrixVariant.push(row)
+    }
+
+    // Helper function to get the minimum value in an array
+    const getMinValue = (arr) => Math.min(...arr);
+
+    // Helper function to get the maximum value in an array
+    const getMaxValue = (arr) => Math.max(...arr);
+
+    const minValues = matrixVariant.map(getMinValue(2));
+
+    // Find the maximum value among the minimum values
+    // const minMaxValue = getMaxValue(minValues);
+
+    // Find the maximum value in each column
+    const maxValues = Array.from({length: 8}, () => 0);
+
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 8; j++) {
+            if (matrixVariant[i][j] > maxValues[j]) {
+                maxValues[j] = matrixVariant[i][j];
+            }
+        }
+    }
+
+    // Find the minimum value among the maximum values
+    const maxMinValue = getMinValue(maxValues);
 
 
     const [alpha1, setAlpha1] = useState('');
@@ -330,17 +366,17 @@ const Type5Matrix = ({next}) => {
         </>, <>
             <div>β8</div>
         </>,],
-        ['α1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        ['α1', <label style={{width: 50}}>{matrixVariant[0][0]}</label>, <label style={{width: 50}}>{matrixVariant[0][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][3]}</label>, <label style={{width: 50}}>{matrixVariant[0][4]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][5]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][6]}</label>, <label style={{width: 50}}>{matrixVariant[0][7]}</label>,
             <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>, 'β'],
-        ['α2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
+        ['α2', <label style={{width: 50}}>{matrixVariant[1][0]}</label>, <label style={{width: 50}}>{matrixVariant[1][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][3]}</label>, <label style={{width: 50}}>{matrixVariant[1][4]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][5]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][6]}</label>, <label style={{width: 50}}>{matrixVariant[1][7]}</label>,
             <input id={'beta2'}  className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>,
             <input id={'beta'}  className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>],
         ['', <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>,
