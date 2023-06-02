@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useMemo, useState} from 'react';
 import {Button} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router";
 import {ROUTE__MATRIX_LABS, ROUTE__VECTOR_LABS} from "../../../../constants/routes";
@@ -7,37 +7,21 @@ import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
 import Latex from "react-latex";
 import {isEqual} from "lodash/lang";
-import {tasks} from './tasks'
 import classNames from "classnames/bind";
 import styles from "../Type3Matrix/styles.css";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 const cx = classNames.bind(styles)
 
-const task = tasks[0]
 
-const description = "Найдите решение в смешанных стратегиях коалиционный игры вьторого уровня 1 и 2 игроков против остальных \n" +
-    "(матричной игры игрока А против В (ввели обозначения А - коалиция 1 и 2 игроков, В - коалиция остальных игроков)). \n" +
-    "Для этого: "
-const descriptionTaskOne = "1. Выполните переход к преобразованной игре, задав число alpha >= 0. \n" +
-    "(Преобразованная игра - игра с положительной матрицией (все ее элементы положительны) U: U = A + alpha * E, \n" +
-    "где А - матрица исходной игры, Е - матрица размерности матрицы А с единичными элементами, alpha >= 0: U > 0)."
-const descriptionTaskTwo = "2. Составьте две задачи линейного программирования (ЗЛП), к решению которыъ сводится решение преобразованной \n" +
-    "игры в смешанных стратегиях."
-const descriptionTaskThree = "3. По найденным решениям ЗЛП (X* и Y*) определите оптимальные смешанные стратегии игрока А - p \n" +
-    "и игрока В - q и цену игры v"
-const descriptionMatrix = "Матрица дохода s-того игрока при его игре против остальных: "
+const description = "Найдите верхнюю, нижнюю цены игры и гарантированный выигрыш для коалиционной игры первого уровня 1 и 2 игрока \n против остальных и укажите, существует ли решение в чистых стратегиях, или нет. \n        Для этого:"
+const descriptionTaskOne = "1. Заполните столбец α (столбец минимумов строк: α = min α ) и строку β (строка максимумов столбцов: β = max α ),\nпосле чего найдите максимальное из чисел α : α = max α и минимальное из чисел β : β = β ."
+const descriptionTaskTwo = "2. Введите значения нижней, верхней цены игры и гарантированного выигрыша в соответствующие поля и укажите, \nсуществует ли решение игры в чистых стратегиях. "
+const descriptionMatrix = "Стратегии коалиции 3 и 4 игроков"
 
-const matrixStarter = 'A = A_{1,2}^2 = (a_{1,2 i,j}^2)_{n*m} = '
-
-const task1Ender = 'alpha:U=A+alpha*E>0(u_{i,j}>0);E=\\begin{pmatrix}\n' +
-    '1 & ... & 1 \\\\\n' +
-    '... & 1 & ... \\\\\n' +
-    '1 & ... & 1\n' +
-    '\\end{pmatrix}_{n*m}'
-
-const task2part1formula2 = 'e_2=(1,...,1)^T\\inR'
-
-const Type6Matrix = ({next}) => {
+const Type6Matrix = ({next, task}) => {
     const {labs} = useContext(Context)
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
@@ -49,6 +33,63 @@ const Type6Matrix = ({next}) => {
         next()
     }, [tries])
 
+    const matrixVariant = []
+    let el = 0;
+    for (let i = 0; i < 4; i++) {
+        const row = [];
+
+        for (let j= 0; j < 4; j++) {
+            row.push(task[el][0] + task[el][1]);
+            el++;
+        }
+
+        matrixVariant.push(row)
+    }
+
+    const answers = useMemo(() => findMinsMaxs(matrixVariant))
+
+    function findMinsMaxs(matrixV) {
+        // Helper function to get the minimum value in an array
+        const getMinValue = (arr) => Math.min(...arr);
+
+        // Helper function to get the maximum value in an array
+        const getMaxValue = (arr) => Math.max(...arr);
+
+        // Helper function to generate a random integer between min and max (inclusive)
+        const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // Initialize the matrix
+        const matrix = matrixV;
+
+
+        // Find the minimum value in each row
+        const minValues = matrix.map((row) => getMinValue(row));
+
+        // Find the maximum value among the minimum values
+        const maxMinValue = getMaxValue(minValues);
+
+        // Find the maximum value in each column
+        const maxValues = Array.from({length: 4}, () => -1000);
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                if (matrix[i][j] > maxValues[j]) {
+                    maxValues[j] = matrix[i][j];
+                }
+            }
+        }
+
+        // Find the minimum value among the maximum values
+        const minMaxValue = getMinValue(maxValues);
+
+
+        return {
+            maxValues,
+            minValues,
+            maxMinValue,
+            minMaxValue
+        };
+    }
 
     const [alpha1, setAlpha1] = useState('');
     const [alpha2, setAlpha2] = useState('');
@@ -105,16 +146,16 @@ const Type6Matrix = ({next}) => {
     }, []);
 
     const showAnswersPart1 = () => {
-        setAlpha1(task?.answers[0]);
-        setAlpha2(task?.answers[1]);
-        setAlpha3(task?.answers[2]);
-        setAlpha4(task?.answers[3]);
-        setAlpha(task?.answers[8]);
-        setBeta1(task?.answers[9]);
-        setBeta2(task?.answers[10]);
-        setBeta3(task?.answers[2]);
-        setBeta4(task?.answers[3]);
-        setBeta(task?.answers[11]);
+        setAlpha1(answers.maxValues[0]);
+        setAlpha2(answers.maxValues[1]);
+        setAlpha3(answers.maxValues[2]);
+        setAlpha4(answers.maxValues[3]);
+        setAlpha(answers.minMaxValue);
+        setBeta1(answers.minValues[0]);
+        setBeta2(answers.minValues[1]);
+        setBeta3(answers.minValues[2]);
+        setBeta4(answers.minValues[3]);
+        setBeta(answers.maxMinValue);
     }
 
     const checkTaskOne = () => {
@@ -125,7 +166,7 @@ const Type6Matrix = ({next}) => {
         }
         let error = false
 
-        if (!isEqual(alpha1, task?.answers[0])
+        if (!isEqual(alpha1, answers.maxValues[0])
             // && !isEmpty(newP1)
         ) {
             setAlpha1Error(true)
@@ -133,7 +174,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setAlpha1Error(false)
         }
-        if (!isEqual(alpha2, task?.answers[1])
+        if (!isEqual(alpha2, answers.maxValues[1].toString())
             // && !isEmpty(newP2)
         ) {
             setAlpha2Error(true)
@@ -141,7 +182,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setAlpha2Error(false)
         }
-        if (!isEqual(alpha3, task?.answers[2])
+        if (!isEqual(alpha3, answers.maxValues[2].toString())
             // && !isEmpty(newP3)
         ) {
             setAlpha3Error(true)
@@ -149,7 +190,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setAlpha3Error(false)
         }
-        if (!isEqual(alpha4, task?.answers[3])
+        if (!isEqual(alpha4, answers.maxValues[3].toString())
             // && !isEmpty(newP4)
         ) {
             setAlpha4Error(true)
@@ -157,7 +198,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setAlpha4Error(false)
         }
-        if (!isEqual(alpha, task?.answers[4])
+        if (!isEqual(alpha, answers.minMaxValue.toString())
             // && !isEmpty(newS1)
         ) {
             setAlphaError(true)
@@ -165,7 +206,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setAlphaError(false)
         }
-        if (!isEqual(beta1, task?.answers[5])
+        if (!isEqual(beta1, answers.minValues[0])
             // && !isEmpty(newS2)
         ) {
             setBeta1Error(true)
@@ -173,7 +214,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setBeta1Error(false)
         }
-        if (!isEqual(beta2, task?.answers[6])
+        if (!isEqual(beta2, answers.minValues[1])
             // && !isEmpty(newS3)
         ) {
             setBeta2Error(true)
@@ -181,7 +222,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setBeta2Error(false)
         }
-        if (!isEqual(beta3, task?.answers[7])
+        if (!isEqual(beta3, answers.minValues[2])
             // && !isEmpty(newP3)
         ) {
             setBeta3Error(true)
@@ -189,7 +230,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setBeta3Error(false)
         }
-        if (!isEqual(beta4, task?.answers[8])
+        if (!isEqual(beta4, answers.minValues[3])
             // && !isEmpty(newP4)
         ) {
             setBeta4Error(true)
@@ -197,7 +238,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setBeta4Error(false)
         }
-        if (!isEqual(beta, task?.answers[9])
+        if (!isEqual(beta, answers.maxMinValue)
             // && !isEmpty(newS4)
         ) {
             setBetaError(true)
@@ -249,10 +290,10 @@ const Type6Matrix = ({next}) => {
     }, []);
 
     const showAnswersPart2 = () => {
-        setV1(task?.answers[12]);
-        setV2(task?.answers[13]);
-        setV3(task?.answers[14]);
-        setV4(task?.answers[15]);
+        setV1(answers.maxMinValue);
+        setV2(answers.minMaxValue);
+        setV3(answers.maxMinValue < answers.minMaxValue ? answers.maxMinValue : answers.minMaxValue);
+        setV4();
     }
 
     const checkTaskTwo = () => {
@@ -262,7 +303,7 @@ const Type6Matrix = ({next}) => {
         }
         let error = false
 
-        if (!isEqual(v1, task?.answers[12])
+        if (!isEqual(v1, answers.maxMinValue.toString())
             // && !isEmpty(newP1)
         ) {
             setV1Error(true)
@@ -270,7 +311,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setV1Error(false)
         }
-        if (!isEqual(v2, task?.answers[13])
+        if (!isEqual(v2, answers.minMaxValue.toString())
             // && !isEmpty(newP2)
         ) {
             setV2Error(true)
@@ -278,7 +319,7 @@ const Type6Matrix = ({next}) => {
         } else {
             setV2Error(false)
         }
-        if (!isEqual(v3, task?.answers[14])
+        if (!isEqual(v3, (answers.maxMinValue < answers.minMaxValue ? answers.maxMinValue : answers.minMaxValue).toString())
             // && !isEmpty(newP3)
         ) {
             setV3Error(true)
@@ -305,40 +346,38 @@ const Type6Matrix = ({next}) => {
 
 
     const data = [
-        ['', <>
-            <div>β1</div>
-        </>, <>
-            <div>β2</div>
-        </>, <>
-            <div>β3</div>
-        </>, <>
-            <div>β4</div>
-        </>,],
-        ['α1', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
+        [<label style={{width: 50}}>{matrixVariant[0][0]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[0][3]}</label>,
             <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>
         ],
-        ['α2', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
+        [<label style={{width: 50}}>{matrixVariant[1][0]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[1][3]}</label>,
             <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>,
-            'β'
         ],
-        ['α3', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
+        [<label style={{width: 50}}>{matrixVariant[2][0]}</label>,
+            <label style={{width: 50}}>{matrixVariant[2][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[2][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[2][3]}</label>,
             <input id={'beta3'} className={cx('beta3', {error: beta3Error})} value={beta3} onChange={handleSetBeta3} style={{width: 50}}/>,
             <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>
         ],
-        ['α4', <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>, <label style={{width: 50}}>value</label>,
-            <label style={{width: 50}}>value</label>,
+        [<label style={{width: 50}}>{matrixVariant[3][0]}</label>,
+            <label style={{width: 50}}>{matrixVariant[3][1]}</label>,
+            <label style={{width: 50}}>{matrixVariant[3][2]}</label>,
+            <label style={{width: 50}}>{matrixVariant[3][3]}</label>,
             <input id={'beta4'} className={cx('beta4', {error: beta4Error})} value={beta4} onChange={handleSetBeta4} style={{width: 50}}/>
         ],
-        ['',
+        [
             <input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>,
             <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2} onChange={handleSetAlpha2} style={{width: 50}}/>,
             <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3} onChange={handleSetAlpha3} style={{width: 50}}/>,
             <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4} onChange={handleSetAlpha4} style={{width: 50}}/>
         ],
-        ['', '', 'α',
+        ['', '',
             <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha} style={{width: 50}}/>
         ]
     ]
@@ -362,7 +401,29 @@ const Type6Matrix = ({next}) => {
             <p>{descriptionMatrix}</p>
             <div style={{display: "flex"}}>
                 <div>
-                    <Matrix matrix={data}>
+                    <Matrix matrix={data}
+                            head={
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align={'center'} className={'table-head-cell'}/>
+                                        <TableCell align={'center'} className={'table-head-cell'}>β1</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>β2</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>β3</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>β4</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>αi</TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>α</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                            }
+                            firstColumn={[
+                                <TableCell align={'center'} className={'table-head-cell'}>α1</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>α2</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>α3</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>α4</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>βi</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>β</TableCell>,
+                            ]}
+                    >
 
                     </Matrix>
 
