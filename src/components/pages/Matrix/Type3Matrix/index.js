@@ -28,6 +28,7 @@ const Type3Matrix = ({next, task}) => {
     const [p2, setP2] = useState('');
     const [p1Error, setP1Error] = useState(false);
     const [p2Error, setP2Error] = useState(false);
+    const [progress, setProgress] = useState(0)
 
     const handleSetP1 = useCallback(e => {
         setP1(e.target.value);
@@ -50,6 +51,7 @@ const Type3Matrix = ({next, task}) => {
     const checkTaskOne = () => {
         if (tries < 1) {
             showAnswersPart1()
+            setProgress(prev => prev + 1);
             document.getElementById("check1").hidden = true;
             document.getElementById("task2").hidden = false;
         }
@@ -74,6 +76,7 @@ const Type3Matrix = ({next, task}) => {
 
         if (!error) {
             showAnswersPart1()
+            setProgress(prev => prev + 1);
             document.getElementById("task1part1input1").readOnly = true;
             document.getElementById("task1part1input2").readOnly = true;
             document.getElementById("check1").hidden = true;
@@ -190,6 +193,7 @@ const Type3Matrix = ({next, task}) => {
     const checkTaskTwo = () => {
         if (tries < 1) {
             setSuccess(true);
+            setProgress(prev => prev + 1);
             showAnswers()
         }
         let error = false
@@ -324,6 +328,7 @@ const Type3Matrix = ({next, task}) => {
         }
 
         if (!error) {
+            setProgress(prev => prev + 1);
             setSuccess(true);
             return;
         }
@@ -373,8 +378,8 @@ const Type3Matrix = ({next, task}) => {
             // FIXME: изменять цвет текста при переходе к некст пункту
 
             <p>{description}</p>
-            <p>{descriptionTaskOne}</p>
-            <p color="grey">{descriptionTaskTwo}</p>
+            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
+            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
 
             <label>число строк</label>
             <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
@@ -389,6 +394,8 @@ const Type3Matrix = ({next, task}) => {
             <div id={'task2'} hidden={true}>
                 <p>Стратегии коалиции 4 игрока</p>
                 <Matrix matrix={data}
+                        size={'small'} ariaLabel={"a dense table"}
+                        style={{width: "50%"}}
                         head={
                             <TableHead>
                                 <TableRow>

@@ -1,0 +1,9 @@
+.cell-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.cell-align-center > * {
+    display: flex;
+    align-items: center;
+}

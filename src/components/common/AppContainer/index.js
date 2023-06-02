@@ -118,6 +118,7 @@ const AppContainer = () => {
             <BrowserRouter>
                 <Modal show={openMatrixModal} onHide={handleCloseModal} size="xl">
                     <Matrix matrix={MatrixVariant} style={{padding: 50}}
+                            size={'small'} ariaLabel={"a dense table"}
                             head={
                                 <TableHead>
                                     <TableRow>

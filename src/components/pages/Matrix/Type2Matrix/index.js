@@ -376,8 +376,8 @@ const Type2Matrix = ({next, task}) => {
             // FIXME: изменять цвет текста при переходе к некст пункту
 
             <p>{description}</p>
-            <p className={cx({grayText: progress > 0})}>{descriptionTaskOne}</p>
-            <p color="grey" className={cx({grayText: progress >= 2})}>{descriptionTaskTwo}</p>
+            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
+            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
 
             <label>число строк</label>
             <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
@@ -392,6 +392,8 @@ const Type2Matrix = ({next, task}) => {
             <div id={'task2'} hidden={true}>
                 <p>Стратегии коалиции 3 и 4 игроков</p>
                 <Matrix matrix={data}
+                        size={'small'} ariaLabel={"a dense table"}
+                        style={{width: "50%"}}
                         head={
                             <TableHead>
                                 <TableRow>

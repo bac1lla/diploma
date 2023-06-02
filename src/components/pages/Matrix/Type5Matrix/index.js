@@ -25,6 +25,7 @@ const Type5Matrix = ({next, task}) => {
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
     const [success, setSuccess] = useState(false);
+    const [progress, setProgress] = useState(0)
 
     const handleClick = useCallback(() => {
         labs.addResult(5, tries > 0 ? tries : 0)
@@ -175,6 +176,7 @@ const Type5Matrix = ({next, task}) => {
             document.getElementById("check1").hidden = true;
             document.getElementById("task2").hidden = false;
             showAnswersPart1()
+            setProgress(prev => prev + 1);
         }
         let error = false
 
@@ -277,6 +279,7 @@ const Type5Matrix = ({next, task}) => {
 
         if (!error) {
             showAnswersPart1()
+            setProgress(prev => prev + 1);
             for (let i = 1; i < 9; i++) {
                 document.getElementById("alpha" + i).readOnly = true;
             }
@@ -296,12 +299,16 @@ const Type5Matrix = ({next, task}) => {
     const [v1, setV1] = useState('');
     const [v2, setV2] = useState('');
     const [v3, setV3] = useState('');
-    const [v4, setV4] = useState('');
 
     const [v1Error, setV1Error] = useState(false);
     const [v2Error, setV2Error] = useState(false);
     const [v3Error, setV3Error] = useState(false);
-    const [v4Error, setV4Error] = useState(false);
+
+    const [radio1, setRadio1] = useState(false)
+    const [radio2, setRadio2] = useState(false)
+
+    const [radio1Error, setRadio1Error] = useState(false)
+    const [radio2Error, setRadio2Error] = useState(false)
 
 
     const handleSetV1 = useCallback(e => {
@@ -313,21 +320,38 @@ const Type5Matrix = ({next, task}) => {
     const handleSetV3 = useCallback(e => {
         setV3(e.target.value);
     }, []);
-    const handleSetV4 = useCallback(e => {
-        setV4(e.target.value);
-    }, []);
 
     const showAnswersPart2 = () => {
-        setV1(answers.minMaxValue);
-        setV2(answers.maxMinValue);
+        setV1(answers.maxMinValue);
+        setV2(answers.minMaxValue);
         setV3(answers.maxMinValue < answers.minMaxValue ? answers.maxMinValue : answers.minMaxValue);
-        setV4();
+        if (answers.minMaxValue === answers.maxMinValue) {
+            handleClickRadio1()
+        } else {
+            handleClickRadio2()
+        }
+    }
+
+    const handleClickRadio1 = () => {
+        setRadio1(prev => {
+            setRadio2(prev)
+            return !prev
+        })
+    }
+
+    const handleClickRadio2 = () => {
+        setRadio2(prev => {
+            setRadio1(prev)
+            return !prev
+        })
     }
 
     const checkTaskTwo = () => {
         if (tries < 1) {
             setSuccess(true);
             showAnswersPart2()
+            setProgress(prev => prev + 1);
+            return;
         }
         let error = false
 
@@ -355,16 +379,29 @@ const Type5Matrix = ({next, task}) => {
         } else {
             setV3Error(false)
         }
-        // if (!isEqual(v4, task?.answers[15])
-        //     // && !isEmpty(newP4)
-        // ) {
-        //     setV4Error(true)
-        //     error = true
-        // } else {
-        //     setV4Error(false)
-        // }
-        //
+
+        // FIXME: (мб и не зафиксится) radio не обводится ошибкой
+
+        if (answers.maxMinValue === answers.minMaxValue) {
+            if (!radio1) {
+                setRadio1Error(true)
+                error = true
+            } else {
+                setRadio1Error(false)
+            }
+        } else {
+            if (!radio2) {
+                setRadio2Error(true)
+                error = true
+            } else {
+                setRadio2Error(false)
+            }
+        }
+
+
+
         if (!error) {
+            setProgress(prev => prev + 1);
             setSuccess(true);
             return;
         }
@@ -416,14 +453,14 @@ const Type5Matrix = ({next, task}) => {
             <p>Задание 5</p>
             <p>{description}</p>
 
-            // FIXME: изменять цвет текста при переходе к некст пункту
 
-            <p>{descriptionTaskOne}</p>
-            <p color="grey">{descriptionTaskTwo}</p>
+            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
+            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
             <p>{descriptionMatrix}</p>
             <div style={{display: "flex", alignItems: "center"}}>
                 <div>
                     <Matrix matrix={data}
+                            size={'small'} ariaLabel={"a dense table"}
                             head={
                                 <TableHead>
                                     <TableRow>
@@ -473,13 +510,20 @@ const Type5Matrix = ({next, task}) => {
                             <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3}
                                    type="text" style={{width: 50}}/>],
                         [<p>Решение в чистых стратегиях:</p>,
-                            <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
-                                                                          id={'task2part31'}/><label
-                                htmlFor="task2part31">существует</label></div>],
-                        ['', <div style={{display: "flex", gap: 5}}><input type="radio" name="task2part3"
-                                                                           id={'task2part32'}/><label
-                            htmlFor="task2part31">не существует</label></div>]
-                    ]}/>
+                            <div style={{display: "flex", gap: 5}}>
+                                <label htmlFor="task2part31">
+                                    <input type="radio" name="task2part31" checked={radio1}
+                                           className={cx('radio1', {error: radio1Error})}
+                                           onClick={handleClickRadio1} id={'task2part31'} onChange={() => null}/>
+                                    &nbsp;существует
+                                </label></div>],
+                        ['', <div style={{display: "flex", gap: 5}}>
+                            <label htmlFor="task2part32">
+                                <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
+                                       className={cx('radio1', {error: radio2Error})}
+                                       onClick={handleClickRadio2} onChange={() => null}/>&nbsp;не существует</label>
+                        </div>]
+                    ]} cellClassName={'cell-align-center'}/>
 
                     {
                         success &&

@@ -370,13 +370,9 @@ const Type1Matrix = ({next, task}) => {
         }}>
             <p>Задание 1</p>
 
-            // FIXME: изменять цвет текста при переходе к некст пункту
-
             <p>{description}</p>
-            <p
-                className={cx({grayText: progress > 0})}
-            >{descriptionTaskOne}</p>
-            <p color="grey" className={cx({grayText: progress >= 2})}>{descriptionTaskTwo}</p>
+            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
+            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
             <label>число строк</label>
             <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
                    onChange={handleSetP1}/>
@@ -389,53 +385,55 @@ const Type1Matrix = ({next, task}) => {
 
             <div id="task_2" hidden={true}>
                 <p>Стратегии коалиции 2, 3 и 4 игроков</p>
-                <Matrix matrix={data}head={
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align={'center'} className={'table-head-cell'}/>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                1<br/>
-                                1<br/>
-                                1
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                1<br/>
-                                1<br/>
-                                2
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                1<br/>
-                                2<br/>
-                                1
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                1<br/>
-                                2<br/>
-                                2
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                2<br/>
-                                1<br/>
-                                1
-                            </TableCell>
+                <Matrix matrix={data} size={'small'} ariaLabel={"a dense table"}
+                        style={{width: "50%"}}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}/>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        1<br/>
+                                        1<br/>
+                                        1
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        1<br/>
+                                        1<br/>
+                                        2
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        1<br/>
+                                        2<br/>
+                                        1
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        1<br/>
+                                        2<br/>
+                                        2
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        2<br/>
+                                        1<br/>
+                                        1
+                                    </TableCell>
 
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                2<br/>
-                                1<br/>
-                                2
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                2<br/>
-                                2<br/>
-                                1
-                            </TableCell>
-                            <TableCell align={'center'} className={'table-head-cell'}>
-                                2<br/>
-                                2<br/>
-                                2
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>}
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        2<br/>
+                                        1<br/>
+                                        2
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        2<br/>
+                                        2<br/>
+                                        1
+                                    </TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>
+                                        2<br/>
+                                        2<br/>
+                                        2
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>}
                         firstColumn={[
                             <TableCell align={'center'} className={'table-head-cell'}>1</TableCell>,
                             <TableCell align={'center'} className={'table-head-cell'}>2</TableCell>
