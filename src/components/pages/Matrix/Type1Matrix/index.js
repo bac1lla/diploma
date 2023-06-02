@@ -8,18 +8,16 @@ import Matrix from "../../../common/Matrix";
 import classNames from "classnames/bind";
 import styles from "./styles.css"
 import {isEqual} from "lodash/lang";
-import {tasks} from './tasks'
-import {randomInteger} from "../../../../helpers";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 const cx = classNames.bind(styles)
-
-const task = tasks[0]
-
 
 const description = "Сформулируйте матрицу коалиционной игры первого уровня 1 игрока против остальных. Для этого:"
 const descriptionTaskOne = "1. Введите число строк (число стратегий 1 игрока) и столбцов (число стратегий коалиции остальных игроков) матрицы"
 const descriptionTaskTwo = "2. Заполните появившийся шаблон матрицы"
-const Type1Matrix = ({next}) => {
+const Type1Matrix = ({next, task}) => {
     const {labs} = useContext(Context)
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
@@ -177,22 +175,22 @@ const Type1Matrix = ({next}) => {
     }, []);
 
     const showAnswers = () => {
-        setM11(task?.answers[0]);
-        setM12(task?.answers[1]);
-        setM13(task?.answers[2]);
-        setM14(task?.answers[3]);
-        setM15(task?.answers[4]);
-        setM16(task?.answers[5]);
-        setM17(task?.answers[6]);
-        setM18(task?.answers[7]);
-        setM21(task?.answers[8]);
-        setM22(task?.answers[9]);
-        setM23(task?.answers[10]);
-        setM24(task?.answers[11]);
-        setM25(task?.answers[12]);
-        setM26(task?.answers[13]);
-        setM27(task?.answers[14]);
-        setM28(task?.answers[15]);
+        setM11(task[0][0]);
+        setM12(task[1][0]);
+        setM13(task[2][0]);
+        setM14(task[3][0]);
+        setM15(task[4][0]);
+        setM16(task[5][0]);
+        setM17(task[6][0]);
+        setM18(task[7][0]);
+        setM21(task[8][0]);
+        setM22(task[9][0]);
+        setM23(task[10][0]);
+        setM24(task[11][0]);
+        setM25(task[12][0]);
+        setM26(task[13][0]);
+        setM27(task[14][0]);
+        setM28(task[15][0]);
     }
 
     const checkTaskTwo = () => {
@@ -204,7 +202,7 @@ const Type1Matrix = ({next}) => {
         }
         let error = false
 
-        if (!isEqual(m11, task?.answers[0])
+        if (!isEqual(m11, task[0][0].toString())
             // && !isEmpty(newP1)
         ) {
             setM11Error(true)
@@ -212,7 +210,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM11Error(false)
         }
-        if (!isEqual(m12, task?.answers[1])
+        if (!isEqual(m12, task[1][0].toString())
             // && !isEmpty(newP2)
         ) {
             setM12Error(true)
@@ -220,7 +218,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM12Error(false)
         }
-        if (!isEqual(m13, task?.answers[2])
+        if (!isEqual(m13, task[2][0].toString())
             // && !isEmpty(newP3)
         ) {
             setM13Error(true)
@@ -228,7 +226,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM13Error(false)
         }
-        if (!isEqual(m14, task?.answers[3])
+        if (!isEqual(m14, task[3][0].toString())
             // && !isEmpty(newP4)
         ) {
             setM14Error(true)
@@ -236,7 +234,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM14Error(false)
         }
-        if (!isEqual(m15, task?.answers[4])
+        if (!isEqual(m15, task[4][0].toString())
             // && !isEmpty(newP5)
         ) {
             setM15Error(true)
@@ -244,7 +242,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM15Error(false)
         }
-        if (!isEqual(m16, task?.answers[5])
+        if (!isEqual(m16, task[5][0].toString())
             // && !isEmpty(newP6)
         ) {
             setM16Error(true)
@@ -252,7 +250,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM16Error(false)
         }
-        if (!isEqual(m17, task?.answers[6])
+        if (!isEqual(m17, task[6][0].toString())
             // && !isEmpty(newP7)
         ) {
             setM17Error(true)
@@ -260,7 +258,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM17Error(false)
         }
-        if (!isEqual(m18, task?.answers[7])
+        if (!isEqual(m18, task[7][0].toString())
             // && !isEmpty(newP8)
         ) {
             setM18Error(true)
@@ -268,7 +266,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM18Error(false)
         }
-        if (!isEqual(m21, task?.answers[8])
+        if (!isEqual(m21, task[8][0].toString())
             // && !isEmpty(newS1)
         ) {
             setM21Error(true)
@@ -276,7 +274,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM21Error(false)
         }
-        if (!isEqual(m22, task?.answers[9])
+        if (!isEqual(m22, task[9][0].toString())
             // && !isEmpty(newS2)
         ) {
             setM22Error(true)
@@ -284,7 +282,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM22Error(false)
         }
-        if (!isEqual(m23, task?.answers[10])
+        if (!isEqual(m23, task[10][0].toString())
             // && !isEmpty(newS3)
         ) {
             setM23Error(true)
@@ -292,7 +290,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM23Error(false)
         }
-        if (!isEqual(m24, task?.answers[11])
+        if (!isEqual(m24, task[11][0].toString())
             // && !isEmpty(newS4)
         ) {
             setM24Error(true)
@@ -300,7 +298,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM24Error(false)
         }
-        if (!isEqual(m25, task?.answers[12])
+        if (!isEqual(m25, task[12][0].toString())
             // && !isEmpty(newS5)
         ) {
             setM25Error(true)
@@ -308,7 +306,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM25Error(false)
         }
-        if (!isEqual(m26, task?.answers[13])
+        if (!isEqual(m26, task[13][0].toString())
             // && !isEmpty(newS6)
         ) {
             setM26Error(true)
@@ -316,7 +314,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM26Error(false)
         }
-        if (!isEqual(m27, task?.answers[14])
+        if (!isEqual(m27, task[14][0].toString())
             // && !isEmpty(newS7)
         ) {
             setM27Error(true)
@@ -324,7 +322,7 @@ const Type1Matrix = ({next}) => {
         } else {
             setM27Error(false)
         }
-        if (!isEqual(m28, task?.answers[15])
+        if (!isEqual(m28, task[15][0].toString())
             // && !isEmpty(newS8)
         ) {
             setM28Error(true)
@@ -343,71 +341,22 @@ const Type1Matrix = ({next}) => {
     }
 
     const data = [
-        ['', <>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-        </>, <>
-            <div>1</div>
-            <div>1</div>
-            <div>2</div>
-        </>, <>
-            <div>1</div>
-            <div>2</div>
-            <div>1</div>
-        </>, <>
-            <div>1</div>
-            <div>2</div>
-            <div>2</div>
-        </>, <>
-            <div>2</div>
-            <div>1</div>
-            <div>1</div>
-        </>, <>
-            <div>2</div>
-            <div>1</div>
-            <div>2</div>
-        </>, <>
-            <div>2</div>
-            <div>2</div>
-            <div>1</div>
-        </>, <>
-            <div>2</div>
-            <div>2</div>
-            <div>2</div>
-        </>,],
-        ['1', <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11}
-                     style={{width: 50}}/>,
-            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12}
-                   style={{width: 50}}/>,
-            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13}
-                   style={{width: 50}}/>,
-            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14}
-                   style={{width: 50}}/>,
-            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15}
-                   style={{width: 50}}/>,
-            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16}
-                   style={{width: 50}}/>,
-            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17}
-                   style={{width: 50}}/>,
-            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18}
-                   style={{width: 50}}/>],
-        ['2', <input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21}
-                     style={{width: 50}}/>,
-            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22}
-                   style={{width: 50}}/>,
-            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23}
-                   style={{width: 50}}/>,
-            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24}
-                   style={{width: 50}}/>,
-            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25}
-                   style={{width: 50}}/>,
-            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26}
-                   style={{width: 50}}/>,
-            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27}
-                   style={{width: 50}}/>,
-            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28}
-                   style={{width: 50}}/>]
+        [<input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>,
+            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13} style={{width: 50}}/>,
+            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14} style={{width: 50}}/>,
+            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15} style={{width: 50}}/>,
+            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16} style={{width: 50}}/>,
+            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17} style={{width: 50}}/>,
+            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18} style={{width: 50}}/>],
+        [<input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
+            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>,
+            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23} style={{width: 50}}/>,
+            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24} style={{width: 50}}/>,
+            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25} style={{width: 50}}/>,
+            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26} style={{width: 50}}/>,
+            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27} style={{width: 50}}/>,
+            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28} style={{width: 50}}/>]
     ]
 
     return (
@@ -440,7 +389,58 @@ const Type1Matrix = ({next}) => {
 
             <div id="task_2" hidden={true}>
                 <p>Стратегии коалиции 2, 3 и 4 игроков</p>
-                <Matrix matrix={data}>
+                <Matrix matrix={data}head={
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align={'center'} className={'table-head-cell'}/>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                1<br/>
+                                1<br/>
+                                1
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                1<br/>
+                                1<br/>
+                                2
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                1<br/>
+                                2<br/>
+                                1
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                1<br/>
+                                2<br/>
+                                2
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                2<br/>
+                                1<br/>
+                                1
+                            </TableCell>
+
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                2<br/>
+                                1<br/>
+                                2
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                2<br/>
+                                2<br/>
+                                1
+                            </TableCell>
+                            <TableCell align={'center'} className={'table-head-cell'}>
+                                2<br/>
+                                2<br/>
+                                2
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>}
+                        firstColumn={[
+                            <TableCell align={'center'} className={'table-head-cell'}>1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>2</TableCell>
+                        ]}
+                >
 
                 </Matrix>
                 {

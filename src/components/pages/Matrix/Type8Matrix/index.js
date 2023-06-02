@@ -104,6 +104,9 @@ const Type8Matrix = ({next}) => {
             <p>Матрица игры:</p>
             <div style={{display: "flex"}}>
                 <Latex>{matrixStarter}</Latex>
+
+                // toDO: поменять матрицу на latex-матрицу
+
                 <Matrix matrix={data} style={{width: "30%"}}></Matrix>
 
                 <div>
@@ -138,10 +141,7 @@ const Type8Matrix = ({next}) => {
                             </div>,
                             <div>
                                 <label htmlFor="task2part3formula1">(</label>
-                                <select id="task2part3formula1">
-                                    <option>e_1</option>
-                                    <option>e_2</option>
-                                </select>
+                                <Select id={'task2part3formula1'} options={optionsPart1}/>
                                 <label htmlFor="task2part3formula1">,Y)-></label>
                             </div>,
                             <div>
@@ -172,10 +172,7 @@ const Type8Matrix = ({next}) => {
                                     </select>
                                 </div>,
                                 <div>
-                                    <select>
-                                        <option>e_1</option>
-                                        <option>e_2</option>
-                                    </select>
+                                    <Select options={optionsPart1}/>
                                     <label>,X</label>
                                 </div>,
                                 <div>
@@ -200,10 +197,7 @@ const Type8Matrix = ({next}) => {
                                     </select>
                                 </div>,
                                 <div>
-                                    <select>
-                                        <option>e_1</option>
-                                        <option>e_2</option>
-                                    </select>
+                                    <Select options={optionsPart1}/>
                                     <label>,Y</label>
                                 </div>,
                                 <div>
