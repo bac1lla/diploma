@@ -14,4 +14,6 @@ code {
 
 #root {
     background-color: #f6f6f6;
+    min-width: 1200px;
+    overflow: auto;
 }

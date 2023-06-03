@@ -267,105 +267,134 @@ const Type4Matrix = ({next}) => {
             width: '100%',
             height: '100%',
             display: 'flex',
-            margin: "auto",
-            gap: "10px",
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 1% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p style={{alignSelf: "flex-start"}}>Задание 4</p>
-            <p style={{alignSelf: "flex-start"}}>{description}</p>
-
-            <p>{descriptionTaskOne}</p>
-            <div id="formula1" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <div className={'task-text-description-vector'} style={{alignSelf: 'flex-start'}}>{description}</div>
+            <div className={'task-text-description-vector'} style={{alignSelf: 'flex-start'}}>{descriptionTaskOne}</div>
+            <div id="formula1"
+                 style={{display: "flex", alignItems: "center", gap: "20px", justifyContent: 'center'}}>
                 <p><Latex>{formula1Starter}</Latex></p>
 
                 <div id="formula1part1-2">
-                    <Select id={'select1-formula1-part1'} onChange={handleClick1} options={optionsPart1} value={value1}
-                            className={cx('type4Matrix-select', {error: errorValue1})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula1-part1'} onChange={handleClick1} options={optionsPart1}
+                            value={value1}
+                            className={cx('type4Matrix-select', {error: errorValue1})}
+                            placeholder={'Выберите ответ'}/>
                     <p></p>
-                    <Select id={'select1-formula1-part2'} onChange={handleClick2} options={optionsPart2} value={value2}
-                            className={cx('type4Matrix-select', {error: errorValue2})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula1-part2'} onChange={handleClick2} options={optionsPart2}
+                            value={value2}
+                            className={cx('type4Matrix-select', {error: errorValue2})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
                 <div id="formula1part3-4">
-                    <Select id={'select1-formula1-part3'} onChange={handleClick3} options={optionsPart1} value={value3}
-                            className={cx('type4Matrix-select', {error: errorValue3})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula1-part3'} onChange={handleClick3} options={optionsPart1}
+                            value={value3}
+                            className={cx('type4Matrix-select', {error: errorValue3})}
+                            placeholder={'Выберите ответ'}/>
                     <p></p>
-                    <Select id={'select1-formula1-part4'} onChange={handleClick4} options={optionsPart2} value={value4}
-                            className={cx('type4Matrix-select', {error: errorValue4})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula1-part4'} onChange={handleClick4} options={optionsPart2}
+                            value={value4}
+                            className={cx('type4Matrix-select', {error: errorValue4})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
                 <p><Latex>{formulaEnder}</Latex></p>
             </div>
 
-            <p>{descriptionTaskTwo}</p>
+            <div className={'task-text-description-vector'} style={{alignSelf: 'flex-start'}}>{descriptionTaskTwo}</div>
 
-            <div id="formula2" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <div id="formula2"
+                 style={{display: "flex", alignItems: "center", gap: "20px", justifyContent: 'center'}}>
                 <p><Latex>{formula2Starter}</Latex></p>
 
                 <div id="formula2part1-2">
-                    <Select id={'select1-formula2-part1'} onChange={handleClick5} options={optionsPart1} value={value5}
-                            className={cx('type4Matrix-select', {error: errorValue5})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula2-part1'} onChange={handleClick5} options={optionsPart1}
+                            value={value5}
+                            className={cx('type4Matrix-select', {error: errorValue5})}
+                            placeholder={'Выберите ответ'}/>
                     <p></p>
-                    <Select id={'select1-formula2-part2'} onChange={handleClick6} options={optionsPart2} value={value6}
-                            className={cx('type4Matrix-select', {error: errorValue6})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula2-part2'} onChange={handleClick6} options={optionsPart2}
+                            value={value6}
+                            className={cx('type4Matrix-select', {error: errorValue6})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
                 <div id="formula2part3-4">
-                    <Select id={'select1-formula2-part3'} onChange={handleClick7} options={optionsPart1} value={value7}
-                            className={cx('type4Matrix-select', {error: errorValue7})} placeholder={'Выберите ответ'}/>
-                    <p></p>
-                    <Select id={'select1-formula2-part4'} onChange={handleClick8} options={optionsPart2} value={value8}
-                            className={cx('type4Matrix-select', {error: errorValue8})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula2-part3'} onChange={handleClick7} options={optionsPart1}
+                            value={value7}
+                            className={cx('type4Matrix-select', {error: errorValue7})}
+                            placeholder={'Выберите ответ'}/>
+                    <p></p>'
+                    <Select id={'select1-formula2-part4'} onChange={handleClick8} options={optionsPart2}
+                            value={value8}
+                            className={cx('type4Matrix-select', {error: errorValue8})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
                 <p><Latex>{formulaEnder}</Latex></p>
             </div>
 
-            <p>{descriptionTaskThree}</p>
+            <div className={'task-text-description-vector'}
+                 style={{alignSelf: 'flex-start'}}>{descriptionTaskThree}</div>
 
-            <div id="formula3" style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <div id="formula3"
+                 style={{display: "flex", alignItems: "center", gap: "20px", justifyContent: 'center'}}>
                 <p><Latex>{formula3Starter}</Latex></p>
 
                 <div id="formula3part1-2">
-                    <Select id={'select1-formula3-part1'} onChange={handleClick9} options={optionsPart1} value={value9}
-                            className={cx('type4Matrix-select', {error: errorValue9})} placeholder={'Выберите ответ'}/>
+                    <Select id={'select1-formula3-part1'} onChange={handleClick9} options={optionsPart1}
+                            value={value9}
+                            className={cx('type4Matrix-select', {error: errorValue9})}
+                            placeholder={'Выберите ответ'}/>
                     <p></p>
                     <Select id={'select1-formula3-part2'} onChange={handleClick10} options={optionsPart2}
                             value={value10}
-                            className={cx('type4Matrix-select', {error: errorValue10})} placeholder={'Выберите ответ'}/>
+                            className={cx('type4Matrix-select', {error: errorValue10})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
                 <div id="formula3part3-4">
                     <Select id={'select1-formula3-part3'} onChange={handleClick11} options={optionsPart1}
                             value={value11}
-                            className={cx('type4Matrix-select', {error: errorValue11})} placeholder={'Выберите ответ'}/>
+                            className={cx('type4Matrix-select', {error: errorValue11})}
+                            placeholder={'Выберите ответ'}/>
                     <p></p>
                     <Select id={'select1-formula3-part4'} onChange={handleClick12} options={optionsPart2}
                             value={value12}
-                            className={cx('type4Matrix-select', {error: errorValue12})} placeholder={'Выберите ответ'}/>
+                            className={cx('type4Matrix-select', {error: errorValue12})}
+                            placeholder={'Выберите ответ'}/>
                 </div>
 
-                <p><Latex>{formulaEnder}</Latex></p>
+                <p style={{display: "flex", alignItems: "center", gap: "20px", justifyContent: 'center'}}>
+                    <Latex>{formulaEnder}</Latex></p>
             </div>
 
-            <p>{descriptionMatrix}</p>
-            <Latex>{sampleMatrix}</Latex>
-            <p></p>
-            {
-                success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClickNext}>
-                    Далее
-                </Button>
-            }
-            {
-                !success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleCheckSelect}>
-                    {tries > 0 ? "Проверить" : "Показать ответы"}
-                </Button>
-            }
+            <div className={'task-text-description-vector'} style={{alignSelf: 'flex-start'}}>{descriptionMatrix}</div>
+            <p style={{display: "flex", alignItems: "center", gap: "20px", justifyContent: 'center'}}>
+                <Latex>{sampleMatrix}</Latex></p>
+            <div
+                style={{display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'flex-end'}}>
+
+                {
+                    success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClickNext}>
+                        Далее
+                    </Button>
+                }
+                {
+                    !success &&
+                    <Button variant='primary' style={{alignSelf: "self-end"}}
+                            onClick={handleCheckSelect}>
+                        {tries > 0 ? "Проверить" : "Показать ответы"}
+                    </Button>
+                }
+            </div>
         </div>
     );
 };

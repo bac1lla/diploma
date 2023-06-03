@@ -341,103 +341,134 @@ const Type2Matrix = ({next, task}) => {
 
     const data = [
         [
-            <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
-            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>,
-            <input className={cx('input21', {error: m13Error})} value={m13} onChange={handleSetM13} style={{width: 50}}/>,
-            <input className={cx('input22', {error: m14Error})} value={m14} onChange={handleSetM14} style={{width: 50}}/>],
+            <input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11}
+                   style={{width: 50}}/>,
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12}
+                   style={{width: 50}}/>,
+            <input className={cx('input21', {error: m13Error})} value={m13} onChange={handleSetM13}
+                   style={{width: 50}}/>,
+            <input className={cx('input22', {error: m14Error})} value={m14} onChange={handleSetM14}
+                   style={{width: 50}}/>],
         [
-            <input className={cx('input31', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
-            <input className={cx('input32', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>,
-            <input className={cx('input33', {error: m23Error})} value={m23} onChange={handleSetM23} style={{width: 50}}/>,
-            <input className={cx('input34', {error: m24Error})} value={m24} onChange={handleSetM24} style={{width: 50}}/>],
+            <input className={cx('input31', {error: m21Error})} value={m21} onChange={handleSetM21}
+                   style={{width: 50}}/>,
+            <input className={cx('input32', {error: m22Error})} value={m22} onChange={handleSetM22}
+                   style={{width: 50}}/>,
+            <input className={cx('input33', {error: m23Error})} value={m23} onChange={handleSetM23}
+                   style={{width: 50}}/>,
+            <input className={cx('input34', {error: m24Error})} value={m24} onChange={handleSetM24}
+                   style={{width: 50}}/>],
         [
-            <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31} style={{width: 50}}/>,
-            <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32} style={{width: 50}}/>,
-            <input className={cx('input33', {error: m33Error})} value={m33} onChange={handleSetM33} style={{width: 50}}/>,
-            <input className={cx('input34', {error: m34Error})} value={m34} onChange={handleSetM34} style={{width: 50}}/>],
+            <input className={cx('input31', {error: m31Error})} value={m31} onChange={handleSetM31}
+                   style={{width: 50}}/>,
+            <input className={cx('input32', {error: m32Error})} value={m32} onChange={handleSetM32}
+                   style={{width: 50}}/>,
+            <input className={cx('input33', {error: m33Error})} value={m33} onChange={handleSetM33}
+                   style={{width: 50}}/>,
+            <input className={cx('input34', {error: m34Error})} value={m34} onChange={handleSetM34}
+                   style={{width: 50}}/>],
         [
-            <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41} style={{width: 50}}/>,
-            <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42} style={{width: 50}}/>,
-            <input className={cx('input43', {error: m43Error})} value={m43} onChange={handleSetM43} style={{width: 50}}/>,
-            <input className={cx('input44', {error: m44Error})} value={m44} onChange={handleSetM44} style={{width: 50}}/>]
+            <input className={cx('input41', {error: m41Error})} value={m41} onChange={handleSetM41}
+                   style={{width: 50}}/>,
+            <input className={cx('input42', {error: m42Error})} value={m42} onChange={handleSetM42}
+                   style={{width: 50}}/>,
+            <input className={cx('input43', {error: m43Error})} value={m43} onChange={handleSetM43}
+                   style={{width: 50}}/>,
+            <input className={cx('input44', {error: m44Error})} value={m44} onChange={handleSetM44}
+                   style={{width: 50}}/>]
     ]
 
     return (
         <div style={{
             width: '100%',
             height: '100%',
-            // display: 'flex',
+            display: 'flex',
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 1% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>Задание 2</p>
+            <div>
+                <div className={'task-text-description-vector'}>{description}</div>
+                <div className={cx('task-text-description-vector', {grayText: progress > 0})}>{descriptionTaskOne}</div>
+                <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                    <Matrix style={{display: 'flex', flexDirection: 'row', gap: 10}} size={'small'}
+                            className={cx('matrix-1-table')}
+                            ariaLabel={"a dense table"}
+                            matrix={[[<span>число строк</span>, <input type="text" id={'task1part1input1'}
+                                                                       className={cx('input-value-vector-3', {error: p1Error})}
+                                                                       value={p1}
+                                                                       onChange={handleSetP1}/>],
+                                [<span>число столбцов</span>, <input type="text" id={'task1part1input2'}
+                                                                     className={cx('input-value-vector-3', {error: p2Error})}
+                                                                     value={p2}
+                                                                     onChange={handleSetP2}/>]]}
+                            postfix={<Button id={'check1'}
+                                             style={{alignSelf: "center", margin: 'auto', display: 'block'}}
+                                             variant='primary'
+                                             onClick={checkTaskOne}>Проверить</Button>}
+                    />
+                </div>
 
-            // FIXME: изменять цвет текста при переходе к некст пункту
 
-            <p>{description}</p>
-            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
-            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
-
-            <label>число строк</label>
-            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
-                   onChange={handleSetP1}/>
-            <label>число столбцов</label>
-            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2}
-                   onChange={handleSetP2}/>
-
-            <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={checkTaskOne}>Проверить</Button>
-
-            <div id={'task2'} hidden={true}>
-                <p>Стратегии коалиции 3 и 4 игроков</p>
-                <Matrix matrix={data}
-                        size={'small'} ariaLabel={"a dense table"}
-                        style={{width: "50%"}}
-                        head={
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align={'center'} className={'table-head-cell'}/>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        1<br/>
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        2
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        1
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        2
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
+                <div id={'task2'} hidden={true}>
+                    <p className={cx('task-text-description-vector', {grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
+                    <p style={{margin: 0, padding: 0}} className={'task-text-description-vector'}>Стратегии коалиции 3 и
+                        4 игроков</p>
+                    <Matrix matrix={data}
+                            size={'small'} ariaLabel={"a dense table"}
+                            style={{width: "100%"}}
+                            head={
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align={'center'} className={'table-head-cell'}/>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            1<br/>
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            2
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            1
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            2
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                            }
+                            firstColumn={[
+                                <TableCell align={'center'} className={'table-head-cell'}>1 1</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>1 2</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>2 1</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>2 2</TableCell>
+                            ]}
+                    />
+                    <div
+                        style={{display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'flex-end'}}>
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                                Далее
+                            </Button>
                         }
-                        firstColumn={[
-                            <TableCell align={'center'} className={'table-head-cell'}>1 1</TableCell>,
-                            <TableCell align={'center'} className={'table-head-cell'}>1 2</TableCell>,
-                            <TableCell align={'center'} className={'table-head-cell'}>2 1</TableCell>,
-                            <TableCell align={'center'} className={'table-head-cell'}>2 2</TableCell>
-                        ]}
-                />
-
-                {
-                    success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
-                        Далее
-                    </Button>
-                }
-                {
-                    !success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}}
-                            onClick={checkTaskTwo}>
-                        {tries > 0 ? "Проверить" : "Показать ответы"}
-                    </Button>
-                }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={checkTaskTwo}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );

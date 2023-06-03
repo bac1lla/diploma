@@ -26,3 +26,8 @@
 .results-range-page-table {
     padding: 10px;
 }
+
+.explanation-before-matrix {
+    align-self: flex-start;
+    margin-bottom: 20px;
+}

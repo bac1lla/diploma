@@ -20,7 +20,7 @@ import Latex from 'react-latex'
 import styles from './styles.css'
 
 
-const description = 'Для критериев g1(x), g2(x) и g3(x), найдите области эффективных векторных оценок на множестве X={x1, x2, x3}, для всех предложенных задач'
+const description = 'Определите для каждой предложенной задачи все случаи, в которых x0 будет принадлежать области эффективныъхвекторных оценок, при условии, что x не принадлежит области эффективных векторных оценок'
 
 const str1 = {
     value: 1,
@@ -138,6 +138,8 @@ const prepareAnswers = (answer) => {
 }
 
 const cx = classNames.bind(styles)
+
+const explanation = 'Пример: 1,2,5,8,10,12';
 
 const Type3 = ({next}) => {
     const {labs, user} = useContext(Context)
@@ -337,39 +339,64 @@ const Type3 = ({next}) => {
             alignItems: "flex-start",
             flexDirection: "column",
             justifyContent: 'space-between',
-            padding: '0 5% 5% 5%',
+            padding: '0 5% 1% 5%',
             overflow: 'auto',
             margin: 'auto',
         }}>
-            <Text text={description}/>
+            <Text text={description} className={'task-text-description-vector'}/>
             <Matrix matrix={tasksArray}/>
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableBody>
-                        {data.map((row, i) => (
-                            <TableRow
-                                key={uniqueId()}
-                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                            >
-                                {row.map((cell, i) => (<TableCell align="center" key={uniqueId()}>{cell}</TableCell>))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            {
-                success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}} onClick={postAnswers}>
-                    Отправить результаты
-                </Button>
-            }
-            {
-                !success &&
-                <Button variant='primary' style={{alignSelf: "self-end"}}
-                        onClick={handleCheck}>
-                    {tries > 0 ? "Проверить" : "Показать ответы"}
-                </Button>
-            }
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                gap: 0
+            }}>
+                <span style={{marginBottom: 0, padding: 0}}
+                      className={'explanation-before-matrix task-text-description-vector'}>Эффективность:</span>
+                <TableContainer component={Paper} style={{
+                    minHeight: 210,
+                }}>
+                    <Table size={'small'} ariaLabel={"a dense table"}>
+                        <TableBody>
+                            {data.map((row, i) => (
+                                <TableRow
+                                    key={uniqueId()}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    {row.map((cell, i) => (
+                                        <TableCell align="center" key={uniqueId()}>{cell}</TableCell>))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+            <div style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 0,
+            }}>
+                <p className={'vector-explanation'}>{explanation}</p>
+                <div>
+                    {
+                        success &&
+                        <Button variant='primary' style={{alignSelf: "self-end"}} onClick={postAnswers}
+                                disabled={labs.getResults().length < 2}
+                        >
+                            Отправить результаты
+                        </Button>
+                    }
+                    {
+                        !success &&
+                        <Button variant='primary' style={{alignSelf: "self-end"}}
+                                onClick={handleCheck}>
+                            {tries > 0 ? "Проверить" : "Показать ответы"}
+                        </Button>
+                    }
+                </div>
+            </div>
         </div>
     );
 };

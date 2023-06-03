@@ -3,7 +3,6 @@ import React, {useContext} from 'react';
 import classNames from "classnames/bind";
 import {Outlet, useLocation} from "react-router";
 import Header from "../../../components/common/Header/index";
-import {ROUTE__MATRIX_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
 import styles from './styles.css'
 

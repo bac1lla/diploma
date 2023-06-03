@@ -17,7 +17,7 @@ import {tasks} from './tasks'
 const cx = classNames.bind(styles)
 
 const description = "Для критериев g1(x), g2(x) и g3(x), найдите области эффективных векторных оценок на множестве X={x1, x2, x3}, для всех предложенных задач"
-const explanation = "Пример ввода: 1,4,5"
+const explanation = "Формат ввода: номера точек через запятую, пробел или любой другой разделитель\nПример ввода: 1,4,5"
 
 const prepareValue = (value) => {
     return value?.match(/\d+/g, '')?.map(e => +e)?.sort((a, b) => a - b)
@@ -362,15 +362,15 @@ const Type2_2 = ({next}) => {
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: "center",
+            alignItems: "flex-start",
             flexDirection: "column",
             justifyContent: 'space-between',
-            padding: '0 5% 5% 5%',
+            padding: '0 5% 1% 5%',
             overflow: 'auto',
             margin: 'auto',
         }}>
+            <p className={'task-text-description-vector'}>{description}</p>
             <div className={cx('vector-description-matrix')}>
-                <p>{description}</p>
                 <Matrix matrix={task.task} style={{alignSelf: 'flex-start'}}
                         size={'small'} ariaLabel={"a dense table"}
                         head={
@@ -393,22 +393,32 @@ const Type2_2 = ({next}) => {
                 />
             </div>
             <div className={'vector-matrix-buttons'}>
-                <Matrix matrix={data}>
+                <Matrix matrix={data}
+                        prefix={<p className={'explanation-before-matrix task-text-description-vector'}>Область
+                            эффективных векторный оценок:</p>}/>
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                }}>
                     <p className={'vector-explanation'}>{explanation}</p>
-                </Matrix>
-                {
-                    success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
-                        Далее
-                    </Button>
-                }
-                {
-                    !success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}}
-                            onClick={handleCheck}>
-                        {tries > 0 ? "Проверить" : "Показать ответы"}
-                    </Button>
-                }
+                    <div>
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
+                                Далее
+                            </Button>
+                        }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={handleCheck}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );

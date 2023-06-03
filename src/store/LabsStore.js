@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 import dayjs from "dayjs";
 import {makeAutoObservable} from "mobx";
+import {generateMatrix} from "../components/common/AppContainer";
 import {postResult} from "../services/ApiService";
 import {hash} from "./UserStore";
 
@@ -68,6 +69,27 @@ class LabsStore {
             pointsCount: this.getResults().reduce((acc, result) => acc + result?.result, 0),
             results: this.getResults().map(result => result?.result),
         }, labName).then(() => window.alert('Результаты отправлены')).catch(() => window.alert('Ошибка при отправке результатов'))
+    }
+
+    matrix(rows, columns) {
+        let bytes = CryptoJS.AES.decrypt(localStorage.getItem('matrix') || '', hash);
+        let originalText = bytes?.toString(CryptoJS.enc.Utf8);
+
+        try {
+            let matrix = JSON.parse(originalText)
+
+            if (Array.isArray(matrix)) {
+                return matrix
+            }
+        } catch (e) {
+            let newMatrix = generateMatrix(rows, columns);
+
+            const stringMatrix = JSON.stringify(newMatrix);
+            const encryptMatrix = CryptoJS.AES.encrypt(stringMatrix, hash).toString();
+            localStorage.setItem('matrix', encryptMatrix)
+
+            return newMatrix
+        }
     }
 
     _results = []

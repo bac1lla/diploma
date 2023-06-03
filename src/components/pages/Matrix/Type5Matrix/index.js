@@ -38,7 +38,7 @@ const Type5Matrix = ({next, task}) => {
     for (let i = 0; i < 2; i++) {
         const row = [];
 
-        for (let j= 0; j < 8; j++) {
+        for (let j = 0; j < 8; j++) {
             row.push(task[el][0]);
             el++;
         }
@@ -399,7 +399,6 @@ const Type5Matrix = ({next, task}) => {
         }
 
 
-
         if (!error) {
             setProgress(prev => prev + 1);
             setSuccess(true);
@@ -418,7 +417,8 @@ const Type5Matrix = ({next, task}) => {
             <label style={{width: 50}}>{matrixVariant[0][5]}</label>,
             <label style={{width: 50}}>{matrixVariant[0][6]}</label>,
             <label style={{width: 50}}>{matrixVariant[0][7]}</label>,
-            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1} style={{width: 50}}/>],
+            <input id={'beta1'} className={cx('beta1', {error: beta1Error})} value={beta1} onChange={handleSetBeta1}
+                   style={{width: 50}}/>],
         [<label style={{width: 50}}>{matrixVariant[1][0]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][1]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][2]}</label>,
@@ -427,117 +427,123 @@ const Type5Matrix = ({next, task}) => {
             <label style={{width: 50}}>{matrixVariant[1][5]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][6]}</label>,
             <label style={{width: 50}}>{matrixVariant[1][7]}</label>,
-            <input id={'beta2'}  className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2} style={{width: 50}}/>,
-            <input id={'beta'}  className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta} style={{width: 50}}/>],
-        [<input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1} style={{width: 50}}/>,
-            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2} onChange={handleSetAlpha2} style={{width: 50}}/>,
-            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3} onChange={handleSetAlpha3} style={{width: 50}}/>,
-            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4} onChange={handleSetAlpha4} style={{width: 50}}/>,
-            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5} onChange={handleSetAlpha5} style={{width: 50}}/>,
-            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6} onChange={handleSetAlpha6} style={{width: 50}}/>,
-            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7} onChange={handleSetAlpha7} style={{width: 50}}/>,
-            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8} onChange={handleSetAlpha8} style={{width: 50}}/>],
+            <input id={'beta2'} className={cx('beta2', {error: beta2Error})} value={beta2} onChange={handleSetBeta2}
+                   style={{width: 50}}/>,
+            <input id={'beta'} className={cx('beta', {error: betaError})} value={beta} onChange={handleSetBeta}
+                   style={{width: 50}}/>],
+        [<input id={'alpha1'} className={cx('alpha1', {error: alpha1Error})} value={alpha1} onChange={handleSetAlpha1}
+                style={{width: 50}}/>,
+            <input id={'alpha2'} className={cx('alpha2', {error: alpha2Error})} value={alpha2}
+                   onChange={handleSetAlpha2} style={{width: 50}}/>,
+            <input id={'alpha3'} className={cx('alpha3', {error: alpha3Error})} value={alpha3}
+                   onChange={handleSetAlpha3} style={{width: 50}}/>,
+            <input id={'alpha4'} className={cx('alpha4', {error: alpha4Error})} value={alpha4}
+                   onChange={handleSetAlpha4} style={{width: 50}}/>,
+            <input id={'alpha5'} className={cx('alpha5', {error: alpha5Error})} value={alpha5}
+                   onChange={handleSetAlpha5} style={{width: 50}}/>,
+            <input id={'alpha6'} className={cx('alpha6', {error: alpha6Error})} value={alpha6}
+                   onChange={handleSetAlpha6} style={{width: 50}}/>,
+            <input id={'alpha7'} className={cx('alpha7', {error: alpha7Error})} value={alpha7}
+                   onChange={handleSetAlpha7} style={{width: 50}}/>,
+            <input id={'alpha8'} className={cx('alpha8', {error: alpha8Error})} value={alpha8}
+                   onChange={handleSetAlpha8} style={{width: 50}}/>],
         ['', '', '', '',
-            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha} style={{width: 50}}/>]
+            <input id={'alpha'} className={cx('alpha', {error: alphaError})} value={alpha} onChange={handleSetAlpha}
+                   style={{width: 50}}/>]
     ]
 
     return (
         <div style={{
             width: '100%',
             height: '100%',
-            // display: 'flex',
-            alignItems: "center",
+            display: 'flex',
             flexDirection: "column",
-            justifyContent: 'space-between'
+            // justifyContent: 'space-between',
+            padding: '0 5% 1% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>Задание 5</p>
-            <p>{description}</p>
-
-
-            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
-            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
-            <p>{descriptionMatrix}</p>
-            <div style={{display: "flex", alignItems: "center"}}>
-                <div>
-                    <Matrix matrix={data}
-                            size={'small'} ariaLabel={"a dense table"}
-                            head={
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align={'center'} className={'table-head-cell'}/>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β1</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β2</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β3</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β4</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β5</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β6</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β7</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β8</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>αi</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>α</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                            }
-                            firstColumn={[
-                                <TableCell align={'center'} className={'table-head-cell'}>α1</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α2</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>βi</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>β</TableCell>,
-                            ]}
-                    >
-
-                    </Matrix>
-
-
-                    {
-                        !success &&
-                        <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
-                                onClick={checkTaskOne}>
-                            {tries > 0 ? "Проверить" : "Показать ответы"}
-                        </Button>
-                    }
-
-                </div>
-                <div id={'task2'} hidden={true} style={{marginLeft: "60px", marginTop: "45px"}}>
-                    <Matrix matrix={[
-                        [<label htmlFor="task2part1">Нижняя цена игры</label>,
-                            <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1} onChange={handleSetV1}
-                                   type="text" style={{width: 50}}/>],
-                        [<label htmlFor="task2part2">Верхняя цена игры</label>,
-                            <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2} onChange={handleSetV2}
-                                   type="text" style={{width: 50}}/>],
-                        [<label htmlFor="task2part2">Гарантированный выигрыш</label>,
-                            <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3}
-                                   type="text" style={{width: 50}}/>],
-                        [<p>Решение в чистых стратегиях:</p>,
-                            <div style={{display: "flex", gap: 5}}>
-                                <label htmlFor="task2part31">
+            <div className={'task-text-description-vector'}>{description}</div>
+            <div className={cx('task-text-description-vector', {grayText: progress > 0})}>{descriptionTaskOne}</div>
+            <div
+                className={cx('task-text-description-vector', {grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</div>
+            <div className={'task-text-description-vector'}>{descriptionMatrix}</div>
+            <div style={{
+                display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center'
+            }}>
+                <Matrix matrix={data} style={{display: 'flex', flexDirection: 'row', gap: 10, alignItems: 'center'}}
+                        size={'small'} ariaLabel={"a dense table"}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}/>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β1</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β2</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β3</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β4</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β5</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β6</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β7</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β8</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>αi</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>α</TableCell>
+                                </TableRow>
+                            </TableHead>
+                        }
+                        firstColumn={[
+                            <TableCell align={'center'} className={'table-head-cell'}>α1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>βi</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>β</TableCell>,
+                        ]}
+                        postfix={!success &&
+                            <Button id={'check1'} variant='primary'
+                                    onClick={checkTaskOne}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>}
+                />
+                <div style={{display: "flex", alignItems: "center"}}>
+                    <div id={'task2'} hidden={true} style={{}}>
+                        <Matrix matrix={[
+                            [<label htmlFor="task2part1">Нижняя цена игры</label>,
+                                <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1}
+                                       onChange={handleSetV1}
+                                       type="text" style={{width: 50}}/>],
+                            [<label htmlFor="task2part2">Верхняя цена игры</label>,
+                                <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2}
+                                       onChange={handleSetV2}
+                                       type="text" style={{width: 50}}/>],
+                            [<label htmlFor="task2part2">Гарантированный выигрыш</label>,
+                                <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3}
+                                       onChange={handleSetV3}
+                                       type="text" style={{width: 50}}/>],
+                            [<p>Решение в чистых стратегиях:</p>,
+                                <div style={{display: "flex", gap: 5}} className={cx('radio1', {error: radio1Error})}>
                                     <input type="radio" name="task2part31" checked={radio1}
-                                           className={cx('radio1', {error: radio1Error})}
                                            onClick={handleClickRadio1} id={'task2part31'} onChange={() => null}/>
-                                    &nbsp;существует
-                                </label></div>],
-                        ['', <div style={{display: "flex", gap: 5}}>
-                            <label htmlFor="task2part32">
-                                <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
-                                       className={cx('radio1', {error: radio2Error})}
-                                       onClick={handleClickRadio2} onChange={() => null}/>&nbsp;не существует</label>
-                        </div>]
-                    ]} cellClassName={'cell-align-center'}/>
+                                    <label htmlFor="task2part31">&nbsp;существует</label>
 
-                    {
-                        success &&
-                        <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
-                            Далее
-                        </Button>
-                    }
-                    {
-                        !success &&
-                        <Button variant='primary' style={{alignSelf: "self-end"}}
-                                onClick={checkTaskTwo}>
-                            {tries > 0 ? "Проверить" : "Показать ответы"}
-                        </Button>
-                    }
+                                </div>],
+                            ['', <div style={{display: "flex", gap: 5}} className={cx('radio1', {error: radio2Error})}>
+                                <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
+                                       onClick={handleClickRadio2} onChange={() => null}/>
+                                <label htmlFor="task2part32">&nbsp;не существует</label>
+                            </div>]
+                        ]} cellClassName={'cell-align-center'}/>
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                                Далее
+                            </Button>
+                        }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={checkTaskTwo}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

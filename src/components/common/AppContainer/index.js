@@ -40,8 +40,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
-
-function generateMatrix(rows, cols) {
+export const generateMatrix = (rows, cols) => {
     // Helper function to generate a random integer between min and max (inclusive)
     const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -62,10 +61,8 @@ function generateMatrix(rows, cols) {
     return matrix
 }
 
-const MatrixVariant = generateMatrix(16, 4)
-
 const AppContainer = () => {
-    const {user} = useContext(Context)
+    const {user, labs} = useContext(Context)
     const [currentStep, setStep] = useState(0)
     const [openMatrixModal, setOpenMatrixModal] = useState(false)
     const [openMatrixTheory, setOpenMatrixTheory] = useState(false)
@@ -80,6 +77,10 @@ const AppContainer = () => {
     const handleSetMatrixTheory = useCallback((bool) => setOpenMatrixTheory(bool), []);
     const handleSetVectorTheory = useCallback((bool) => setOpenVectorTheory(bool), []);
     const handleSetPaymentTheory = useCallback((bool) => setOpenPaymentTheory(bool), []);
+
+    const MatrixVariant = labs.matrix(16, 4);
+    console.log(MatrixVariant)
+
 
     const handleNextStep = useCallback(() => {
         setStep(prev => prev + 1)

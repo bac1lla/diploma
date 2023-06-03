@@ -396,7 +396,6 @@ const Type7Matrix = ({next, task}) => {
         }
 
 
-
         if (!error) {
             setSuccess(true);
             setProgress(prev => prev + 1);
@@ -455,99 +454,98 @@ const Type7Matrix = ({next, task}) => {
         <div style={{
             width: '100%',
             height: '100%',
-            // display: 'flex',
-            alignItems: "center",
+            display: 'flex',
             flexDirection: "column",
-            justifyContent: 'space-between'
+            // justifyContent: 'space-between',
+            padding: '0 5% 1% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>Задание 7</p>
+            <div className={'task-text-description-vector'}>{description}</div>
+            <div className={cx('task-text-description-vector', {grayText: progress > 0})}>{descriptionTaskOne}</div>
+            <div
+                className={cx('task-text-description-vector', {grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</div>
+            <div className={'task-text-description-vector'}>{descriptionMatrix}</div>
+            <div style={{display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center'}}>
+                <Matrix matrix={data} style={{display: 'flex', flexDirection: 'row', gap: 10, alignItems: 'center'}}
+                        size={'small'} ariaLabel={"a dense table"}
+                        head={
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}/>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β1</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>β2</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>αi</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>α</TableCell>
+                                </TableRow>
+                            </TableHead>
+                        }
+                        firstColumn={[
+                            <TableCell align={'center'} className={'table-head-cell'}>α1</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α2</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α3</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α4</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α5</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α6</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α7</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>α8</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>βi</TableCell>,
+                            <TableCell align={'center'} className={'table-head-cell'}>β</TableCell>,
+                        ]}
+                        postfix={!success &&
+                            <Button id={'check1'} variant='primary' style={{alignSelf: "center", marginLeft: 20}}
+                                    onClick={checkTaskOne}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>}
+                />
+                <div style={{display: "flex", alignItems: 'center'}}>
 
-            // FIXME: изменять цвет текста при переходе к некст пункту
+                    <div id={'task2'} hidden={true} style={{marginLeft: "60px", marginTop: "45px"}}>
+                        <Matrix matrix={[
+                            [<label htmlFor="task2part1">Нижняя цена игры</label>,
+                                <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1}
+                                       onChange={handleSetV1}
+                                       type="text" style={{width: 50}}/>],
+                            [<label htmlFor="task2part2">Верхняя цена игры</label>,
+                                <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2}
+                                       onChange={handleSetV2}
+                                       type="text" style={{width: 50}}/>],
+                            [<label htmlFor="task2part2">Гарантированный выигрыш</label>,
+                                <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3}
+                                       onChange={handleSetV3}
+                                       type="text" style={{width: 50}}/>],
+                            [<p>Решение в чистых стратегиях:</p>,
+                                <div style={{display: "flex", gap: 5}} className={cx('radio1', {error: radio1Error})}>
+                                    <label htmlFor="task2part31">
+                                        <input type="radio" name="task2part31" checked={radio1}
+                                               className={cx('radio1', {error: radio1Error})}
+                                               onClick={handleClickRadio1} id={'task2part31'} onChange={() => null}/>
+                                        &nbsp;существует
+                                    </label></div>],
+                            ['', <div style={{display: "flex", gap: 5}} className={cx('radio1', {error: radio2Error})}>
+                                <label htmlFor="task2part32">
+                                    <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
+                                           className={cx('radio1', {error: radio2Error})}
+                                           onClick={handleClickRadio2} onChange={() => null}/>&nbsp;не
+                                    существует</label>
+                            </div>]
+                        ]} cellClassName={'cell-align-center'}
+                        />
 
-            <p>{description}</p>
-            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
-            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
-
-            <div style={{display: "flex", alignItems: "center", marginLeft: "200px"}}>
-                <div style={{display: "flex", alignItems: "center", width: "60%"}}>
-                    <Matrix matrix={data} style={{width: 400}}
-                            size={'small'} ariaLabel={"a dense table"}
-                            head={
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align={'center'} className={'table-head-cell'}/>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β1</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>β2</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>αi</TableCell>
-                                        <TableCell align={'center'} className={'table-head-cell'}>α</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                            }
-                            firstColumn={[
-                                <TableCell align={'center'} className={'table-head-cell'}>α1</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α2</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α3</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α4</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α5</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α6</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α7</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>α8</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>βi</TableCell>,
-                                <TableCell align={'center'} className={'table-head-cell'}>β</TableCell>,
-                            ]}
-                    >
-                        <p>{descriptionMatrix}</p>
-                    </Matrix>
-
-                    {
-                        !success &&
-                        <Button id={'check1'} variant='primary' style={{alignSelf: "center", marginLeft: 20}}
-                                onClick={checkTaskOne}>
-                            {tries > 0 ? "Проверить" : "Показать ответы"}
-                        </Button>
-                    }
-                </div>
-                <div id={'task2'} hidden={true} style={{marginLeft: "60px", marginTop: "45px"}}>
-                    <Matrix matrix={[
-                        [<label htmlFor="task2part1">Нижняя цена игры</label>,
-                            <input id={'v1'} className={cx('v1', {error: v1Error})} value={v1} onChange={handleSetV1}
-                                   type="text" style={{width: 50}}/>],
-                        [<label htmlFor="task2part2">Верхняя цена игры</label>,
-                            <input id={'v2'} className={cx('v2', {error: v2Error})} value={v2} onChange={handleSetV2}
-                                   type="text" style={{width: 50}}/>],
-                        [<label htmlFor="task2part2">Гарантированный выигрыш</label>,
-                            <input id={'v3'} className={cx('v3', {error: v3Error})} value={v3} onChange={handleSetV3}
-                                   type="text" style={{width: 50}}/>],
-                        [<p>Решение в чистых стратегиях:</p>,
-                            <div style={{display: "flex", gap: 5}}>
-                                <label htmlFor="task2part31">
-                                    <input type="radio" name="task2part31" checked={radio1}
-                                           className={cx('radio1', {error: radio1Error})}
-                                           onClick={handleClickRadio1} id={'task2part31'} onChange={() => null}/>
-                                    &nbsp;существует
-                                </label></div>],
-                        ['', <div style={{display: "flex", gap: 5}}>
-                            <label htmlFor="task2part32">
-                                <input type="radio" name="task2part31" id={'task2part32'} checked={radio2}
-                                       className={cx('radio1', {error: radio2Error})}
-                                       onClick={handleClickRadio2} onChange={() => null}/>&nbsp;не существует</label>
-                        </div>]
-                    ]} cellClassName={'cell-align-center'}
-                    />
-
-                    {
-                        success &&
-                        <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
-                            Далее
-                        </Button>
-                    }
-                    {
-                        !success &&
-                        <Button variant='primary' style={{alignSelf: "self-end"}}
-                                onClick={checkTaskTwo}>
-                            {tries > 0 ? "Проверить" : "Показать ответы"}
-                        </Button>
-                    }
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                                Далее
+                            </Button>
+                        }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={checkTaskTwo}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

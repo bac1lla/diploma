@@ -6,6 +6,7 @@ import {ROUTE__MATRIX_LABS, ROUTE__VECTOR_LABS} from "../../../../constants/rout
 import {Context} from "../../../../index";
 import Matrix from "../../../common/Matrix";
 import classNames from "classnames/bind";
+import Text from "../../../common/Text";
 import styles from "./styles.css"
 import {isEqual} from "lodash/lang";
 import TableHead from "@mui/material/TableHead";
@@ -199,6 +200,7 @@ const Type1Matrix = ({next, task}) => {
             showAnswers()
             // прибавляем прогресс
             setProgress(prev => prev + 1);
+            return;
         }
         let error = false
 
@@ -342,119 +344,153 @@ const Type1Matrix = ({next, task}) => {
 
     const data = [
         [<input className={cx('input11', {error: m11Error})} value={m11} onChange={handleSetM11} style={{width: 50}}/>,
-            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12} style={{width: 50}}/>,
-            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13} style={{width: 50}}/>,
-            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14} style={{width: 50}}/>,
-            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15} style={{width: 50}}/>,
-            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16} style={{width: 50}}/>,
-            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17} style={{width: 50}}/>,
-            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18} style={{width: 50}}/>],
+            <input className={cx('input12', {error: m12Error})} value={m12} onChange={handleSetM12}
+                   style={{width: 50}}/>,
+            <input className={cx('input13', {error: m13Error})} value={m13} onChange={handleSetM13}
+                   style={{width: 50}}/>,
+            <input className={cx('input14', {error: m14Error})} value={m14} onChange={handleSetM14}
+                   style={{width: 50}}/>,
+            <input className={cx('input15', {error: m15Error})} value={m15} onChange={handleSetM15}
+                   style={{width: 50}}/>,
+            <input className={cx('input16', {error: m16Error})} value={m16} onChange={handleSetM16}
+                   style={{width: 50}}/>,
+            <input className={cx('input17', {error: m17Error})} value={m17} onChange={handleSetM17}
+                   style={{width: 50}}/>,
+            <input className={cx('input18', {error: m18Error})} value={m18} onChange={handleSetM18}
+                   style={{width: 50}}/>],
         [<input className={cx('input21', {error: m21Error})} value={m21} onChange={handleSetM21} style={{width: 50}}/>,
-            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22} style={{width: 50}}/>,
-            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23} style={{width: 50}}/>,
-            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24} style={{width: 50}}/>,
-            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25} style={{width: 50}}/>,
-            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26} style={{width: 50}}/>,
-            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27} style={{width: 50}}/>,
-            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28} style={{width: 50}}/>]
+            <input className={cx('input22', {error: m22Error})} value={m22} onChange={handleSetM22}
+                   style={{width: 50}}/>,
+            <input className={cx('input23', {error: m23Error})} value={m23} onChange={handleSetM23}
+                   style={{width: 50}}/>,
+            <input className={cx('input24', {error: m24Error})} value={m24} onChange={handleSetM24}
+                   style={{width: 50}}/>,
+            <input className={cx('input25', {error: m25Error})} value={m25} onChange={handleSetM25}
+                   style={{width: 50}}/>,
+            <input className={cx('input26', {error: m26Error})} value={m26} onChange={handleSetM26}
+                   style={{width: 50}}/>,
+            <input className={cx('input27', {error: m27Error})} value={m27} onChange={handleSetM27}
+                   style={{width: 50}}/>,
+            <input className={cx('input28', {error: m28Error})} value={m28} onChange={handleSetM28}
+                   style={{width: 50}}/>]
     ]
 
     return (
         <div style={{
             width: '100%',
             height: '100%',
-            // display: 'flex',
+            display: 'flex',
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            padding: '0 5% 1% 5%',
+            overflow: 'auto',
+            margin: 'auto',
         }}>
-            <p>Задание 1</p>
+            <div>
+                <div className={'task-text-description-vector'}>{description}</div>
+                <div className={cx('task-text-description-vector', {grayText: progress > 0})}>{descriptionTaskOne}</div>
+                <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                    <Matrix style={{display: 'flex', flexDirection: 'row', gap: 10, justifyContent: 'center'}}
+                            size={'small'}
+                            className={cx('matrix-1-table')}
+                            ariaLabel={"a dense table"}
+                            postfix={<Button id={'check1'} variant='primary'
+                                             style={{alignSelf: "center", margin: 'auto', display: 'block'}}
+                                             onClick={checkTaskOne}>Проверить</Button>}
+                            matrix={[[<span>число строк</span>, <input type="text" id={'task1part1input1'}
+                                                                       className={cx('input-value-vector-3', {error: p1Error})}
+                                                                       value={p1}
+                                                                       onChange={handleSetP1}/>],
+                                [<span>число столбцов</span>,
+                                    <input type="text" id={'task1part1input2'}
+                                           className={cx('input-value-vector-3', {error: p2Error})}
+                                           value={p2}
+                                           onChange={handleSetP2}/>
+                                ]]}/>
 
-            <p>{description}</p>
-            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
-            <p className={cx({grayText: progress >= 2 || progress === 0})}>{descriptionTaskTwo}</p>
-            <label>число строк</label>
-            <input type="text" id={'task1part1input1'} className={cx('task1part1input1', {error: p1Error})} value={p1}
-                   onChange={handleSetP1}/>
-            <label>число столбцов</label>
-            <input type="text" id={'task1part1input2'} className={cx('task1part1input2', {error: p2Error})} value={p2}
-                   onChange={handleSetP2}/>
+                </div>
+                <div id={'task_2'} hidden={true}>
+                    <p className={cx('task-text-description-vector', {grayText: progress >= 2 || progress === 0})}
+                       style={{margin: 0}}>{descriptionTaskTwo}</p>
+                    <p style={{margin: 0, padding: 0}} className={'task-text-description-vector'}>Стратегии коалиции 2,
+                        3 и
+                        4 игроков</p>
+                    <Matrix matrix={data}
+                            style={{}}
+                            head={
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align={'center'} className={'table-head-cell'}/>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            1<br/>
+                                            1
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            1<br/>
+                                            2
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            2<br/>
+                                            1
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            1<br/>
+                                            2<br/>
+                                            2
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            1<br/>
+                                            1
+                                        </TableCell>
 
-            <Button id={'check1'} variant='primary' style={{alignSelf: "self-end"}}
-                    onClick={checkTaskOne}>Проверить</Button>
-
-            <div id="task_2" hidden={true}>
-                <p>Стратегии коалиции 2, 3 и 4 игроков</p>
-                <Matrix matrix={data} size={'small'} ariaLabel={"a dense table"}
-                        style={{width: "50%"}}
-                        head={
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align={'center'} className={'table-head-cell'}/>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        1<br/>
-                                        1
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        1<br/>
-                                        2
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        2<br/>
-                                        1
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        1<br/>
-                                        2<br/>
-                                        2
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        1<br/>
-                                        1
-                                    </TableCell>
-
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        1<br/>
-                                        2
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        2<br/>
-                                        1
-                                    </TableCell>
-                                    <TableCell align={'center'} className={'table-head-cell'}>
-                                        2<br/>
-                                        2<br/>
-                                        2
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>}
-                        firstColumn={[
-                            <TableCell align={'center'} className={'table-head-cell'}>1</TableCell>,
-                            <TableCell align={'center'} className={'table-head-cell'}>2</TableCell>
-                        ]}
-                >
-
-                </Matrix>
-                {
-                    success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
-                        Далее
-                    </Button>
-                }
-                {
-                    !success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}}
-                            onClick={checkTaskTwo}>
-                        {tries > 0 ? "Проверить" : "Показать ответы"}
-                    </Button>
-                }
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            1<br/>
+                                            2
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            2<br/>
+                                            1
+                                        </TableCell>
+                                        <TableCell align={'center'} className={'table-head-cell'}>
+                                            2<br/>
+                                            2<br/>
+                                            2
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>}
+                            firstColumn={[
+                                <TableCell align={'center'} className={'table-head-cell'}>1</TableCell>,
+                                <TableCell align={'center'} className={'table-head-cell'}>2</TableCell>
+                            ]}
+                    />
+                    <div
+                        style={{display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'flex-end'}}>
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>
+                                Далее
+                            </Button>
+                        }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={checkTaskTwo}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };

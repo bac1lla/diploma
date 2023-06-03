@@ -364,14 +364,13 @@ const Type2_1 = ({next}) => {
             alignItems: "center",
             flexDirection: "column",
             justifyContent: 'space-between',
-            padding: '0 5% 5% 5%',
+            padding: '0 5% 1% 5%',
             overflow: 'auto',
             margin: 'auto',
         }}>
+            <p className={'task-text-description-vector'}>{description}</p>
             <div className={cx('vector-description-matrix')}>
-
-                <p className={'task-text-description-vector'}>{description}</p>
-                <Matrix matrix={task.task} style={{alignSelf: "flex-start"}}
+                <Matrix matrix={task.task} style={{alignSelf: "center"}}
                         head={
                             <TableHead>
                                 <TableRow>
@@ -389,23 +388,34 @@ const Type2_1 = ({next}) => {
                 />
             </div>
             <div className={'vector-matrix-buttons'}>
-                <Matrix matrix={data} style={{alignSelf: 'flex-start'}}>
-                    <p className={'vector-explanation'}>{explanation}</p>
 
-                </Matrix>
-                {
-                    success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
-                        Далее
-                    </Button>
-                }
-                {
-                    !success &&
-                    <Button variant='primary' style={{alignSelf: "self-end"}}
-                            onClick={handleCheck}>
-                        {tries > 0 ? "Проверить" : "Показать ответы"}
-                    </Button>
-                }
+                <Matrix matrix={data} style={{alignSelf: 'flex-start'}}
+                        prefix={<p className={'explanation-before-matrix task-text-description-vector'}>Область
+                            эффективных векторный оценок:</p>}
+                />
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                }}>
+                    <p className={'vector-explanation'}>{explanation}</p>
+                    <div>
+                        {
+                            success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handlePostResults}>
+                                Далее
+                            </Button>
+                        }
+                        {
+                            !success &&
+                            <Button variant='primary' style={{alignSelf: "self-end"}}
+                                    onClick={handleCheck}>
+                                {tries > 0 ? "Проверить" : "Показать ответы"}
+                            </Button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );
