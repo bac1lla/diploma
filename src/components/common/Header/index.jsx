@@ -6,7 +6,6 @@ import Select from "react-select";
 import {
     ROUTE__MATRIX_LAB__TEACHER, ROUTE__MATRIX_LABS, ROUTE__MATRIX_TEST,
     ROUTE__SELECT_LAB,
-    ROUTE__TEACHER_PROFILE,
     ROUTE__VECTOR_LAB
 } from "../../../constants/routes";
 import {Context} from "../../../index";

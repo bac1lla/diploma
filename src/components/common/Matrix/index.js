@@ -1,5 +1,5 @@
 import {uniqueId} from "lodash";
-import React from 'react';
+import React, {memo} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -29,11 +29,10 @@ const Matrix = ({
                     <TableBody>
                         {matrix?.map((row, i) => (
                             <TableRow
-                                key={uniqueId()}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 {firstColumn?.[i]}
-                                {row?.map((cell, i) => (<TableCell align="center" key={uniqueId()}
+                                {row?.map((cell, i) => (<TableCell align="center"
                                                                    className={cellClassName || ''}>{cell}</TableCell>))}
                             </TableRow>
                         ))}
@@ -48,4 +47,4 @@ const Matrix = ({
     );
 };
 
-export default Matrix;
+export default memo(Matrix);
