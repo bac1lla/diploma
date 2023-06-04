@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/diploma/static/css/main.7ad4b80e.css",
-    "main.js": "/diploma/static/js/main.20c77586.js",
+    "main.js": "/diploma/static/js/main.35fac3ac.js",
     "static/media/roboto-latin-500-normal.woff2": "/diploma/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/diploma/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/diploma/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -61,10 +61,10 @@
     "static/media/roboto-greek-ext-700-normal.woff": "/diploma/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/diploma/index.html",
     "main.7ad4b80e.css.map": "/diploma/static/css/main.7ad4b80e.css.map",
-    "main.20c77586.js.map": "/diploma/static/js/main.20c77586.js.map"
+    "main.35fac3ac.js.map": "/diploma/static/js/main.35fac3ac.js.map"
   },
   "entrypoints": [
     "static/css/main.7ad4b80e.css",
-    "static/js/main.20c77586.js"
+    "static/js/main.35fac3ac.js"
   ]
 }
