@@ -29,6 +29,7 @@ const SelectLab = ({setStep}) => {
 
     const handleSelectMatrix = useCallback(() => {
         localStorage.removeItem('finishedSteps')
+        localStorage.setItem('step', '0')
         setStep(0)
         navigate(ROUTE__MATRIX_LAB + "/0")
         window.location.reload();
@@ -37,6 +38,7 @@ const SelectLab = ({setStep}) => {
 
     const handleSelectVector = useCallback(() => {
         localStorage.removeItem('finishedSteps')
+        localStorage.setItem('step', "0")
         setStep(0)
         navigate(ROUTE__VECTOR_LAB + "/0")
         window.location.reload();
