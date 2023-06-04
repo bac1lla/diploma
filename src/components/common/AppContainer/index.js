@@ -97,9 +97,10 @@ const AppContainer = () => {
             for (let i = 0; i < finished.length; i++) {
                 if (finished[i] !== i) {
                     nextStep = i;
+                    break
                 }
             }
-
+            console.log(nextStep)
             if (nextStep === undefined) {
                 nextStep = finished[finished.length - 1] + 1;
 
@@ -108,7 +109,7 @@ const AppContainer = () => {
 
             return nextStep
         })
-
+        console.log(nextStep)
         return nextStep;
     }, [finishedSteps])
 

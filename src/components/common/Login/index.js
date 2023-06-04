@@ -46,10 +46,6 @@ const Login = () => {
     const oppositeFormRoute = !isLogin ? ROUTE__REGISTRATION : ROUTE__LOGIN;
     const oppositeProfileRoute = !isTeacher ? profiles.teacher : profiles.student;
 
-    useEffect(() => {
-
-    }, [])
-
     const handleCLick = (id) => {
 
         if (!!isTeacher) {
@@ -72,7 +68,7 @@ const Login = () => {
 
     useEffect(() => {
         getAllStudents().then(data => setStudents(data))
-    }, [!isLogin])
+    }, [isLogin])
 
     return (
         <div className={cx('login-wrapper')}>
