@@ -65,7 +65,7 @@ export const generateMatrix = (rows, cols) => {
 
 const AppContainer = () => {
     const {user, labs} = useContext(Context)
-    const [currentStep, setStep] = useState(0)
+    const [currentStep, setStep] = useState(+localStorage.getItem('step') || 0)
     const [openMatrixModal, setOpenMatrixModal] = useState(false)
     const [openMatrixTheory, setOpenMatrixTheory] = useState(false)
     const [openVectorTheory, setOpenVectorTheory] = useState(false)
@@ -109,7 +109,7 @@ const AppContainer = () => {
 
             return nextStep
         })
-
+        localStorage.setItem('step', nextStep)
         return nextStep;
     }, [finishedSteps])
 
