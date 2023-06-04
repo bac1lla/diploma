@@ -36,31 +36,35 @@ const Login = () => {
     const navigate = useNavigate()
 
 
-    const isStudent = params.profile === profiles.student
-    const isLogin = location.pathname.includes('login');
+    const isTeacher = params.profile === profiles.teacher
+    const isLogin = location.pathname.includes('registr');
 
-    const buttonRegistrationStudentText = useMemo(() => isLogin ? "Зарегестрировать профиль студента" : "Войти в профиль студента", [isLogin])
-    const buttonRegistrationTeacherText = useMemo(() => isStudent ? "Я учитель" : "Я студент", [isStudent]);
+    const buttonRegistrationStudentText = useMemo(() => !isLogin ? "Зарегестрировать профиль студента" : "Войти в профиль студента", [!isLogin])
+    const buttonRegistrationTeacherText = useMemo(() => !isTeacher ? "Я учитель" : "Я студент", [!isTeacher]);
 
-    const formRoute = isLogin ? ROUTE__LOGIN : ROUTE__REGISTRATION;
-    const oppositeFormRoute = isLogin ? ROUTE__REGISTRATION : ROUTE__LOGIN;
-    const oppositeProfileRoute = isStudent ? profiles.teacher : profiles.student;
+    const formRoute = !isLogin ? ROUTE__LOGIN : ROUTE__REGISTRATION;
+    const oppositeFormRoute = !isLogin ? ROUTE__REGISTRATION : ROUTE__LOGIN;
+    const oppositeProfileRoute = !isTeacher ? profiles.teacher : profiles.student;
+
+    useEffect(() => {
+
+    }, [])
 
     const handleCLick = (id) => {
 
-        if (!isStudent) {
+        if (!!isTeacher) {
             user.loginTeacher(teacherEmail, teacherPassword)
             return;
         }
 
-        if (isLogin && isStudent) {
+        if (!isLogin && !isTeacher) {
             user.loginStudent(id)
             navigate(ROUTE__SELECT_LAB);
             return;
         }
 
 
-        if (!isLogin && isStudent) {
+        if (!!isLogin && !isTeacher) {
             user.regStudent(studentName, studentGroup)
             navigate(ROUTE__SELECT_LAB);
         }
@@ -68,7 +72,7 @@ const Login = () => {
 
     useEffect(() => {
         getAllStudents().then(data => setStudents(data))
-    }, [isLogin])
+    }, [!isLogin])
 
     return (
         <div className={cx('login-wrapper')}>
@@ -77,11 +81,11 @@ const Login = () => {
                 <Text text={'Лабораторная работа'} className={cx('login-header-text')}/>
             </div>
             <div className={cx('login-main-group')}>
-                {isLogin && isStudent && <>
+                {!isLogin && !isTeacher && <>
                     <Select options={createOptions(students)} className={cx('login-user-select')}
                             onChange={option => handleCLick(option.value)}/>
                 </>}
-                {!isLogin && isStudent && <>
+                {!!isLogin && !isTeacher && <>
                     <InputGroup size="sm" className="mb-3 login-user-select">
                         <InputGroup.Text id="inputGroup-sizing-sm">Name</InputGroup.Text>
                         <Form.Control
@@ -99,7 +103,7 @@ const Login = () => {
                         />
                     </InputGroup>
                 </>}
-                {!isStudent && <>
+                {!!isTeacher && <>
                     <InputGroup size="sm" className="mb-3 login-user-select">
                         <InputGroup.Text id="inputGroup-sizing-sm">email</InputGroup.Text>
                         <Form.Control
@@ -110,15 +114,15 @@ const Login = () => {
                     </InputGroup>
                     <InputGroup size="sm" className="mb-3 login-user-select">
                         <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
-                        <Form.Control
-                            aria-label="small"
-                            aria-describedby="inputGroup-sizing-sm"
-                            onChange={e => setTeacherPassword(e.target.value)}
+                        <Form.Control type={'password'}
+                                      aria-label="small"
+                                      aria-describedby="inputGroup-sizing-sm"
+                                      onChange={e => setTeacherPassword(e.target.value)}
                         />
                     </InputGroup>
                 </>}
 
-                <Button onClick={handleCLick} text={isLogin || !isStudent ? 'Войти' : "Зарегистрироваться"}
+                <Button onClick={handleCLick} text={!isLogin || !!isTeacher ? 'Войти' : "Зарегистрироваться"}
                         styleBtn={'primary'}/>
             </div>
             <div className={cx('login-button-group')}>

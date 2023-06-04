@@ -31,6 +31,7 @@ const SelectLab = ({setStep}) => {
         localStorage.removeItem('finishedSteps')
         setStep(0)
         navigate(ROUTE__MATRIX_LAB + "/0")
+        window.location.reload();
         labs.setLab('Матричные игры')
     }, [labs, setStep])
 
@@ -38,6 +39,7 @@ const SelectLab = ({setStep}) => {
         localStorage.removeItem('finishedSteps')
         setStep(0)
         navigate(ROUTE__VECTOR_LAB + "/0")
+        window.location.reload();
         labs.setLab('Задачи векторной оптимизации')
     }, [labs, setStep])
 
