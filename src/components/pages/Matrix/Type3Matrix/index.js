@@ -14,7 +14,7 @@ import TableCell from "@mui/material/TableCell";
 
 const cx = classNames.bind(styles)
 
-const description = "Сформулируйте матрицу коалиционной игры второго уровня 1, 2 и 3 игроков против 4. Для этого:"
+const description = "Сформулируйте матрицу коалиционной игры третьего уровня 1, 2 и 3 игроков против 4. Для этого:"
 const descriptionTaskOne = "1. Введите число строк (число стратегий коалиции 1, 2 и 3 игроков) и столбцов (число стратегий 4 игрока) матрицы"
 const descriptionTaskTwo = "2. Заполните появившийся шаблон матрицы"
 const Type3Matrix = ({next, task}) => {
