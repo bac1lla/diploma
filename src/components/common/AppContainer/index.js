@@ -206,11 +206,11 @@ const AppContainer = () => {
                                    element={<PaymentMatrix step={currentStep} goTo={7} columns={6} rows={5}
                                                            next={handleNextStep}/>}/>
                             <Route path={ROUTE__MATRIX_TEST + '/7'}
-                                   element={<PaymentMatrix step={currentStep} goTo={8} columns={6} rows={6}
+                                   element={<PaymentMatrix step={currentStep} goTo={'results'} columns={6} rows={6}
                                                            next={handleNextStep}/>}/>
-                            <Route path={ROUTE__MATRIX_TEST + '/8'}
-                                   element={<PaymentMatrix step={currentStep} goTo={'results'} columns={8} rows={8}
-                                                           needToPost={true} next={handleNextStep}/>}/>
+                            {/*<Route path={ROUTE__MATRIX_TEST + '/8'}*/}
+                            {/*       element={<PaymentMatrix step={currentStep} goTo={'results'} columns={8} rows={8}*/}
+                            {/*                               needToPost={true} next={handleNextStep}/>}/>*/}
                             <Route
                                 path={ROUTE__MATRIX_TEST + '/results'}
                                 element={<Results/>}
@@ -233,8 +233,8 @@ const AppContainer = () => {
                                    element={<Type6Matrix next={handleNextStep} task={MatrixVariant}/>}/>
                             <Route path={ROUTE__MATRIX_LABS + '/7'}
                                    element={<Type7Matrix next={handleNextStep} task={MatrixVariant}/>}/>
-                            <Route path={ROUTE__MATRIX_LABS + '/8'}
-                                   element={<Type8Matrix next={handleNextStep} task={MatrixVariant}/>}/>
+                            {/*<Route path={ROUTE__MATRIX_LABS + '/8'}*/}
+                            {/*       element={<Type8Matrix next={handleNextStep} task={MatrixVariant}/>}/>*/}
                             <Route path={ROUTE__MATRIX_LABS + '/results'} element={<Results
                                 tasksNames={['Задание 1', 'Задание 2', 'Задание 3', 'Задание 4', 'Задание 5']}/>}/>
                         </Route>

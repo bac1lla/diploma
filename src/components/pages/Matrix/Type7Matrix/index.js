@@ -20,16 +20,22 @@ const descriptionTaskOne = "1. Заполните столбец α (столб�
 const descriptionTaskTwo = "2. Введите значения нижней, верхней цены игры и гарантированного выигрыша в соответствующие поля и укажите, \nсуществует ли решение игры в чистых стратегиях. "
 const descriptionMatrix = "Стратегии 4 игрока"
 const Type7Matrix = ({next, task}) => {
-    const {labs} = useContext(Context)
+    const {labs, user} = useContext(Context)
     const navigation = useNavigate();
     const [tries, setTries] = useState(3)
     const [success, setSuccess] = useState(false);
     const [progress, setProgress] = useState(0)
 
+    const postResultsToBD = () => {
+        const {name, group} = user.getUser();
+        labs.postResultsToBd({name, group, lab: 'matrix'})
+    }
+
     const handleClick = useCallback(() => {
         labs.addResult(7, tries > 0 ? tries : 0)
-        navigation(`${ROUTE__MATRIX_LABS}/8`)
+        navigation(`${ROUTE__MATRIX_LABS}/results`)
         next()
+        postResultsToBD()
     }, [tries])
 
     const matrixVariant = []

@@ -12,6 +12,7 @@ import styles from "../Type3Matrix/styles.css";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
+import * as math from "mathjs"
 
 const cx = classNames.bind(styles)
 
@@ -89,6 +90,94 @@ const Type8Matrix = ({next, task}) => {
     const navigation = useNavigate();
     const [result, setResult] = useState(1);
     const [progress, setProgress] = useState(0)
+
+    function simplex(A, b, c) {
+        const numRows = A.length;
+        const numColumns = A[0].length;
+
+        // Create initial tableau
+        let tableau = new Array(numRows + 1).fill().map(() => new Array(numColumns + numRows + 1).fill(0));
+        for (let i = 0; i < numColumns; i++) {
+            tableau[0][i] = c[i] * -1;
+        }
+        for (let i = 1; i <= numRows; i++) {
+            for (let j = 0; j < numColumns; j++) {
+                tableau[i][j] = A[i - 1][j];
+            }
+            tableau[i][numColumns + i - 1] = 1;
+            tableau[i][numColumns + numRows] = b[i - 1];
+        }
+
+        // Iterate until optimal solution found
+        let pivotColumnIndex, pivotRowIndex;
+        while (true) {
+            pivotColumnIndex = -1;
+            for (let i = 0; i < numColumns + numRows; i++) {
+                if (tableau[0][i] < 0) {
+                    pivotColumnIndex = i;
+                    break;
+                }
+            }
+            if (pivotColumnIndex === -1) {
+                break;
+            }
+
+            let minRatio = Infinity;
+            for (let i = 1; i <= numRows; i++) {
+                if (tableau[i][pivotColumnIndex] > 0 && tableau[i][numColumns + numRows] / tableau[i][pivotColumnIndex] < minRatio) {
+                    minRatio = tableau[i][numColumns + numRows] / tableau[i][pivotColumnIndex];
+                    pivotRowIndex = i;
+                }
+            }
+
+            let pivotValue = tableau[pivotRowIndex][pivotColumnIndex];
+            let pivotRow = tableau[pivotRowIndex].map(value => value / pivotValue);
+            tableau = tableau.map((row, index) => {
+                if (index === pivotRowIndex) {
+                    return pivotRow;
+                }
+                let multiplier = row[pivotColumnIndex] / pivotValue;
+                return row.map((value, idx) => value - multiplier * pivotRow[idx]);
+            });
+        }
+
+        // Extract solution
+        const solution = {};
+        for (let i = 0; i < numColumns; i++) {
+            let nonZeroIndices = [];
+            let idx;
+            for (idx = 1; idx <= numRows; idx++) {
+                if (tableau[idx][i] === 1) {
+                    nonZeroIndices.push(idx);
+                } else if (tableau[idx][i] !== 0) {
+                    break;
+                }
+            }
+            if (nonZeroIndices.length === 1 && tableau[nonZeroIndices[0]][numColumns + numRows] === 0) {
+                solution[i] = tableau[nonZeroIndices[0]][numColumns + i];
+            }
+        }
+        solution.result = -tableau[0][numColumns + numRows];
+        return solution;
+    }
+
+    const A = [[3, 0, 3, 7],
+        [3, 0, 1, 2],
+        [1, 2, 0, 7],
+        [5, 7, 0, 0]];
+    const b = [1, 1, 1, 1];
+    const c = [1, 1, 1, 1];
+    const solution = simplex(A, b, c);
+    console.log(solution.result);
+
+    const A1 = [[3, 3, 1, 5],
+        [0, 0, 2, 7],
+        [3, 1, 0, 0],
+        [7, 2, 7, 0]];
+    const b1 = [1, 1, 1, 1];
+    const c1 = [1, 1, 1, 1];
+    const solution1 = simplex(A1, b1, c1);
+    console.log(solution1.result);
 
     const postResultsToBD = () => {
         const {name, group} = user.getUser();
