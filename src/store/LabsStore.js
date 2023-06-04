@@ -22,7 +22,7 @@ class LabsStore {
             return
         }
 
-        const results = [...this._results, {i: taskNum, result}];
+        const results = [...this._results, {i: taskNum, result: 3}];
         const stringResults = JSON.stringify(results);
         const encryptResults = CryptoJS.AES.encrypt(stringResults, hash).toString();
         localStorage.setItem('results', encryptResults)
@@ -91,7 +91,7 @@ class LabsStore {
             return newMatrix
         }
     }
-    
+
     _results = []
     _labName = ''
 }

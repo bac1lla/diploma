@@ -75,7 +75,6 @@ const TeacherProfile = () => {
                 setResults(results)
             })
             .catch(() => {
-                console.log('error')
             })
     }
 
@@ -147,7 +146,6 @@ const TeacherProfile = () => {
         } else {
             data = results.sort((a, b) => b?.pointsCount - a?.pointsCount)
         }
-        console.log(data)
     }
 
     const handleSaveRange = useCallback((range) => {
@@ -158,7 +156,6 @@ const TeacherProfile = () => {
                 getRange()
             })
             .catch(() => {
-                console.log('error')
             })
         handleCloseModal()
     }, [isVector, range])

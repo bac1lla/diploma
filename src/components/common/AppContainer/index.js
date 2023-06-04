@@ -7,7 +7,7 @@ import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useState} from 'react';
 import {Modal} from "react-bootstrap";
 import {Route, Routes} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {
     ROUTE__LOGIN,
     ROUTE__MATRIX_LAB,
@@ -123,25 +123,25 @@ const AppContainer = () => {
 
     if (user.isTeacher() && user.isAuth()) {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <Routes>
                     <Route element={<MainLayout/>}>
                         <Route path={ROUTE__TEACHER_PROFILE} element={<TeacherProfile/>}/>
                         <Route path={ROUTE__UNKNOWN} element={<TeacherProfile/>}/>
                     </Route>
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 
     if (!user.isAuth()) {
-        return (<BrowserRouter>
+        return (<HashRouter>
             <Routes>
                 <Route path={ROUTE__LOGIN} element={<Login/>}/>
                 <Route path={ROUTE__REGISTRATION} element={<Login/>}/>
                 <Route path={ROUTE__UNKNOWN} element={<Login/>}/>
             </Routes>
-        </BrowserRouter>)
+        </HashRouter>)
     }
 
     const postMatrixResultsToBD = () => {
@@ -157,7 +157,7 @@ const AppContainer = () => {
 
     return (
         <>
-            <BrowserRouter>
+            <HashRouter>
                 <Modal show={openMatrixModal} onHide={handleCloseModal} size="xl">
                     <Matrix matrix={MatrixVariant} style={{padding: 50}}
                             size={'small'} ariaLabel={"a dense table"}
@@ -281,7 +281,7 @@ const AppContainer = () => {
                     <Route path={ROUTE__SELECT_LAB} element={<SelectLab setStep={handleSetStep}/>}/>
                     <Route path={ROUTE__UNKNOWN} element={<SelectLab setStep={handleSetStep}/>}/>
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </>
     );
 };

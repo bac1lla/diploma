@@ -31,7 +31,6 @@ class UserStore {
         this._isLoading = true
         signInTeacher(email, password)
             .then(user => {
-                console.log(user)
                 if (!user?.email) {
                     this.setAuth(false)
                     return
@@ -45,7 +44,6 @@ class UserStore {
                 this.setRole("TEACHER")
             })
             .catch(() => {
-                console.log('error')
                 this.setAuth(false)
             })
         this._isLoading = false
@@ -55,7 +53,6 @@ class UserStore {
         this._isLoading = true
         signInStudent()
             .then(() => {
-                console.log(id)
                 getStudentById(id)
                     .then(user => {
                         const newUser = {...user, id}
@@ -67,12 +64,10 @@ class UserStore {
                         this.setAuth(true)
                     })
                     .catch((error) => {
-                        console.log(error)
                         this.setAuth(false)
                     })
             })
             .catch(() => {
-                console.log('error')
                 this.setAuth(false)
             })
         this._isLoading = false
@@ -87,7 +82,6 @@ class UserStore {
                 this.setAuth(true)
             })
             .catch(() => {
-                console.log('error')
                 this.setAuth(false)
             })
         this._isLoading = false

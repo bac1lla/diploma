@@ -5,6 +5,7 @@ import {Outlet, useLocation} from "react-router";
 import Header from "../../../components/common/Header/index";
 import {Context} from "../../../index";
 import styles from './styles.css'
+import main from './../../../styles/main.css'
 
 const cx = classNames.bind(styles)
 

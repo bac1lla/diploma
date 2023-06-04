@@ -52,7 +52,6 @@ function generateMatrix(rows, cols) {
     // Find the minimum value among the maximum values
     const maxMinValue = getMinValue(maxValues);
 
-    console.log(minMaxValue, maxMinValue)
     return {
         matrix,
         minMaxValue,

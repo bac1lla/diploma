@@ -168,7 +168,6 @@ const Type8Matrix = ({next, task}) => {
     const b = [1, 1, 1, 1];
     const c = [1, 1, 1, 1];
     const solution = simplex(A, b, c);
-    console.log(solution.result);
 
     const A1 = [[3, 3, 1, 5],
         [0, 0, 2, 7],
@@ -177,7 +176,6 @@ const Type8Matrix = ({next, task}) => {
     const b1 = [1, 1, 1, 1];
     const c1 = [1, 1, 1, 1];
     const solution1 = simplex(A1, b1, c1);
-    console.log(solution1.result);
 
     const postResultsToBD = () => {
         const {name, group} = user.getUser();

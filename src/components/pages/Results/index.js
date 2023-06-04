@@ -42,7 +42,6 @@ const Results = ({tasksNames, api}) => {
                 setRange(range)
             })
             .catch(() => {
-                console.log('error')
             })
     }
 
@@ -70,82 +69,96 @@ const Results = ({tasksNames, api}) => {
             overflow: 'auto',
             margin: 'auto',
         }}>
-            <h2 style={{marginBottom: 10}}>Результаты</h2>
             <div style={{
-                display: "flex",
-                // alignItems: "center",
-                justifyContent: "space-between",
-                // flexDirection: 'column',
-                height: "100%",
-                gap: 50,
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                alignItems: "flex-start",
+                padding: 50,
+                borderRadius: 20,
+                margin: 'auto',
+                backgroundColor: 'white',
             }}>
-                <Matrix className={'results-table-student'}
-                        style={{width: '100%'}}
-                        matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>, <span>{3 - e?.result}</span>,
-                            <span>{e?.result}/3   </span>])}
-                        cellClassName={'table-cell'}
-                        head={<TableHead>
-                            <TableRow>
-                                <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>Допущенные ошибки</TableCell>
-                                <TableCell align={'center'} className={'table-head-cell'}>Количество баллов</TableCell>
-                            </TableRow>
-                        </TableHead>}
-                    // firstColumn={tasksNames}
-                >
-                </Matrix>
+                <h2 style={{marginBottom: 10}}>Результаты</h2>
                 <div style={{
-                    display: 'flex',
-                    alignItems: "center",
-                    // justifyContent: 'center',
-                    flexDirection: 'column',
+                    display: "flex",
+                    // alignItems: "center",
+                    justifyContent: "space-between",
+                    // flexDirection: 'column',
+                    height: "100%",
+                    gap: 50,
                 }}>
-                    <Matrix
-                        className={'results-range-page-table'}
-                        style={{}}
-                        size={'small'} ariaLabel={"a dense table"}
-                        matrix={[
-                            [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
-                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
-                                    text={+range.minRange5}
-                                    className={'change-range-field'}/>
-                                    <Text text={"-"} className={'change-range-sep'}/>
-                                    <Text text={+range.maxValue} className={'change-range-field'}/></div>],
-                            [
-                                <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
-                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
-                                    text={+range.minRange4}
-                                    className={'change-range-field'}/>
-                                    <Text text={"-"} className={'change-range-sep'}/>
-                                    <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
-                                </div>],
-                            [
-                                <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
-                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
-                                    text={+range.minRange3}
-                                    className={'change-range-field'}/>
-                                    <Text text={"-"} className={'change-range-sep'}/>
-                                    <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
-                                </div>], [
-                                <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
-                                <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
-                                    text={+range.minValue}
-                                    className={'change-range-field'}/>
-                                    <Text text={"-"} className={'change-range-sep'}/>
-                                    <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
-                                </div>]
-                        ]}/>
+                    <Matrix className={'results-table-student'}
+                            style={{width: '100%'}}
+                            matrix={labs.getResults()?.map(e => [<span>Задание {e?.i}</span>,
+                                <span>{3 - e?.result}</span>,
+                                <span>{e?.result}/3   </span>])}
+                            cellClassName={'table-cell'}
+                            head={<TableHead>
+                                <TableRow>
+                                    <TableCell align={'center'} className={'table-head-cell'}>Задание</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>Допущенные
+                                        ошибки</TableCell>
+                                    <TableCell align={'center'} className={'table-head-cell'}>Количество
+                                        баллов</TableCell>
+                                </TableRow>
+                            </TableHead>}
+                        // firstColumn={tasksNames}
+                    >
+                    </Matrix>
                     <div style={{
-                        marginTop: 20,
                         display: 'flex',
+                        alignItems: "center",
+                        // justifyContent: 'center',
                         flexDirection: 'column',
-                        gap: 18
                     }}>
-                        <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
-                        <h2>Оценка: {grade}</h2>
-                        <Button onClick={postResults}
-                                disabled={localStorage.getItem("duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@") !== 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF'}>Отправить
-                            результаты</Button>
+                        <Matrix
+                            className={'results-range-page-table'}
+                            style={{}}
+                            size={'small'} ariaLabel={"a dense table"}
+                            matrix={[
+                                [<Text text={'5'} className={'change-range-number change-range-number-5'}/>,
+                                    <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                        text={+range.minRange5}
+                                        className={'change-range-field'}/>
+                                        <Text text={"-"} className={'change-range-sep'}/>
+                                        <Text text={+range.maxValue} className={'change-range-field'}/></div>],
+                                [
+                                    <Text text={'4'} className={'change-range-number change-range-number-4'}/>,
+                                    <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                        text={+range.minRange4}
+                                        className={'change-range-field'}/>
+                                        <Text text={"-"} className={'change-range-sep'}/>
+                                        <Text text={+range.minRange5 - 1} className={'change-range-field'}/>
+                                    </div>],
+                                [
+                                    <Text text={'3'} className={'change-range-number change-range-number-3'}/>,
+                                    <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                        text={+range.minRange3}
+                                        className={'change-range-field'}/>
+                                        <Text text={"-"} className={'change-range-sep'}/>
+                                        <Text text={+range.minRange4 - 1} className={'change-range-field'}/>
+                                    </div>], [
+                                    <Text text={'2'} className={'change-range-number change-range-number-2'}/>,
+                                    <div style={{display: 'flex', alignItems: 'center', gap: 10}}><Text
+                                        text={+range.minValue}
+                                        className={'change-range-field'}/>
+                                        <Text text={"-"} className={'change-range-sep'}/>
+                                        <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
+                                    </div>]
+                            ]}/>
+                        <div style={{
+                            marginTop: 20,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 18
+                        }}>
+                            <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
+                            <h2>Оценка: {grade}</h2>
+                            <Button onClick={postResults}
+                                    disabled={localStorage.getItem("duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@") !== 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF'}>Отправить
+                                результаты</Button>
+                        </div>
                     </div>
                 </div>
             </div>
