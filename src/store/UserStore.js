@@ -31,7 +31,8 @@ class UserStore {
         this._isLoading = true
         signInTeacher(email, password)
             .then(user => {
-                if (!user) {
+                console.log(user)
+                if (!user?.email) {
                     this.setAuth(false)
                     return
                 }

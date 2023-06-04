@@ -72,7 +72,8 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
     if (user.isTeacher()) {
         return (
             <div className={cx('header')}>
-                <Logo className={cx('logosvg')} onClick={() => navigate(ROUTE__TEACHER_PROFILE)}/>
+                {/*<Logo className={cx('logosvg')} onClick={() => navigate(ROUTE__TEACHER_PROFILE)}/>*/}
+                <img src={Logo} className={cx('logo.svg')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>
                 <div className={cx('person-group')}>
                     <div className={cx('vertical-divide')}/>
                     <Button onClick={logout}>

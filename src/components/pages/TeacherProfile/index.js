@@ -43,7 +43,7 @@ const TeacherProfile = () => {
     const [search, setSearch] = useState('')
     const [date, setDate] = useState(dayjs(Date.now()))
     const [isDateDisabled, setDisableDate] = useState(true)
-    const [range, setRange] = useState({})
+    const [range, setRange] = useState({minValue: 0, maxValue: 0, minRange3: 1, minRange4: 1, minRange5: 1})
     const [student, setStudent] = useState({});
 
     const handleGoMatrix = () => {
@@ -181,10 +181,10 @@ const TeacherProfile = () => {
                         onClick={handleGoVector}>
                     <Text text={'Задачи векторной оптимизации'} className={cx('teacher-side-item-text')}/>
                 </Button>
-                <Button className={cx('teacher-side-item', {teacherSideItemActive: isPaymentMatrix})}
-                        onClick={handleGoMatrixPayment}>
-                    <Text text={'Платежные матрциы'} className={cx('teacher-side-item-text')}/>
-                </Button>
+                {/*<Button className={cx('teacher-side-item', {teacherSideItemActive: isPaymentMatrix})}*/}
+                {/*        onClick={handleGoMatrixPayment}>*/}
+                {/*    <Text text={'Платежные матрциы'} className={cx('teacher-side-item-text')}/>*/}
+                {/*</Button>*/}
                 <div className={'teacher-side-column'}>
                     <div className={'change-range-row'}>
                         <Text text={'5'} className={'change-range-number'}/>

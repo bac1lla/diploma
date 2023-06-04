@@ -39,6 +39,7 @@ import Login from "../Login";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
+import VectorTheory from "../VectorTheory";
 
 export const generateMatrix = (rows, cols) => {
     // Helper function to generate a random integer between min and max (inclusive)
@@ -163,7 +164,7 @@ const AppContainer = () => {
                     МАТРИЧНЫЕ ИГРЫ тЕОРИЯ
                 </Modal>
                 <Modal show={openVectorTheory} onHide={handleCloseVector} size="xl">
-                    ВЕКТОРНАЯ ОПТИМИЗАЦИЯ ТЕОРИЯ
+                    <VectorTheory/>
                 </Modal>
                 <Modal show={openPaymentTheory} onHide={handleClosePayment} size="xl">
                     ПЛАТЕЖНЫЕ МаТРИЦЫ ТЕОРИЯ

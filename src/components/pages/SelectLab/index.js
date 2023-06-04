@@ -51,9 +51,9 @@ const SelectLab = ({setStep}) => {
                 <h2 style={{textAlign: 'center', marginBottom: 30}}>Выберите лабораторную работу</h2>
                 <div className={'lab-select-item'} onClick={handleSelectMatrix}>Матричные игры</div>
                 <div className={'lab-select-item'} onClick={handleSelectVector}>Задачи векторной оптимизации</div>
-                <div className={'lab-select-item'} onClick={handleSelectMinValueMatrix}>Нахождение цены игры платежной
-                    матрицы
-                </div>
+                {/*<div className={'lab-select-item'} onClick={handleSelectMinValueMatrix}>Нахождение цены игры платежной*/}
+                {/*    матрицы*/}
+                {/*</div>*/}
             </div>
         </div>
     );

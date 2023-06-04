@@ -19,3 +19,16 @@
     height: 30px;
     width: 90%;
 }
+
+.vector-theory-text {
+    font-size: var(--font-size);
+    /*font-weight: var(--font-weight-header);*/
+}
+
+.vector-theory-text-blue {
+    color: #002aff;
+}
+
+.vector-theory-text-center {
+    text-align: center;
+}
