@@ -100,7 +100,7 @@ const AppContainer = () => {
                     break
                 }
             }
-            console.log(nextStep)
+
             if (nextStep === undefined) {
                 nextStep = finished[finished.length - 1] + 1;
 
@@ -109,7 +109,7 @@ const AppContainer = () => {
 
             return nextStep
         })
-        console.log(nextStep)
+
         return nextStep;
     }, [finishedSteps])
 
