@@ -230,16 +230,11 @@ const Type3 = ({next}) => {
         setS4(newS4);
     }
 
-    const postResultsToBD = () => {
-        const {name, group} = user.getUser();
-        labs.postResultsToBd({name, group, lab: 'vector'})
-    }
-
     const postAnswers = async () => {
         await labs.addResult(3, tries > 0 ? tries : 0)
-        navigate('/vectors-optimizations/results');
-        next();
-        postResultsToBD();
+        localStorage.setItem('duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@', 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF')
+        const nextStep = next();
+        navigate(`/vectors-optimizations/${nextStep}`);
     }
 
     const handleCheck = () => {
@@ -382,10 +377,8 @@ const Type3 = ({next}) => {
                 <div>
                     {
                         success &&
-                        <Button variant='primary' style={{alignSelf: "self-end"}} onClick={postAnswers}
-                                disabled={labs.getResults().length < 2}
-                        >
-                            Отправить результаты
+                        <Button variant='primary' style={{alignSelf: "self-end"}} onClick={postAnswers}>
+                            Далее
                         </Button>
                     }
                     {

@@ -86,7 +86,9 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
 
     return (
         <div className={cx('header')}>
-            <img src={Logo} className={cx('logo.svg')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>
+            <img src={Logo} className={cx('logo.svg')} onClick={() => {
+                navigate(ROUTE__SELECT_LAB)
+            }}/>
             {/*<Logo className={cx('logo.svg')} onClick={() => navigate(ROUTE__SELECT_LAB)}/>*/}
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>

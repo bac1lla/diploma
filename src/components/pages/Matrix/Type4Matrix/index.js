@@ -51,10 +51,10 @@ const Type4Matrix = ({next}) => {
 
 
     const handleClickNext = useCallback(() => {
-        labs.addResult(3, tries > 0 ? tries : 0)
-        navigation(`${ROUTE__MATRIX_LABS}/5`)
-        next()
-    }, [tries])
+        labs.addResult(4, tries > 0 ? tries : 0)
+        const nextStep = next()
+        navigation(`${ROUTE__MATRIX_LABS}/${nextStep}`)
+    }, [tries, labs, next])
 
     const handleClick1 = useCallback(option => {
         setValue1(option)

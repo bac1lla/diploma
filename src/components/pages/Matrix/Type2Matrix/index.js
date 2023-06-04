@@ -38,9 +38,9 @@ const Type2Matrix = ({next, task}) => {
 
     const handleClick = useCallback(() => {
         labs.addResult(2, tries > 0 ? tries : 0)
-        navigation(`${ROUTE__MATRIX_LABS}/3`)
-        next()
-    }, [tries])
+        const nextStep = next()
+        navigation(`${ROUTE__MATRIX_LABS}/${nextStep}`)
+    }, [tries, labs, next])
 
     const showAnswersPart1 = () => {
         setP1("4");

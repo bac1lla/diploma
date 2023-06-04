@@ -12,7 +12,7 @@ import styles from "../Type3Matrix/styles.css";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import * as math from "mathjs"
+// import * as math from "mathjs"
 
 const cx = classNames.bind(styles)
 
@@ -224,16 +224,16 @@ const Type8Matrix = ({next, task}) => {
         }}>
             <p>Задание 8</p>
             <p>{description}</p>
-            <p className={cx({grayText: progress > 0 })}>{descriptionTaskOne}</p>
+            <p className={cx({grayText: progress > 0})}>{descriptionTaskOne}</p>
             <p className={cx({grayText: progress > 1 || progress === 0})}>{descriptionTaskTwo}</p>
             <p className={cx({grayText: progress > 2 || progress < 2})}>{descriptionTaskThree}</p>
             <p color="grey">{descriptionMatrix}</p>
             <p>Матрица игры:</p>
             <div style={{display: "flex"}}>
                 <div>
-                <div>
-                    <Latex>{matrixVariantToLatex}</Latex>
-                </div>
+                    <div>
+                        <Latex>{matrixVariantToLatex}</Latex>
+                    </div>
 
                     <div id="task1">
                         <p>Переход к преобразованной паре</p>
@@ -251,24 +251,24 @@ const Type8Matrix = ({next, task}) => {
                                 <Latex>{'$e_1=(1,...,1)^T\\in{R}$'}</Latex>
                                 <input type="text" id="task2part1formula1" style={{width: 40}}/>
                             </div>,
-                            <div style={{display: "flex", alignItems: "center"}}>
-                                <Latex>{'$($'}</Latex>
-                                <Select id={'task2part2formula1'} options={optionsE1E2}/>
-                            </div>,
-                            <div style={{display: "flex", alignItems: "center"}}>
-                                <Latex>{"$, X)->$"}</Latex>
-                                <Select id={'task2part2formula1'} options={optionsMAXMIN}/>
-                                <Latex>{"$X \\in R_x$"}</Latex>
-                            </div>, '', '',
-                            <div>
-                                <Latex>{"$($"}</Latex>
-                                <Select id={'task2part3formula1'} options={optionsE1E2}/>
-                                <Latex>{"$,Y)->$"}</Latex>
-                            </div>,
-                            <div>
-                                <Select options={optionsMAXMIN}/>
-                                <Latex>{"$Y\\in{R_y}$"}</Latex>
-                            </div>, '', ''
+                                <div style={{display: "flex", alignItems: "center"}}>
+                                    <Latex>{'$($'}</Latex>
+                                    <Select id={'task2part2formula1'} options={optionsE1E2}/>
+                                </div>,
+                                <div style={{display: "flex", alignItems: "center"}}>
+                                    <Latex>{"$, X)->$"}</Latex>
+                                    <Select id={'task2part2formula1'} options={optionsMAXMIN}/>
+                                    <Latex>{"$X \\in R_x$"}</Latex>
+                                </div>, '', '',
+                                <div>
+                                    <Latex>{"$($"}</Latex>
+                                    <Select id={'task2part3formula1'} options={optionsE1E2}/>
+                                    <Latex>{"$,Y)->$"}</Latex>
+                                </div>,
+                                <div>
+                                    <Select options={optionsMAXMIN}/>
+                                    <Latex>{"$Y\\in{R_y}$"}</Latex>
+                                </div>, '', ''
                             ],
                             [
                                 <div>
@@ -313,12 +313,15 @@ const Type8Matrix = ({next, task}) => {
                                 head={
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell align={'center'} className={'table-head-cell'}>Составление ЗЛП</TableCell>
-                                            <TableCell align={'center'} className={'table-head-cell'}>Задача А</TableCell>
+                                            <TableCell align={'center'} className={'table-head-cell'}>Составление
+                                                ЗЛП</TableCell>
+                                            <TableCell align={'center'} className={'table-head-cell'}>Задача
+                                                А</TableCell>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
-                                            <TableCell align={'center'} className={'table-head-cell'}>Задача B</TableCell>
+                                            <TableCell align={'center'} className={'table-head-cell'}>Задача
+                                                B</TableCell>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
                                             <TableCell align={'center'} className={'table-head-cell'}/>
@@ -330,7 +333,6 @@ const Type8Matrix = ({next, task}) => {
                     </div>
                 </div>
             </div>
-
 
 
             <div id="task3">

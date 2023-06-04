@@ -28,18 +28,21 @@ const SelectLab = ({setStep}) => {
     const navigate = useNavigate()
 
     const handleSelectMatrix = useCallback(() => {
-        navigate(ROUTE__MATRIX_LAB + "/1")
-        labs.setLab('Матричные игры')
+        localStorage.removeItem('finishedSteps')
         setStep(0)
-    }, [])
+        navigate(ROUTE__MATRIX_LAB + "/0")
+        labs.setLab('Матричные игры')
+    }, [labs, setStep])
 
     const handleSelectVector = useCallback(() => {
-        navigate(ROUTE__VECTOR_LAB + "/1")
-        labs.setLab('Задачи векторной оптимизации')
+        localStorage.removeItem('finishedSteps')
         setStep(0)
-    }, [])
+        navigate(ROUTE__VECTOR_LAB + "/0")
+        labs.setLab('Задачи векторной оптимизации')
+    }, [labs, setStep])
 
     const handleSelectMinValueMatrix = useCallback(() => {
+        localStorage.removeItem('finishedSteps')
         navigate(ROUTE__MATRIX_TEST + "/1")
         labs.setLab('Нахождение цены игры платежной матрицы')
         setStep(0)

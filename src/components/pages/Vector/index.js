@@ -26,7 +26,7 @@ const Vector = ({step, nextStep, setStep}) => {
             justifyContent: 'space-between'
         }}>
             <Outlet/>
-            <Stepper steps={[1234, 1234, 1234]} next={nextStep} current={step} setStep={setStep}/>
+            <Stepper steps={[0, 1, 2, 3]} next={nextStep} current={step} setStep={setStep}/>
         </div>
     );
 };

@@ -26,17 +26,12 @@ const Type7Matrix = ({next, task}) => {
     const [success, setSuccess] = useState(false);
     const [progress, setProgress] = useState(0)
 
-    const postResultsToBD = () => {
-        const {name, group} = user.getUser();
-        labs.postResultsToBd({name, group, lab: 'matrix'})
-    }
-
     const handleClick = useCallback(() => {
         labs.addResult(7, tries > 0 ? tries : 0)
-        navigation(`${ROUTE__MATRIX_LABS}/results`)
-        next()
-        postResultsToBD()
-    }, [tries])
+        localStorage.setItem('duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@', 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF')
+        const nextStep = next()
+        navigation(`${ROUTE__MATRIX_LABS}/${nextStep}`)
+    }, [tries, next, labs])
 
     const matrixVariant = []
     let el = 0;
@@ -537,7 +532,6 @@ const Type7Matrix = ({next, task}) => {
                             </div>]
                         ]} cellClassName={'cell-align-center'}
                         />
-
                         {
                             success &&
                             <Button variant='primary' style={{alignSelf: "self-end"}} onClick={handleClick}>

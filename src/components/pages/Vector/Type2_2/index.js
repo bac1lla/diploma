@@ -71,9 +71,9 @@ const Type2_2 = ({next}) => {
 
     const handlePostResults = useCallback(() => {
         labs.addResult(2, tries > 0 ? tries : 0)
-        navigate('/vectors-optimizations/3');
-        next();
-    }, [tries])
+        const nextStep = next();
+        navigate(`/vectors-optimizations/${nextStep}`);
+    }, [tries, labs, next])
 
     const handleSetP1 = useCallback(e => {
         setP1(e.target.value);

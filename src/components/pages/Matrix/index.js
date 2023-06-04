@@ -13,7 +13,7 @@ const createRoutes = (i) => {
     return "/" + i
 }
 
-const Matrix = ({step, nextStep, setStep}) => {
+const Matrix = ({step, nextStep, setStep, finishedSteps}) => {
 
     const {labs} = useContext(Context);
 
@@ -27,7 +27,8 @@ const Matrix = ({step, nextStep, setStep}) => {
             justifyContent: 'space-between',
         }}>
             <Outlet/>
-            <Stepper steps={[1234, 1234, 1234, 34, 123, 23, 23]} next={nextStep} current={step} setStep={setStep}/>
+            <Stepper steps={[0, 1, 2, 3, 4, 5, 6, 7]} next={nextStep} current={step} setStep={setStep}
+                     finishedSteps={finishedSteps}/>
         </div>
     );
 };

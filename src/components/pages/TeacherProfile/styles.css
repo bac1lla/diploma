@@ -59,8 +59,14 @@
     justify-content: space-between;
 }
 
+.teacher-date {
+    background-color: rgb(255, 255, 255);
+
+}
+
 .teacher-date > * > input {
     padding: 9.5px;
+    background-color: rgb(255, 255, 255);
     /*width: 15%;*/
 }
 
@@ -68,7 +74,7 @@
     padding: 0 15px;
     width: 50%;
     height: 40px;
-    background-color: rgba(246, 246, 246, 0.93);
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: 1px solid #1e97c1;
     outline: none;
@@ -101,4 +107,12 @@
 
 .teacher-show-results {
     padding: 70px;
+}
+
+.teacher-head-row-cell {
+    cursor: pointer;
+}
+
+.teacher-head-row-cell:hover {
+    background-color: rgba(236, 236, 236, 0.61);
 }

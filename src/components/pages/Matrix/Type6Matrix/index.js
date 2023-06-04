@@ -30,9 +30,10 @@ const Type6Matrix = ({next, task}) => {
 
     const handleClick = useCallback(() => {
         labs.addResult(6, tries > 0 ? tries : 0)
-        navigation(`${ROUTE__MATRIX_LABS}/7`)
-        next()
-    }, [tries])
+        const nextStep = next()
+        navigation(`${ROUTE__MATRIX_LABS}/${nextStep}`)
+
+    }, [tries, next, labs])
 
     const matrixVariant = []
     let el = 0;

@@ -45,6 +45,7 @@ const TeacherProfile = () => {
     const [isDateDisabled, setDisableDate] = useState(true)
     const [range, setRange] = useState({minValue: 0, maxValue: 0, minRange3: 1, minRange4: 1, minRange5: 1})
     const [student, setStudent] = useState({});
+    const [sort, setSort] = useState(false)
 
     const handleGoMatrix = () => {
         navigate(ROUTE__MATRIX_LAB__TEACHER)
@@ -102,7 +103,7 @@ const TeacherProfile = () => {
         setDisableDate(prev => !prev)
     }, [])
 
-    const data = search || !isDateDisabled ? results.filter(result => {
+    let data = search || !isDateDisabled ? results.filter(result => {
         if (search && date) {
             return result?.name.toLowerCase().includes(search.toLowerCase())
                 || result?.group.toLowerCase().includes(search.toLowerCase())
@@ -120,6 +121,34 @@ const TeacherProfile = () => {
 
         return result.date.includes(date.format('DD.MM.YYYY'))
     }) : results
+
+    const handleSortByName = () => {
+        setSort(prev => !prev)
+        if (sort) {
+            data = results.sort((a, b) => a?.name > b?.name ? 1 : -1)
+        } else {
+            data = results.sort((a, b) => a?.name > b?.name ? -1 : 1)
+        }
+    }
+
+    const handleSortByGroup = () => {
+        setSort(prev => !prev)
+        if (sort) {
+            data = results.sort((a, b) => a?.group > b?.group ? 1 : -1)
+        } else {
+            data = results.sort((a, b) => a?.group > b?.group ? -1 : 1)
+        }
+    }
+
+    const handleSortByPoints = () => {
+        setSort(prev => !prev)
+        if (sort) {
+            data = results.sort((a, b) => a?.pointsCount - b?.pointsCount)
+        } else {
+            data = results.sort((a, b) => b?.pointsCount - a?.pointsCount)
+        }
+        console.log(data)
+    }
 
     const handleSaveRange = useCallback((range) => {
         const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
@@ -156,19 +185,6 @@ const TeacherProfile = () => {
     const handleCloseModalResults = useCallback(() => {
         setIsOpenResults(false)
     }, [])
-
-    const handleAddResult = () => {
-        const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
-
-        postResult({
-            date: dayjs().format('DD.MM.YYYY'),
-            name: 'Иванов Иван Иванович',
-            group: 'V8dso',
-            pointsCount: 19,
-            results: [3, 3, 3, 3, 3, 2, 2],
-            grade: 5,
-        }, labName)
-    }
 
     return (
         <div className={cx('teacher-wrapper')}>
@@ -230,10 +246,14 @@ const TeacherProfile = () => {
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">ФИО</TableCell>
-                                <TableCell align="center">Группа</TableCell>
-                                <TableCell align="center">Баллы</TableCell>
-                                <TableCell align="center">Оценка</TableCell>
+                                <TableCell align="center" onClick={handleSortByName}
+                                           className={'teacher-head-row-cell'}>ФИО</TableCell>
+                                <TableCell align="center" onClick={handleSortByGroup}
+                                           className={'teacher-head-row-cell'}>Группа</TableCell>
+                                <TableCell align="center" onClick={handleSortByPoints}
+                                           className={'teacher-head-row-cell'}>Баллы</TableCell>
+                                <TableCell align="center" onClick={handleSortByPoints}
+                                           className={'teacher-head-row-cell'}>Оценка</TableCell>
                                 <TableCell align="center"> </TableCell>
                             </TableRow>
                         </TableHead>

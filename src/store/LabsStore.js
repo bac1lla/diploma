@@ -91,7 +91,7 @@ class LabsStore {
             return newMatrix
         }
     }
-
+    
     _results = []
     _labName = ''
 }

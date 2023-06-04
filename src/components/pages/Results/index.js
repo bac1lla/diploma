@@ -3,6 +3,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import {observer} from "mobx-react-lite";
 import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {Button} from "react-bootstrap";
 import {useLocation} from "react-router";
 import {ROUTE__PAYMENT_MATRIX_LAB__TEACHER, ROUTE__VECTOR_LAB__TEACHER} from "../../../constants/routes";
 import {Context} from "../../../index";
@@ -11,7 +12,7 @@ import Matrix from "../../common/Matrix";
 import Text from "../../common/Text";
 import './styles.css'
 
-const Results = ({tasksNames}) => {
+const Results = ({tasksNames, api}) => {
     const {labs, user} = useContext(Context);
     const location = useLocation();
     const isPaymentMatrix = location.pathname.includes('test');
@@ -48,6 +49,14 @@ const Results = ({tasksNames}) => {
     useEffect(() => {
         getRange();
     }, [isVector])
+
+    const postResults = () => {
+        const alreadyPast = localStorage.getItem("duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@")
+        if (alreadyPast === 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF') {
+            api()
+            localStorage.setItem('duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@', 'fwhnum03983-28,74-x89t.y342t78n23by4xinuhm9x2ny9rmymYN*TYETM')
+        }
+    }
 
     return (
         <div style={{
@@ -126,9 +135,17 @@ const Results = ({tasksNames}) => {
                                     <Text text={+range.minRange3 - 1} className={'change-range-field'}/>
                                 </div>]
                         ]}/>
-                    <div style={{marginTop: 20}}>
+                    <div style={{
+                        marginTop: 20,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 18
+                    }}>
                         <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
                         <h2>Оценка: {grade}</h2>
+                        <Button onClick={postResults}
+                                disabled={localStorage.getItem("duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@") !== 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF'}>Отправить
+                            результаты</Button>
                     </div>
                 </div>
             </div>
