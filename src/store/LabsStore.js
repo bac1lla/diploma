@@ -22,7 +22,7 @@ class LabsStore {
             return
         }
 
-        const results = [...this._results, {i: taskNum, result: 3}];
+        const results = [...this._results, {i: taskNum, result}];
         const stringResults = JSON.stringify(results);
         const encryptResults = CryptoJS.AES.encrypt(stringResults, hash).toString();
         localStorage.setItem('results', encryptResults)
