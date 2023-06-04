@@ -158,6 +158,16 @@ const Type6Matrix = ({next, task}) => {
         setBeta3(answers.minValues[2]);
         setBeta4(answers.minValues[3]);
         setBeta(answers.maxMinValue);
+        setAlpha1Error(false)
+        setAlpha2Error(false)
+        setAlpha3Error(false)
+        setAlpha4Error(false)
+        setAlphaError(false)
+        setBeta1Error(false)
+        setBeta2Error(false)
+        setBeta3Error(false)
+        setBeta4Error(false)
+        setBetaError(false)
     }
 
     const checkTaskOne = () => {
@@ -166,6 +176,7 @@ const Type6Matrix = ({next, task}) => {
             document.getElementById("task2").hidden = false;
             showAnswersPart1()
             setProgress(prev => prev + 1);
+            return;
         }
         let error = false
 

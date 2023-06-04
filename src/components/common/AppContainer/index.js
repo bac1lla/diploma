@@ -200,9 +200,9 @@ const AppContainer = () => {
                             }
                     />
                 </Modal>
-                <Modal show={openMatrixTheory} onHide={handleCloseMatrix} size="xl">
-                    <MatrixTheory/>
-                </Modal>
+                {/*<Modal show={openMatrixTheory} onHide={handleCloseMatrix} size="xl">*/}
+                {/*    <MatrixTheory/>*/}
+                {/*</Modal>*/}
                 <Modal show={openVectorTheory} onHide={handleCloseVector} size="xl">
                     <VectorTheory/>
                 </Modal>

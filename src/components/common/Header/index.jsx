@@ -93,7 +93,7 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>
                 {isMatrix && <Button onClick={handleSetMatrixModalOpen}>Посмотреть задание</Button>}
-                <HelpCenterIcon onClick={openTheory}/>
+                {!isMatrix && <HelpCenterIcon onClick={openTheory}/>}
                 <div className={cx('vertical-divide')}/>
                 <Select onChange={handleCLick} options={options} value={options[0]} className={cx('header-select')}/>
                 <Text text={user.getUser()?.group} className={cx("person-group")}/>

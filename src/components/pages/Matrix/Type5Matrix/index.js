@@ -169,6 +169,18 @@ const Type5Matrix = ({next, task}) => {
         setBeta1(answers.minValues[0]);
         setBeta2(answers.minValues[1]);
         setBeta(answers.minMaxValue);
+        setAlpha1Error(false)
+        setAlpha2Error(false)
+        setAlpha3Error(false)
+        setAlpha4Error(false)
+        setAlpha5Error(false)
+        setAlpha6Error(false)
+        setAlpha7Error(false)
+        setAlpha8Error(false)
+        setAlphaError(false)
+        setBeta1Error(false)
+        setBeta2Error(false)
+        setBetaError(false)
     }
 
     const checkTaskOne = () => {
@@ -177,6 +189,7 @@ const Type5Matrix = ({next, task}) => {
             document.getElementById("task2").hidden = false;
             showAnswersPart1()
             setProgress(prev => prev + 1);
+            return;
         }
         let error = false
 

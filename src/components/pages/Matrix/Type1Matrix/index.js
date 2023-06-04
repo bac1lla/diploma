@@ -52,9 +52,12 @@ const Type1Matrix = ({next, task}) => {
     const checkTaskOne = () => {
         if (tries < 1) {
             showAnswersPart1()
+            setP1Error(false)
+            setP2Error(false)
             setProgress(prev => prev + 1)
             document.getElementById("check1").hidden = true;
             document.getElementById("task_2").hidden = false;
+            return;
         }
         let error = false
 

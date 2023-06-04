@@ -49,9 +49,12 @@ const Type3Matrix = ({next, task}) => {
     const checkTaskOne = () => {
         if (tries < 1) {
             showAnswersPart1()
+            setP1Error(false)
+            setP2Error(false)
             setProgress(prev => prev + 1);
             document.getElementById("check1").hidden = true;
             document.getElementById("task2").hidden = false;
+            return;
         }
         let error = false
 
@@ -191,8 +194,25 @@ const Type3Matrix = ({next, task}) => {
     const checkTaskTwo = () => {
         if (tries < 1) {
             setSuccess(true);
-            setProgress(prev => prev + 1);
             showAnswers()
+            setM11Error(false)
+            setM12Error(false)
+            setM31Error(false)
+            setM32Error(false)
+            setM41Error(false)
+            setM42Error(false)
+            setM51Error(false)
+            setM52Error(false)
+            setM21Error(false)
+            setM22Error(false)
+            setM61Error(false)
+            setM62Error(false)
+            setM71Error(false)
+            setM72Error(false)
+            setM81Error(false)
+            setM82Error(false)
+            setProgress(prev => prev + 1);
+            return;
         }
         let error = false
 
