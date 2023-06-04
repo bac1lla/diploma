@@ -41,6 +41,7 @@ import Type2_2 from "../../pages/Vector/Type2_2";
 import Type3 from "../../pages/Vector/Type3";
 import Login from "../Login";
 import VectorTheory from "../VectorTheory";
+import MatrixTheory from "../MatrixTheory"
 
 export const generateMatrix = (rows, cols) => {
     // Helper function to generate a random integer between min and max (inclusive)
@@ -200,7 +201,7 @@ const AppContainer = () => {
                     />
                 </Modal>
                 <Modal show={openMatrixTheory} onHide={handleCloseMatrix} size="xl">
-                    МАТРИЧНЫЕ ИГРЫ тЕОРИЯ
+                    <MatrixTheory/>
                 </Modal>
                 <Modal show={openVectorTheory} onHide={handleCloseVector} size="xl">
                     <VectorTheory/>
