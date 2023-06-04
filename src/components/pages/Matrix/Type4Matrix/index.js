@@ -195,7 +195,6 @@ const Type4Matrix = ({next}) => {
             error = true
         } else {
             setErrorValue10(false)
-            error = true
         }
         if (value11?.value !== answers[0].answers[10]) {
             setErrorValue11(true)
@@ -330,7 +329,7 @@ const Type4Matrix = ({next}) => {
                             value={value7}
                             className={cx('type4Matrix-select', {error: errorValue7})}
                             placeholder={'Выберите ответ'}/>
-                    <p></p>'
+                    <p></p>
                     <Select id={'select1-formula2-part4'} onChange={handleClick8} options={optionsPart2}
                             value={value8}
                             className={cx('type4Matrix-select', {error: errorValue8})}
