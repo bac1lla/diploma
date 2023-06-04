@@ -85,10 +85,10 @@ const AppContainer = () => {
     const MatrixVariant = labs.matrix(16, 4);
 
     const handleNextStep = useCallback(() => {
-        let startStep = 0;
         let nextStep;
 
         setStep(prev => {
+            localStorage.setItem('step', prev + '')
             let local = JSON.parse(localStorage.getItem('finishedSteps')) || []
             let finished = [...local, prev].sort((a, b) => a - b)
             setFinishedSteps(finished);
@@ -109,7 +109,6 @@ const AppContainer = () => {
 
             return nextStep
         })
-        localStorage.setItem('step', nextStep)
         return nextStep;
     }, [finishedSteps])
 
@@ -117,6 +116,7 @@ const AppContainer = () => {
         if (finishedSteps.includes(step)) {
             return;
         }
+        localStorage.setItem('step', step + '')
         setStep(step)
     }, [finishedSteps])
 

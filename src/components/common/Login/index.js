@@ -35,7 +35,6 @@ const Login = () => {
     const {user} = useContext(Context);
     const navigate = useNavigate()
 
-
     const isTeacher = params.profile === profiles.teacher
     const isLogin = location.pathname.includes('registr');
 
