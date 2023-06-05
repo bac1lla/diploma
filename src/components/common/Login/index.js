@@ -61,13 +61,14 @@ const Login = () => {
 
         if (!!isLogin && !isTeacher) {
             user.regStudent(studentName, studentGroup)
-            navigate(ROUTE__SELECT_LAB);
+            getAllStudents().then(data => setStudents(data))
+            navigate(ROUTE__LOGIN)
         }
     };
 
     useEffect(() => {
         getAllStudents().then(data => setStudents(data))
-    }, [isLogin])
+    }, [isLogin, location.pathname])
 
     return (
         <div className={cx('login-wrapper')}>
@@ -85,7 +86,7 @@ const Login = () => {
                     </>}
                     {!!isLogin && !isTeacher && <>
                         <InputGroup size="sm" className="mb-3 login-user-select">
-                            <InputGroup.Text id="inputGroup-sizing-sm">Name</InputGroup.Text>
+                            <InputGroup.Text id="inputGroup-sizing-sm">ФИО</InputGroup.Text>
                             <Form.Control
                                 aria-label="small"
                                 aria-describedby="inputGroup-sizing-sm"
@@ -93,7 +94,7 @@ const Login = () => {
                             />
                         </InputGroup>
                         <InputGroup size="sm" className="mb-3 login-user-select">
-                            <InputGroup.Text id="inputGroup-sizing-sm">Group</InputGroup.Text>
+                            <InputGroup.Text id="inputGroup-sizing-sm">Группа</InputGroup.Text>
                             <Form.Control
                                 aria-label="small"
                                 aria-describedby="inputGroup-sizing-sm"
@@ -103,7 +104,7 @@ const Login = () => {
                     </>}
                     {!!isTeacher && <>
                         <InputGroup size="sm" className="mb-3 login-user-select">
-                            <InputGroup.Text id="inputGroup-sizing-sm">email</InputGroup.Text>
+                            <InputGroup.Text id="inputGroup-sizing-sm">Почта</InputGroup.Text>
                             <Form.Control
                                 aria-label="small"
                                 aria-describedby="inputGroup-sizing-sm"
@@ -111,7 +112,7 @@ const Login = () => {
                             />
                         </InputGroup>
                         <InputGroup size="sm" className="mb-3 login-user-select">
-                            <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
+                            <InputGroup.Text id="inputGroup-sizing-sm">Пароль</InputGroup.Text>
                             <Form.Control type={'password'}
                                           aria-label="small"
                                           aria-describedby="inputGroup-sizing-sm"

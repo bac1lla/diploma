@@ -33,8 +33,6 @@ const Results = ({tasksNames, api}) => {
         return 2
     }, [range])
 
-    const [grade, setGrade] = useState(modifyResult(labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)));
-
     const getRange = () => {
         const labName = isVector ? 'vector' : isPaymentMatrix ? 'paymentMatrix' : 'matrix';
         getBDRange(labName)
@@ -154,7 +152,7 @@ const Results = ({tasksNames, api}) => {
                             gap: 18
                         }}>
                             <h2>Баллы: {labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0)}/{range.maxValue}</h2>
-                            <h2>Оценка: {grade}</h2>
+                            <h2>Оценка: {modifyResult(labs.getResults()?.reduce((acc, item) => acc + item?.result || 0, 0))}</h2>
                             <Button onClick={postResults}
                                     disabled={localStorage.getItem("duyn39*&N#mdp>)I_#H G@#BLDS_@#((ND&&D%%#@") !== 'sdif89br384sdgf77839ds8yf9(MYF&DST)NMW<_U_*MY$#*NYX<_<FJ<SBIDF'}>Отправить
                                 результаты</Button>
