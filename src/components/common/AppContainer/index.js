@@ -85,6 +85,10 @@ const AppContainer = () => {
 
     const MatrixVariant = labs.matrix(16, 4);
 
+    //TODO убрать ошибки при заполнении мтолбцы и строки
+    //TODO МЕТОДИЧЕСКИЕ МАТЕРИАЛЫ КАК ПОЛЬЗОВАТЬСЯ
+    //TODO ТЕОРИЯ ПО МАТРИЦАМ
+
     const handleNextStep = useCallback(() => {
         let nextStep;
 
@@ -153,7 +157,6 @@ const AppContainer = () => {
         const {name, group} = user.getUser();
         labs.postResultsToBd({name, group, lab: 'vector'})
     }
-
 
     return (
         <>

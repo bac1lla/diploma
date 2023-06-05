@@ -14,6 +14,8 @@ import classNames from "classnames/bind";
 import Logo from "../logo.svg"
 import Text from "../Text";
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import ArticleIcon from '@mui/icons-material/Article';
+import PDF from '../../../assets/file.pdf'
 
 const cx = classNames.bind(styles)
 
@@ -22,6 +24,7 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const isMatrix = location.pathname.includes(ROUTE__MATRIX_LAB__TEACHER)
+
 
     const options = [
         {
@@ -92,7 +95,9 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>
                 {isMatrix && <Button onClick={handleSetMatrixModalOpen}>Посмотреть задание</Button>}
-                {!isMatrix && <HelpCenterIcon onClick={openTheory}/>}
+                <a target='_blank' href={PDF} rel='noopener noreferrer'
+                   style={{textDecoration: 'none', color: '#333'}}><HelpCenterIcon/></a>
+                {!isMatrix && <ArticleIcon onClick={openTheory}/>}
                 <div className={cx('vertical-divide')}/>
                 <Select onChange={handleCLick} options={options} value={options[0]} className={cx('header-select')}/>
                 <Text text={user.getUser()?.group} className={cx("person-group")}/>
