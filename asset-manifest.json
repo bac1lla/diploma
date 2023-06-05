@@ -1,7 +1,8 @@
 {
   "files": {
     "main.css": "/diploma/static/css/main.be889016.css",
-    "main.js": "/diploma/static/js/main.5e3b1881.js",
+    "main.js": "/diploma/static/js/main.15db72a9.js",
+    "static/media/file.pdf": "/diploma/static/media/file.28cbfa19d77c89ce5042.pdf",
     "static/media/roboto-latin-500-normal.woff2": "/diploma/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/diploma/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/diploma/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -61,10 +62,10 @@
     "static/media/roboto-greek-ext-700-normal.woff": "/diploma/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/diploma/index.html",
     "main.be889016.css.map": "/diploma/static/css/main.be889016.css.map",
-    "main.5e3b1881.js.map": "/diploma/static/js/main.5e3b1881.js.map"
+    "main.15db72a9.js.map": "/diploma/static/js/main.15db72a9.js.map"
   },
   "entrypoints": [
     "static/css/main.be889016.css",
-    "static/js/main.5e3b1881.js"
+    "static/js/main.15db72a9.js"
   ]
 }
