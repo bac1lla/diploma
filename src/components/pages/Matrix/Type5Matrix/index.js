@@ -257,7 +257,7 @@ const Type5Matrix = ({next, task}) => {
         } else {
             setAlpha8Error(false)
         }
-        if (!isEqual(alpha, answers.maxMinValue.toString())
+        if (!isEqual(alpha, answers.minMaxValue.toString())
             // && !isEmpty(newS1)
         ) {
             setAlphaError(true)
@@ -281,7 +281,7 @@ const Type5Matrix = ({next, task}) => {
         } else {
             setBeta2Error(false)
         }
-        if (!isEqual(beta, answers.minMaxValue.toString())
+        if (!isEqual(beta, answers.maxMinValue.toString())
             // && !isEmpty(newS4)
         ) {
             setBetaError(true)
