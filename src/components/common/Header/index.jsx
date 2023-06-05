@@ -95,9 +95,9 @@ const Header = ({setModal, setVector, setMatrix, setPayment}) => {
             <Text text={labs.getLab()} className={cx('lab-name')}/>
             <div className={cx('person-group')}>
                 {isMatrix && <Button onClick={handleSetMatrixModalOpen}>Посмотреть задание</Button>}
+                <ArticleIcon onClick={openTheory}/>
                 <a target='_blank' href={PDF} rel='noopener noreferrer'
                    style={{textDecoration: 'none', color: '#333'}}><HelpCenterIcon/></a>
-                {!isMatrix && <ArticleIcon onClick={openTheory}/>}
                 <div className={cx('vertical-divide')}/>
                 <Select onChange={handleCLick} options={options} value={options[0]} className={cx('header-select')}/>
                 <Text text={user.getUser()?.group} className={cx("person-group")}/>
